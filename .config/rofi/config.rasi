@@ -1,0 +1,17 @@
+configuration {
+  font: "Iosevka Term 12";
+  show-match: true;
+  theme: "gruvbox-dark-hard";
+
+  show-icons:         true;
+  icon-theme:         "Numix-Circle";
+  cycle:              true;
+  hide-scrollbar:     true;
+  disable-history:    false;
+  modi:               "drun";
+  display-drun:       "";
+  display-combi:      "A";
+  /* display-clipboard:  ""; */
+}
+
+/* vim:ft=css
