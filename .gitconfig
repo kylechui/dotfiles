@@ -1,1 +1,31 @@
-/home/jishnu/dots/dotfiles/gitconfig
+[user]
+    name = jishnusen
+    email = jishnu1@gmail.com
+
+[alias]
+    a = add
+    ap = add --patch
+    aa = add --all
+    c = commit
+    st = status
+    co = checkout
+    up = pull --rebase=preserve
+    g = grep --break --heading --line-number
+    fa = fetch --all
+    p = push
+    pf = push -f
+    l = log --oneline --decorate --color --graph
+
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+[push]
+    default = simple
+[merge]
+    tool = nvim -d
+[mergetool]
+    keepBackup = false
+[gui]
+	fontui = -family Hack -size 11 -weight normal -slant roman -underline 0 -overstrike 0
+	fontdiff = -family Hack -size 11 -weight normal -slant roman -underline 0 -overstrike 0
