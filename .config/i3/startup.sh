@@ -29,6 +29,7 @@ main() {
 
   # picom -b --experimental-backends
   xcompmgr -c -l0 -t0 -r0 -o.00 &
+  setxkbmap -option "caps:swapescape"
 
   xautolock -detectsleep \
     -corners ---- \
