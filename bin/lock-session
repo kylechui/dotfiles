@@ -43,4 +43,4 @@ lock() {
   fi
 }
 
-lock "$(< "${HOME}/.cache/wal/wal")" && sleep 1
+lock "/home/kylec/Pictures/Wallpapers/wallpaper1.png" && sleep 1

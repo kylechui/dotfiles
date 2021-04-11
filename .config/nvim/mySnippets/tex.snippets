@@ -1,17 +1,13 @@
 global !p
+def env(name):
+  [x,y] = vim.eval('vimtex#env#is_inside("' + str(name) + '")')
+  return x != '0' and y != '0'
 def text():
-  [x,y] = vim.eval('vimtex#env#is_inside("'+ 'lstlisting' + '")') 
-  return vim.eval('vimtex#syntax#in_mathzone()') != '1' and (x == '0' or y == '0')
+  return vim.eval('vimtex#syntax#in_mathzone()') != '1' and not env('lstlisting')
 def math():
 	return vim.eval('vimtex#syntax#in_mathzone()') == '1'
 def comment(): 
 	return vim.eval('vimtex#syntax#in_comment()') == '1'
-def align():
-  [x,y] = vim.eval('vimtex#env#is_inside("'+ 'align' + '")') 
-  return x != '0' and y != '0'
-#def env(name):
-#  [x,y] = vim.eval('vimtex#env#is_inside("' + str(name) + '")')
-#  return x != '0' and y != '0'
 endglobal
 #
 # Math modes
@@ -19,14 +15,6 @@ endglobal
 context "text()"
 snippet mm "math mode" wA
 $$1$$0
-endsnippet
-
-snippet ccm "code mode" wA
-\csnip{$1}$0
-endsnippet
-
-snippet acm "code mode" wA
-\mintinline{C}{$1}$0
 endsnippet
 
 context "text()"
@@ -63,10 +51,10 @@ snippet "(?<!\\)(tsu[bp])" "text subscript and superscript" wrA
 \\`!p snip.rv = match.group(1)`{$1}$0
 endsnippet
 
-# context "text()"
-# snippet "(?<= )([b-zB-HJ-Z]|\\[CFRMNQRZ])([?!.,;\- ])" "single variables" wrA
-# $`!p snip.rv = match.group(1)`$`!p snip.rv = match.group(2)`
-# endsnippet
+context "text()"
+snippet "(?<= )([b-zB-HJ-Z]|\\[CFRMNQRZ])([?!.,;\- ])" "single variables" wrA
+$`!p snip.rv = match.group(1)`$`!p snip.rv = match.group(2)`
+endsnippet
 
 context "text()"
 snippet " (-?\d+)([?!.,; ])" "digit conversion" wrA
@@ -111,15 +99,9 @@ snippet / "fraction" iA
 \\frac{${VISUAL}}{$1}$0
 endsnippet
 
-# priority 100
-# context "math()"
-# snippet "((((\\)?[a-zA-Z]+|\d+)((\^|_)?(\{[^\{\}]+\}|(\\)?[a-zA-Z]+|\d+)?)+)+)\/" "simple fraction" wrA
-# \\frac{`!p snip.rv = match.group(1)`}{$1}$0
-# endsnippet
-
 priority 100
 context "math()"
-snippet "((((\\)?[a-zA-Z]+|\d+|\{[^\{\}]+\})?(\^|_)?)+)\/" "simple fraction" wrA
+snippet "(([a-zA-Z\d\^\_\\]|\{[^\{\}]+\})+)\/" "simple fraction" wrA
 \\frac{`!p snip.rv = match.group(1)`}{$1}$0
 endsnippet
 
@@ -195,7 +177,7 @@ snippet "([a-zA-Z]|\\[a-zA-Z]+)(abs|bar|ceil|floor|hat|norm|set|sqrt|tup|vec)" "
 endsnippet
 
 context "math()"
-snippet "(?<!\\)(col|deg|det|dim|(?<![ls])im|ker|rank|(?<![r])row|(?<![a])tr)" "linear algebra snippets" wrA
+snippet "(?<!\\)(col|deg|det|dim|(?<![lst])im|ker|rank|(?<![r])row|(?<![a])tr)" "linear algebra snippets" wrA
 \\`!p snip.rv = match.group(1)`($1)$0
 endsnippet
 
@@ -233,17 +215,18 @@ context "math()"
 snippet ;o "omega" iA
 \omega
 endsnippet
+
+priority 30
+context "math()"
+snippet "(i|j)hat" "omega" wrA
+\hat{\\`!p snip.rv = match.group(1)`math}$0
+endsnippet
 #
 # Environments
 #
 context "text()"
 snippet sec "section" bA
 \section{$1}$0
-endsnippet
-
-context "text()"
-snippet & "ampersand" bA
-\&
 endsnippet
 
 context "text()"
@@ -270,24 +253,10 @@ snippet beg "\begin{} ... \end{} (inline)" wA
 endsnippet
 
 context "text()"
-snippet align "align environment" bA
+snippet ali "align environment" bA
 \begin{align*}
 	$0
 \end{align*}
-endsnippet
-
-context "text()"
-snippet longc "code environment" bA
-\begin{minted}{C}
-$0
-\end{minted}
-endsnippet
-
-context "text()"
-snippet longa "code environment" bA
-\begin{minted}{gas}
-$0
-\end{minted}
 endsnippet
 
 context "text()"
@@ -295,31 +264,6 @@ snippet enum "enumerate environment" bA
 \begin{enumerate}[label=(\alph*)]
 	\item $0
 \end{enumerate}
-endsnippet
-
-global !p
-def create_table(snip):
-	rows = snip.buffer[snip.line].split('x')[1]
-	cols = snip.buffer[snip.line].split('x')[0]
-	int_val = lambda string: int(''.join(s for s in string if s.isdigit()))
-	rows = int_val(rows)
-	cols = int_val(cols)
-	offset = cols + 1
-	old_spacing = snip.buffer[snip.line][:snip.buffer[snip.line].rfind('\t') + 1]
-	snip.buffer[snip.line] = ''
-	final_str = old_spacing + "\\begin{longtable}{|*{"+str(cols)+"}{c|}}\n"
-	final_str += old_spacing + '\t' + "\\hline\n"
-	for i in range(rows):
-		final_str += old_spacing + '\t'
-		final_str += " & ".join(['$' + str(i * cols + j + offset) for j in range(cols)])
-		final_str += " \\\\\\\n"
-		final_str += old_spacing + '\t' + "\\hline\n"
-	final_str += old_spacing + "\\end{longtable}\n$0"
-	snip.expand_anon(final_str)
-endglobal
-
-pre_expand "create_table(snip)"
-snippet "gentbl(\d+)x(\d+)" "Generate table of *width* by *height*" r
 endsnippet
 
 context "text()"
@@ -390,7 +334,7 @@ endsnippet
 context "text()"
 snippet preamble "main preamble" bA
 \documentclass{article}
-\input{~/github/latex/Preamble}
+\input{../../Preamble}
 
 \fancyhf{}
 \setlength{\headheight}{24pt}
@@ -412,7 +356,7 @@ endsnippet
 context "text()"
 snippet notes "notes preamble" bA
 \documentclass[class=article, crop=false]{standalone}
-\input{~/github/latex/Preamble}
+\input{../../Preamble}
 
 \fancyhf{}
 \lhead{Kyle Chui}
@@ -424,46 +368,50 @@ snippet notes "notes preamble" bA
 \end{document}
 endsnippet
 
-context "align()"
+context "env('align')"
 snippet = "align equals" wA
 &=
 endsnippet
 
+# context "env('itemize')"
+# snippet "(.)" "new item" brA
+# \item `!p snip.rv = match.group(1)`
+# endsnippet
+
 global !p
 def create_matrix(snip):
 	# Take the current line, find the letters preceding 'mat' (if they exist),
-	#  and append 'matrix'
+	#	and append 'matrix'
 	# i.e. bmat --> bmatrix, mat --> matrix, Vmat --> Vmatrix
-	matrix_str = (snip.buffer[snip.line].split('mat')[0]+'matrix').strip()
+  matrix_str = (snip.buffer[snip.line].split('mat')[0]+'matrix').strip()
 	# Get the characters after the period (in my case they are always the dimensions of the matrix)
-	nums = (snip.buffer[snip.line].split('mat', 1)[-1])
+  nums = (snip.buffer[snip.line].split('mat', 1)[-1])
 	# Store the rows and columns of the matrix
-	rows = int(nums[0])
-	cols = int(nums[1])
+  rows = int(nums[0])
+  cols = int(nums[1])
 	# Get the indent level of the original text
-	old_spacing = snip.buffer[snip.line][:snip.buffer[snip.line].rfind('\t') + 1] + '\t'
+  old_spacing = snip.buffer[snip.line][:snip.buffer[snip.line].rfind('\t') + 1] + '\t'
 	# Clear the original text
-	snip.buffer[snip.line] = ''
+  snip.buffer[snip.line] = ''
 	# Initialise the final_str
-	final_str = old_spacing + "\\left[\n" + old_spacing + "\\begin{"+matrix_str+"}\n"
-	for i in range(rows-1):
+  final_str = old_spacing + "\\begin{"+matrix_str+"}\n"
+  for i in range(rows-1):
 		# Indent the elements of the matrix one more than the boundaries
-		final_str += old_spacing + '\t'
+    final_str += old_spacing + '\t'
 		# Add the elements of the matrix (with ampersands in between) and newline characters at the end
-		final_str += " & ".join(['$' + str(i * cols + j + 1) for j in range(cols)])
-		final_str += " \\\\\\\n"
-	# Add the final row
-	final_str += old_spacing + '\t'
-	final_str += " & ".join(['$' + str((rows-1) * cols + j + 1) for j in range(cols)])
-	final_str += '\n'
-	# End the final_str
-	final_str += old_spacing + "\\end{"+matrix_str+"}\n" + old_spacing + "\\right]"
+    final_str += " & ".join(['$' + str(i * cols + j + 1) for j in range(cols)])
+    final_str += " \\\\\\\n"
+  # Add the final row
+  final_str += old_spacing + '\t'
+  final_str += " & ".join(['$' + str((rows-1) * cols + j + 1) for j in range(cols)])
+  final_str += '\n'
+  # End the final_str
+  final_str += old_spacing + "\\end{"+matrix_str+"}"
 	# Expand the snippet
-	snip.expand_anon(final_str)
+  snip.expand_anon(final_str)
 endglobal
 
 pre_expand "create_matrix(snip)"
 context "math()"
 snippet "[abBpvV]?mat\d\d" "matrices" brA
 endsnippet
-

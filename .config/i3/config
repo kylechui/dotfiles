@@ -18,7 +18,7 @@ bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec appsmenu
+bindsym Mod1+space exec appsmenu
 bindsym $mod+shift+v exec clipmenu
 
 focus_wrapping no
@@ -48,13 +48,16 @@ bindsym $mod+b split h
 # split in vertical orientation
 bindsym $mod+v split v
 
+# open file explorer
+bindsym $mod+e exec thunar
+
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+# bindsym $mod+e layout toggle split
 
 bindsym $mod+m move workspace to output left
 bindsym $mod+Shift+m exec i3-output-swap
@@ -153,7 +156,7 @@ bindsym $mod+Shift+z sticky toggle
 bindsym Mod1+shift+bar exec rofi -modi 1pass:op-rofi -show 1pass
 
 # Screen Shots
-bindsym --release Print       exec --no-startup-id flameshot gui
+bindsym $mod+Shift+s exec --no-startup-id flameshot gui
 
 # Brightness controls
 bindsym XF86MonBrightnessUp   exec --no-startup-id light -A 5
