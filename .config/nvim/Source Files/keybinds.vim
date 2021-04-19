@@ -18,7 +18,7 @@ nnoremap <silent><c-w> :bd!<CR>
 inoremap <silent><c-w> <Esc>:bd!<CR>
 " Tab creation/navigation
 nnoremap <silent><c-t> :tabnew<CR>
-nnoremap <silent><c-tab> :tabn<CR>
+nnoremap <silent><c-Tab> :tabn<CR>
 nnoremap <silent><c-s-tab> :tabp<CR>
 inoremap <silent><c-tab> <Esc>:tabn<CR>
 inoremap <silent><c-s-tab> <Esc>:tabp<CR>
@@ -34,13 +34,13 @@ nnoremap <silent>K :m-2<CR>==
 vnoremap <silent>J :m '>+1<CR>gv
 vnoremap <silent>K :m '<-2<CR>gv
 " Make Ctrl-Backspace delete words
-cnoremap <c-BS> <c-w>
-inoremap <c-BS> <c-w>
-tnoremap <c-BS> <c-w>
+cnoremap  <c-w>
+inoremap  <c-w>
+tnoremap  <c-w>
 " Make Y yank to the end of line
 nnoremap Y y$
-" Paste in insert mode
-inoremap <silent><c-v> <c-r>"
+" Shortcut for overlined o
+inoremap <c-o> \=o
 " Indent and dedent blocks of text
 vnoremap <silent>> >gv
 " Super scuffed workaround while Neovide is getting worked on
@@ -64,8 +64,8 @@ nnoremap <silent><CR> @=(foldlevel('.')?'za':"\<lt>CR>")<CR>
 " Double click to visit file
 nnoremap <silent><2-LeftMouse> gf
 " Ctrl-/ to comment out lines/blocks of code
-nnoremap <silent><c-/> :Commentary<CR>
-vnoremap <silent><c-/> :Commentary<CR>gv
+nnoremap <silent> :Commentary<CR>
+vnoremap <silent> :Commentary<CR>gv
 " Coc keybinds
 " inoremap <silent><expr> <c-j>
 "       \ pumvisible() ? "\<C-n>" :
@@ -88,3 +88,17 @@ augroup sortTODO
   " Unmark
   autocmd BufRead TODO.txt nnoremap <buffer><silent><leader>u 0xx/=DONE=<CR>ml'':move'l-1<CR>ggV'lk:sort<CR>
 augroup END
+
+inoremap <C-f> <Esc>:silent exec '.!inkscape-figures create "'.getline('.').'" "'.b:vimtex.root.'/figures/"'<CR><CR>:w<CR>
+nnoremap <C-f> :silent exec '!inkscape-figures edit "'.b:vimtex.root.'/figures/" > /dev/null 2>&1 &'<CR><CR>:redraw!<CR>
+" Switch to buffers with leader
+nnoremap <Leader>1 <Plug>lightline#bufferline#go(1)
+nnoremap <Leader>2 <Plug>lightline#bufferline#go(2)
+nnoremap <Leader>3 <Plug>lightline#bufferline#go(3)
+nnoremap <Leader>4 <Plug>lightline#bufferline#go(4)
+nnoremap <Leader>5 <Plug>lightline#bufferline#go(5)
+nnoremap <Leader>6 <Plug>lightline#bufferline#go(6)
+nnoremap <Leader>7 <Plug>lightline#bufferline#go(7)
+nnoremap <Leader>8 <Plug>lightline#bufferline#go(8)
+nnoremap <Leader>9 <Plug>lightline#bufferline#go(9)
+nnoremap <Leader>0 <Plug>lightline#bufferline#go(10)

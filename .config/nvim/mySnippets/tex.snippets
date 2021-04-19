@@ -32,11 +32,6 @@ snippet " "quotes" wA
 endsnippet
 
 context "text()"
-snippet pic "insert image" bA
-\begin{center}\resizebox{6cm}{!}{\import{./Figures}{${1:File Name}.pdf_tex}}\end{center}
-endsnippet
-
-context "text()"
 snippet "(?<=[ ])emph" "emphasis" wrA
 \emph{$1}$0
 endsnippet
@@ -373,10 +368,15 @@ snippet = "align equals" wA
 &=
 endsnippet
 
-# context "env('itemize')"
-# snippet "(.)" "new item" brA
-# \item `!p snip.rv = match.group(1)`
-# endsnippet
+context "env('itemize')"
+snippet "  it" "new item" brA
+\item 
+endsnippet
+
+context "env('enumerate')"
+snippet "  it" "new item" brA
+\item 
+endsnippet
 
 global !p
 def create_matrix(snip):

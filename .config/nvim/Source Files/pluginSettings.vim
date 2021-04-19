@@ -1,3 +1,9 @@
+" Lightline Settings
+let g:lightline = {}
+let g:lightline.colorscheme = 'gruvbox'
+let g:lightline.tabline          = {'left': [['buffers']], 'right': [[]]}
+let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
+let g:lightline.component_type   = {'buffers': 'tabsel'}
 " Discord Integration Settings
 let g:vimsence_small_text = 'NeoVim'
 let g:vimsence_small_image = 'neovim'
@@ -38,11 +44,9 @@ augroup END
 let g:tex_comment_nospell=1
 let g:tex_flavor='latex'
 let g:vimtex_view_general_viewer='zathura'
-" let g:vimtex_latexmk_progname='neovide'
 let g:vimtex_compiler_latexmk={
         \ 'options' : [
-        \   '-auxdir=/tmp/latexout',
-        \   '-shell-escape',
+        \   '-aux-directory=/tmp/latexout',
         \   '-synctex=1',
         \ ],
         \}

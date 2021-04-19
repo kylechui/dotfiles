@@ -7,7 +7,7 @@ source $VIMCONFIG/Source Files/pluginSettings.vim
 source $VIMCONFIG/Source Files/keybinds.vim
 source $VIMCONFIG/Source Files/textShortcuts.vim
 " Go into work directory
-cd /mnt/c/Users/kylec/github
+cd ~/Documents/github
 " Security thing
 set modelines=0
 " let $DISPLAY = system('sh ~/bin/test.sh')
@@ -28,6 +28,7 @@ set number relativenumber
 set nohlsearch incsearch
 set cursorline
 set termguicolors
+set mouse=n
 let g:neovide_cursor_animation_length=0.1
 let g:neovide_cursor_animate_in_insert_mode=0
 " FZF Settings

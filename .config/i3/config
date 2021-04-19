@@ -37,6 +37,11 @@ bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
@@ -72,7 +77,10 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # focus the child container
-bindsym $mod+c focus child
+# bindsym $mod+c focus child
+
+# colour picker
+bindsym $mod+c exec --no-startup-id colour-picker
 
 # next/prev workspace
 bindsym $mod+n workspace next
@@ -108,6 +116,8 @@ bindsym $mod+Shift+0 move container to workspace number 10
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
+# lock session
+bindsym $mod+Escape exec lock-session
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -155,8 +165,11 @@ bindsym $mod+Shift+z sticky toggle
 # bindsym Mod1+shift+bar exec lpass-rofi
 bindsym Mod1+shift+bar exec rofi -modi 1pass:op-rofi -show 1pass
 
-# Screen Shots
+# Screen Shots (Windows shortcut and mouse bind [F15])
 bindsym $mod+Shift+s exec --no-startup-id flameshot gui
+bindcode 193 exec --no-startup-id flameshot gui
+
+bindcode 248 exec amixer set Dmic0 toggle
 
 # Brightness controls
 bindsym XF86MonBrightnessUp   exec --no-startup-id light -A 5
@@ -167,7 +180,7 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +5%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -5%
 bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute 1 toggle
 
-bindcode 179 exec --no-startup-id pactl set-sink-volume 1 +5%
+# bindcode 179 exec --no-startup-id pactl set-sink-volume 1 +5%
 bindcode 148 exec --no-startup-id pactl set-sink-volume 1 -5%
 bindcode 163 exec --no-startup-id pactl set-sink-mute 1 toggle
 
@@ -176,7 +189,11 @@ bindsym XF86AudioPause exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
-# bindsym F6 exec playerctl play-pause
+# Mouse left/right gestures to go to previous/next desktops
+bindcode 191 workspace next
+bindcode 192 workspace prev
+
+
 
 
 # Make Authy a floating window
@@ -246,5 +263,8 @@ set $darkgray #1d2021
 
 title_align center
 
-assign [class="zoom"] workspace number 4
+assign [class="zoom"] workspace number 1
 for_window [window_role="About"] floating enable
+for_window [class="colour-picker"] floating enable
+for_window [class="Inkscape"] floating enable
+for_window [class="float"] floating enable

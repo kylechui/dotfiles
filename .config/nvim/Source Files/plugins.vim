@@ -4,12 +4,9 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 " Gruvbox color theme
 Plug 'gruvbox-community/gruvbox'
-" Status line plugin and icons
-" Plug 'ryanoasis/vim-devicons'
-" Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
-" Airline at the bottom
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" Status line
+Plug 'itchyny/lightline.vim'
+Plug 'mengelbrecht/lightline-bufferline'
 " Discord integration
 Plug 'vimsence/vimsence'
 " File tree explorer

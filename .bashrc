@@ -305,7 +305,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 source "$HOME/.cargo/env"
-export SPICETIFY_INSTALL="/home/jishnu/spicetify-cli"
+export SPICETIFY_INSTALL="/home/kylec/spicetify-cli"
 export PATH="$SPICETIFY_INSTALL:$PATH"
 
 # >>> conda initialize >>>
