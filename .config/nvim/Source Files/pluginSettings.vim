@@ -1,9 +1,10 @@
-" Lightline Settings
-let g:lightline = {}
-let g:lightline.colorscheme = 'gruvbox'
-let g:lightline.tabline          = {'left': [['buffers']], 'right': [[]]}
-let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
-let g:lightline.component_type   = {'buffers': 'tabsel'}
+let g:airline#extensions#tabline#enabled = 1
+" " Lightline Settings
+" let g:lightline = {}
+" let g:lightline.colorscheme = 'gruvbox'
+" let g:lightline.tabline          = {'left': [['buffers']], 'right': [[]]}
+" let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
+" let g:lightline.component_type   = {'buffers': 'tabsel'}
 " Discord Integration Settings
 let g:vimsence_small_text = 'NeoVim'
 let g:vimsence_small_image = 'neovim'

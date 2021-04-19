@@ -16,13 +16,13 @@ vnoremap <silent><c-s> <Esc>:up!<CR>
 " Buffer deletion
 nnoremap <silent><c-w> :bd!<CR>
 inoremap <silent><c-w> <Esc>:bd!<CR>
-" Tab creation/navigation
-nnoremap <silent><c-t> :tabnew<CR>
-nnoremap <silent><c-Tab> :tabn<CR>
-nnoremap <silent><c-s-tab> :tabp<CR>
-inoremap <silent><c-tab> <Esc>:tabn<CR>
-inoremap <silent><c-s-tab> <Esc>:tabp<CR>
-inoremap <silent><c-t> <Esc>:tabnew<CR>
+" Buffer creation/navigation
+nnoremap <silent><c-t> :e<CR>
+nnoremap <silent><leader>j :bn<CR>
+nnoremap <silent><leader>k :bp<CR>
+inoremap <silent><c-t> <Esc>:e<CR>
+inoremap <silent><leader>j :bn<CR>
+inoremap <silent><leader>k :bp<CR>
 " Navigate wrapped lines by default
 nnoremap <expr> j v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj'
 nnoremap <expr> k v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk'
