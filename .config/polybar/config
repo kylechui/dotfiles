@@ -49,7 +49,7 @@ font-5 = sans:pixelsize=10;2
 
 modules-left = memory cpu spotify
 modules-center = i3
-modules-right =  battery dunst microphone volume xbacklight packages date time
+modules-right = battery dunst microphone volume xbacklight packages popup-calendar time
 
 tray-position = left
 tray-padding = 2
@@ -261,17 +261,12 @@ format-prefix-foreground = ${colors.foreground}
 ; format-disconnected-underline = #ff7f7f
 ; format-connected-underline = #7fff7f
 
-[module/date]
-type = internal/date
-interval = 60
-
-date = " %a %D"
-date-alt = " %Y-%m-%d"
-
+[module/popup-calendar]
+type = custom/script
+exec = ~/.config/polybar/popup-calendar.sh
+interval = 5
+click-left = ~/.config/polybar/popup-calendar.sh --popup &
 format-prefix = 
-label = %date%
-format-prefix-foreground = ${colors.foreground-alt}
-format-foreground = ${colors.foreground-alt}
 
 [module/time]
 type = internal/date

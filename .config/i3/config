@@ -268,3 +268,4 @@ for_window [window_role="About"] floating enable
 for_window [class="colour-picker"] floating enable
 for_window [class="Inkscape"] floating enable
 for_window [class="float"] floating enable
+for_window [class="Yad" title="yad-calendar"] floating enable
