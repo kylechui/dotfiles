@@ -49,7 +49,7 @@ font-5 = sans:pixelsize=10;2
 
 modules-left = memory cpu spotify
 modules-center = i3
-modules-right = battery dunst microphone volume xbacklight packages popup-calendar time
+modules-right = battery microphone volume xbacklight packages popup-calendar time
 
 tray-position = left
 tray-padding = 2
@@ -298,14 +298,14 @@ ramp-volume-2 = 
 click-right = rofi-pulseaudio
 
 [module/microphone]
-type = custom/ipc
+type = custom/script
 
-hook-0 = ~/.config/polybar/microphone.sh
-initial = 1
+interval = 1
+exec = ~/.config/polybar/microphone.sh
 
-click-left = ponymix -t source toggle ; polybar-msg -p %pid% hook microphone 1
-scroll-up = ponymix -t source increase 5 ; polybar-msg -p %pid% hook microphone 1
-scroll-down = ponymix -t source decrease 5 ; polybar-msg -p %pid% hook microphone 1
+click-left = exec amixer set Dmic0 toggle
+scroll-up = exec amixer set Dmic0 5%+
+scroll-down = exec amixer set Dmic0 5%-
 click-right = rofi-pulseaudio source output
 
 [module/battery]

@@ -21,8 +21,6 @@ nnoremap <silent><c-t> :e<CR>
 nnoremap <silent><leader>j :bn<CR>
 nnoremap <silent><leader>k :bp<CR>
 inoremap <silent><c-t> <Esc>:e<CR>
-inoremap <silent><leader>j :bn<CR>
-inoremap <silent><leader>k :bp<CR>
 " Navigate wrapped lines by default
 nnoremap <expr> j v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj'
 nnoremap <expr> k v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk'
