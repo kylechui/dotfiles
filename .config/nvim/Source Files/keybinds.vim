@@ -5,10 +5,13 @@ nnoremap <leader>r :source $MYVIMRC<CR>
 nnoremap <silent><leader>u :UltiSnipsEdit<CR>
 " Open TODO List
 nnoremap <silent><leader>t :e /mnt/c/Users/kylec/github/TODO.txt<CR>
-" Ctrl-P to fuzzy find files
-nnoremap <silent><c-p> :FZF<CR>
-" Open the file explorer (FERN)
-nnoremap <silent><c-\> :Fern . -drawer -reveal=% -toggle -width=36<CR><C-w>=
+" Fuzzy find
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+" Open the file explorer
+nnoremap <silent><c-\> <cmd>NvimTreeToggle<CR>
 " Remap Ctrl-S to save files
 nnoremap <silent><c-s> :up!<CR>
 inoremap <silent><c-s> <Esc>:up!<CR>
@@ -16,21 +19,27 @@ vnoremap <silent><c-s> <Esc>:up!<CR>
 " Buffer deletion
 nnoremap <silent><c-w> :bd!<CR>
 inoremap <silent><c-w> <Esc>:bd!<CR>
-" Buffer creation/navigation
-nnoremap <silent><c-t> :e<CR>
+" Buffer navigation
 nnoremap <silent><leader>j :bn<CR>
 nnoremap <silent><leader>k :bp<CR>
-inoremap <silent><c-t> <Esc>:e<CR>
 " Navigate wrapped lines by default
-nnoremap <expr> j v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj'
-nnoremap <expr> k v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk'
-vnoremap <expr> j v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj'
-vnoremap <expr> k v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk'
+nnoremap <silent><expr> j v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj'
+nnoremap <silent><expr> k v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk'
+vnoremap <silent><expr> j v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj'
+vnoremap <silent><expr> k v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk'
 " Moving lines up and down
 nnoremap <silent>J :m+<CR>==
 nnoremap <silent>K :m-2<CR>==
 vnoremap <silent>J :m '>+1<CR>gv
 vnoremap <silent>K :m '<-2<CR>gv
+" Move to beginning/end of a line
+nnoremap H g0
+nnoremap L g$
+vnoremap H g0
+vnoremap L g$
+" Easier jump to delimiter pair
+nnoremap <tab> %
+vnoremap <tab> %
 " Make Ctrl-Backspace delete words
 cnoremap  <c-w>
 inoremap  <c-w>
@@ -41,8 +50,7 @@ nnoremap Y y$
 inoremap <c-o> \=o
 " Indent and dedent blocks of text
 vnoremap <silent>> >gv
-" Super scuffed workaround while Neovide is getting worked on
-vnoremap <silent><s-lt> <gv
+vnoremap <silent>< <gv
 " Make . work for visually selected text
 vnoremap . :normal.<CR>
 " Paste while keeping contents of current register

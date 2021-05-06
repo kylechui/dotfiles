@@ -1,60 +1,240 @@
-let g:airline#extensions#tabline#enabled = 1
-" " Lightline Settings
-" let g:lightline = {}
-" let g:lightline.colorscheme = 'gruvbox'
-" let g:lightline.tabline          = {'left': [['buffers']], 'right': [[]]}
-" let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
-" let g:lightline.component_type   = {'buffers': 'tabsel'}
-" Discord Integration Settings
-let g:vimsence_small_text = 'NeoVim'
-let g:vimsence_small_image = 'neovim'
-let g:vimsence_editing_details = 'Editing: {}'
-let g:vimsence_editing_state = 'Working in {}'
-" let g:vimsence_file_explorer_text = 'In Fern'
-" let g:vimsence_file_explorer_details = 'Moving things around'
-" let g:vimsence_custom_icons = {'filetype': 'iconname'}
-" FERN Settings
-let g:fern#disable_default_mappings=1
-let g:fern#mark_symbol='●'
-let g:fern#renderer#default#collapsed_symbol='▶ '
-let g:fern#renderer#default#expanded_symbol='▼ '
-function! FernInit()
-  nmap <buffer><expr>
-        \ <Plug>(fern-my-open-expand-collapse)
-        \ fern#smart#leaf(
-        \   "\<Plug>(fern-action-open:select)",
-        \   "\<Plug>(fern-action-expand)",
-        \   "\<Plug>(fern-action-collapse)",
-        \ )
-  nmap <buffer> <CR> <Plug>(fern-my-open-expand-collapse)
-  nmap <buffer> <2-LeftMouse> <Plug>(fern-my-open-expand-collapse)
-  nmap <buffer> n <Plug>(fern-action-new-path)
-  nmap <buffer> d <Plug>(fern-action-remove)
-  nmap <buffer> m <Plug>(fern-action-move)
-  nmap <buffer> r <Plug>(fern-action-rename)
-  nmap <buffer> . <Plug>(fern-action-hidden:toggle)
-  nmap <buffer> <tab> <Plug>(fern-action-mark:toggle)
-  nmap <buffer> <nowait> h <Plug>(fern-action-leave)
-  nmap <buffer> <nowait> l <Plug>(fern-action-enter)
-endfunction
-augroup FernEvents
-  autocmd!
-  autocmd FileType fern call FernInit()
-augroup END
+lua require'bufferline'.setup{}
+let g:nvim_tree_width = 36
+lua <<EOF
+    local tree_cb = require'nvim-tree.config'.nvim_tree_callback
+    vim.g.nvim_tree_bindings = {
+      ["."]              = tree_cb("toggle_dotfiles"),
+      ["n"]              = tree_cb("create"),
+      ["r"]              = tree_cb("full_rename"),
+      ["<"]              = tree_cb("dir_up"),
+    }
+EOF
+
+lua << EOF
+local gl = require("galaxyline")
+local gls = gl.section
+
+gl.short_line_list = {" "} -- keeping this table { } as empty will show inactive statuslines
+
+local colors = {
+    bg = "#3C3836",
+    line_bg = "#3C3836",
+    fg = "#EBDBB2",
+    fg_green = "#65A380",
+    yellow = "#A3BE8C",
+    cyan = "#22262C",
+    darkblue = "#61AFEF",
+    green = "#B8BB26",
+    orange = "#FE8019",
+    purple = "#D3869B",
+    magenta = "#C678DD",
+    blue = "#83A598",
+    red = "#FB4934",
+    lightbg = "#504945",
+    nord = "#D5C4A1",
+    greenYel = "#EBCB8B"
+}
+
+gls.left[1] = {
+    leftRounded = {
+        provider = function()
+            return ""
+        end,
+        highlight = {colors.nord, colors.bg}
+    }
+}
+
+gls.left[2] = {
+    statusIcon = {
+        provider = function()
+            return "   "
+        end,
+        highlight = {colors.bg, colors.nord},
+        separator = " ",
+        separator_highlight = {colors.lightbg, colors.lightbg}
+    }
+}
+
+gls.left[3] = {
+    FileIcon = {
+        provider = "FileIcon",
+        condition = buffer_not_empty,
+        highlight = {require("galaxyline.provider_fileinfo").get_file_icon_color, colors.lightbg}
+    }
+}
+
+gls.left[4] = {
+    FileName = {
+        provider = {"FileName", "FileSize"},
+        condition = buffer_not_empty,
+        highlight = {colors.fg, colors.lightbg}
+    }
+}
+
+gls.left[5] = {
+    teech = {
+        provider = function()
+            return ""
+        end,
+        separator = " ",
+        highlight = {colors.lightbg, colors.bg}
+    }
+}
+
+local checkwidth = function()
+    local squeeze_width = vim.fn.winwidth(0) / 2
+    if squeeze_width > 40 then
+        return true
+    end
+    return false
+end
+
+gls.left[6] = {
+    DiffAdd = {
+        provider = "DiffAdd",
+        condition = checkwidth,
+        icon = "   ",
+        highlight = {colors.greenYel, colors.line_bg}
+    }
+}
+
+gls.left[7] = {
+    DiffModified = {
+        provider = "DiffModified",
+        condition = checkwidth,
+        icon = " ",
+        highlight = {colors.orange, colors.line_bg}
+    }
+}
+
+gls.left[8] = {
+    DiffRemove = {
+        provider = "DiffRemove",
+        condition = checkwidth,
+        icon = " ",
+        highlight = {colors.red, colors.line_bg}
+    }
+}
+
+gls.left[9] = {
+    LeftEnd = {
+        provider = function()
+            return " "
+        end,
+        separator = " ",
+        separator_highlight = {colors.line_bg, colors.line_bg},
+        highlight = {colors.line_bg, colors.line_bg}
+    }
+}
+
+gls.left[10] = {
+    DiagnosticError = {
+        provider = "DiagnosticError",
+        icon = "  ",
+        highlight = {colors.red, colors.bg}
+    }
+}
+
+gls.left[11] = {
+    Space = {
+        provider = function()
+            return " "
+        end,
+        highlight = {colors.line_bg, colors.line_bg}
+    }
+}
+
+gls.left[12] = {
+    DiagnosticWarn = {
+        provider = "DiagnosticWarn",
+        icon = "  ",
+        highlight = {colors.blue, colors.bg}
+    }
+}
+
+gls.right[1] = {
+    GitIcon = {
+        provider = function()
+            return "   "
+        end,
+        condition = require("galaxyline.provider_vcs").check_git_workspace,
+        highlight = {colors.green, colors.line_bg}
+    }
+}
+
+gls.right[2] = {
+    GitBranch = {
+        provider = "GitBranch",
+        condition = require("galaxyline.provider_vcs").check_git_workspace,
+        highlight = {colors.green, colors.line_bg}
+    }
+}
+
+gls.right[3] = {
+    right_LeftRounded = {
+        provider = function()
+            return ""
+        end,
+        separator = " ",
+        separator_highlight = {colors.bg, colors.bg},
+        highlight = {colors.red, colors.bg}
+    }
+}
+
+gls.right[4] = {
+    ViMode = {
+        provider = function()
+            local alias = {
+                n = "NORMAL",
+                i = "INSERT",
+                c = "COMMAND",
+                V = "VISUAL",
+                [""] = "VISUAL",
+                v = "VISUAL",
+                R = "REPLACE"
+            }
+            return alias[vim.fn.mode()]
+        end,
+        highlight = {colors.bg, colors.red}
+    }
+}
+
+gls.right[5] = {
+    PerCent = {
+        provider = "LinePercent",
+        separator = " ",
+        separator_highlight = {colors.red, colors.red},
+        highlight = {colors.bg, colors.fg}
+    }
+}
+
+gls.right[6] = {
+    rightRounded = {
+        provider = function()
+            return ""
+        end,
+        highlight = {colors.fg, colors.bg}
+    }
+}
+EOF
+
 " VimTeX Settings
 let g:tex_comment_nospell=1
 let g:tex_flavor='latex'
 let g:vimtex_view_general_viewer='zathura'
+" let g:vimtex_view_method='mupdf'
 let g:vimtex_compiler_latexmk={
         \ 'options' : [
         \   '-aux-directory=/tmp/latexout',
         \   '-synctex=1',
+        \   '-verbose',
+        \   '-file-line-error',
         \ ],
         \}
 " Markdown Settings
 let g:mkdp_refresh_slow=1
 let g:mkdp_markdown_css='~/github/poweruserdo.github.io/styles.css'
-nnoremap <silent><s-BS> :MarkdownPreview<CR>
+nnoremap <leader>ll :MarkdownPreview<CR>
 " DelimitMate Settings
 let g:delimitMate_expand_cr=1
 augroup smartPairsLaTeX

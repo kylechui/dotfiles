@@ -10,7 +10,6 @@ source $VIMCONFIG/Source Files/textShortcuts.vim
 cd ~/Documents/github
 " Security thing
 set modelines=0
-" let $DISPLAY = system('sh ~/bin/test.sh')
 set clipboard=unnamedplus
 set tabstop=2 softtabstop=2
 set shiftwidth=2
@@ -20,10 +19,10 @@ set linebreak
 set scrolloff=8
 set maxmempattern=2500
 " GUI Stuff
+set guifont=Iosevka\ Term:h14
 let g:gruvbox_contrast_dark='hard'
 colorscheme gruvbox
 set background=dark
-set guifont=Fira\ Code\ ss01\ ss02\ ss03\ ss05\ ss07:h15
 set number relativenumber
 set nohlsearch incsearch
 set cursorline
@@ -40,7 +39,6 @@ highlight HighlightedyankRegion guibg=#625B58
 augroup writingMode
   autocmd!
   autocmd FileType md,text set textwidth=80
-  autocmd FileType md set formatoptions=ant
 augroup END
 " Make the window translucent if focus is lost
 augroup toggleTranslucency

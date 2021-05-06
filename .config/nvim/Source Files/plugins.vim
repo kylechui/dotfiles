@@ -4,22 +4,20 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 " Gruvbox color theme
 Plug 'gruvbox-community/gruvbox'
-" Status line plugin and icons
-" Plug 'ryanoasis/vim-devicons'
-" Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
-" Airline at the bottom
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" Status line and bufferline
+Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
+Plug 'akinsho/nvim-bufferline.lua'
 " Discord integration
-Plug 'vimsence/vimsence'
+Plug 'andweeb/presence.nvim'
 " File tree explorer
-Plug 'lambdalisue/fern.vim'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'kyazdani42/nvim-tree.lua'
 " LaTeX
 Plug 'lervag/vimtex'
 " Markdown
 Plug 'tpope/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
-" Surround text with quotes, braces, etc.
+" Surround stuff with other stuff
 Plug 'tpope/vim-surround'
 " Universal way to add comments to a file
 Plug 'tpope/vim-commentary'
@@ -31,8 +29,13 @@ Plug 'Raimondi/delimitMate'
 Plug 'justinmk/vim-sneak'
 " Conquer of Completion
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Get good (needs Neovim 0.5)
-" Plug 'ThePrimeagen/vim-be-good'
 " Snippets
 Plug 'sirver/ultisnips'
+" Get good (needs Neovim 0.5)
+Plug 'ThePrimeagen/vim-be-good'
+" Telescope
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzy-native.nvim'
 call plug#end()

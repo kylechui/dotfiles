@@ -48,12 +48,17 @@ endsnippet
 
 context "text()"
 snippet "(?<= )([b-zB-HJ-Z]|\\[CFRMNQRZ])([?!.,;\- ])" "single variables" wrA
-$`!p snip.rv = match.group(1)`$`!p snip.rv = match.group(2)`
+$`!p snip.rv = match.group(1)`$`!p snip.rv = match.group(2)`$0
 endsnippet
 
 context "text()"
 snippet " (-?\d+)([?!.,; ])" "digit conversion" wrA
- $`!p snip.rv = match.group(1)`$`!p snip.rv = match.group(2)`
+ $`!p snip.rv = match.group(1)`$`!p snip.rv = match.group(2)`$0
+endsnippet
+
+context "text()"
+snippet "(?<=\d)(st|nd|rd|th)" "ordinal indicators" wrA
+\\tsup{`!p snip.rv = match.group(1)`}$0
 endsnippet
 #
 # Math modifiers
@@ -140,23 +145,23 @@ endsnippet
 priority 10
 context "math()"
 snippet "(?<=[a-zA-Z])(?<!mat)(\d)" "single digit subscript" wrA
-_`!p snip.rv = match.group(1)`
+_`!p snip.rv = match.group(1)`$0
 endsnippet
 
 priority 10
 context "math()"
 snippet "([a-zA-Z])_(\d\d)" "two digit subscript" wrA
-`!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}
+`!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}$0
 endsnippet
 
 context "math()"
 snippet "([a-zA-Z]+):" "functions" wrA
-`!p snip.rv = match.group(1)`\\colon ${1:\\R}\\to ${2:\\R}
+`!p snip.rv = match.group(1)`\\colon ${1:\\R}\\to ${2:\\R}$0
 endsnippet
 
 context "math()"
 snippet "\.(b|c|m)" "dots" irA
-\dots`!p snip.rv = match.group(1)`
+\dots`!p snip.rv = match.group(1)`$0
 endsnippet
 
 priority 10
@@ -167,7 +172,7 @@ endsnippet
 
 priority 20
 context "math()"
-snippet "([a-zA-Z]|\\[a-zA-Z]+)(abs|bar|ceil|floor|hat|norm|set|sqrt|tup|vec)" "general math snippets" wrA
+snippet "([a-zA-Z]|\\[a-zA-Z]+)(bar|hat|vec)" "postfix snippets" wrA
 \\`!p snip.rv = match.group(2)`{`!p snip.rv = match.group(1)`}$0
 endsnippet
 
@@ -183,32 +188,32 @@ endsnippet
 
 context "math()"
 snippet xx "times" iA
-\times 
+\times $0
 endsnippet
 
 context "math()"
 snippet ** "cdot" iA
-\cdot 
+\cdot $0
 endsnippet
 
 context "math()"
 snippet ;a "alpha" iA
-\alpha
+\alpha$0
 endsnippet
 
 context "math()"
 snippet ;b "beta" iA
-\beta
+\beta$0
 endsnippet
 
 context "math()"
 snippet ;l "lambda" iA
-\lam
+\lam$0
 endsnippet
 
 context "math()"
 snippet ;o "omega" iA
-\omega
+\omega$0
 endsnippet
 
 priority 30
@@ -262,7 +267,7 @@ snippet enum "enumerate environment" bA
 endsnippet
 
 context "text()"
-snippet item "itemize environment" bA
+snippet iem "itemize environment" bA
 \begin{itemize}
 	\item $0
 \end{itemize}
@@ -365,17 +370,17 @@ endsnippet
 
 context "env('align')"
 snippet = "align equals" wA
-&=
+&=$0
 endsnippet
 
 context "env('itemize')"
 snippet "  it" "new item" brA
-\item 
+\item $0
 endsnippet
 
 context "env('enumerate')"
 snippet "  it" "new item" brA
-\item 
+\item $0
 endsnippet
 
 global !p
