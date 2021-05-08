@@ -318,30 +318,18 @@ gls.right[7] = {
     }
 }
 
-gls.right[8] = { 
-    WordCount = {
-        provider = {
-            function()
-                if (vim.fn.mode() == 'v' or vim.fn.mode() == 'V')
-                then
-                  return string.format(' %s words ', vim.fn.wordcount().visual_words)
-                else
-                  return string.format(' %s words ', vim.fn.wordcount().words)
-                end
-            end,
-        },
-        separator = ' ',
-        separator_highlight = {'NONE', colors.bg},
-        highlight = {colors.bg, colors.red1}
-    }
-}
-gls.right[9] = {
+gls.right[8] = {
     LineInfo = {
         provider = {
             function()
-                return string.format(
-                  ' %s:%s ', vim.fn.line('.'), vim.fn.col('.')
-                )
+                local s
+                if (vim.fn.mode() == 'v' or vim.fn.mode() == 'V')
+                then
+                  s = string.format(' %s words ', vim.fn.wordcount().visual_words)
+                else
+                  s = string.format(' %s words ', vim.fn.wordcount().words)
+                end
+                return s .. string.format(' %s:%s ', vim.fn.line('.'), vim.fn.col('.'))
             end,
         },
         separator = ' ',
