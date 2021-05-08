@@ -5,12 +5,15 @@ vim.g.mapleader = ' '
 -- Keybinds for editing and sourcing init files
 map('n', '<Leader>s', '<Cmd>lua require(\'pluginSettings.telescope\').search_dotfiles()<CR>', { noremap = true, silent = true })
 map('n', '<Leader>r', '<Cmd>luafile ~/.config/nvim/init.lua<CR>', { noremap = true, silent = true })
+-- Edit snippets
+map('n', '<Leader>u', '<Cmd>UltiSnipsEdit<CR>', { noremap = true, silent = true })
 -- Saving files with <C-s>
 map('n', '<C-s>', '<Cmd>up!<CR>', { noremap = true, silent = true })
 map('i', '<C-s>', '<Esc><Cmd>up!<CR>', { noremap = true, silent = true })
 map('v', '<C-s>', '<Esc><Cmd>up!<CR>', { noremap = true, silent = true })
 -- Deleting words with <C-BS>
 map('i', '', '<C-w>', { noremap = true, silent = true })
+map('c', '', '<C-w>', { noremap = true, silent = true })
 -- Open/close file explorer
 map('n', '<C-\\>', '<Esc><Cmd>NvimTreeToggle<CR>', { noremap = true, silent = true })
 -- Move towards the beginning/end of a line

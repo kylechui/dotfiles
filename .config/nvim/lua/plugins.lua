@@ -21,14 +21,14 @@ return require('packer').startup(function()
   -- Status line and bufferline
   use {
     'glepnir/galaxyline.nvim',
-      branch = 'main',
+    branch = 'main',
     requires = {'kyazdani42/nvim-web-devicons', opt = true}
   }
   use 'akinsho/nvim-bufferline.lua'
   -- File explorer
   use 'kyazdani42/nvim-tree.lua'
   -- Colour scheme
-  use 'gruvbox-community/gruvbox'
+  use 'sainnhe/gruvbox-material'
   -- Universal way to add comments
   use 'tpope/vim-commentary'
   -- Surround stuff with delimiters
@@ -41,4 +41,9 @@ return require('packer').startup(function()
   use 'ThePrimeagen/vim-be-good'
   -- Discord integration
   use 'andweeb/presence.nvim'
+  -- Highlight hex codes
+  use {
+    'RRethy/vim-hexokinase',
+    run = 'make hexokinase'
+  }
 end)

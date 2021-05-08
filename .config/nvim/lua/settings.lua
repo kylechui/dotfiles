@@ -8,18 +8,18 @@ o.tabstop=2
 o.softtabstop=2
 o.shiftwidth=2
 o.expandtab=true
--- o.maxmempattern=2500
+o.maxmempattern=2500
 
 -- gui stuff
 --o.background=dark
-vim.g.gruvbox_contrast_dark='hard'
-vim.cmd('colorscheme gruvbox')
+vim.g.gruvbox_material_background = 'hard'
+vim.cmd('colorscheme gruvbox-material')
 wo.number=true
 wo.relativenumber=true
 wo.cursorline=true
 wo.breakindent=true
 wo.linebreak=true
-wo.scrolloff=8
+o.scrolloff=8
 o.termguicolors=true
 o.hlsearch=false
 o.incsearch=true
