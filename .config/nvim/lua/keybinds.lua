@@ -4,9 +4,11 @@ map('n', '<Space>', '<NOP>', { noremap = true, silent = true })
 vim.g.mapleader = ' '
 -- Keybinds for editing and sourcing init files
 map('n', '<Leader>s', '<Cmd>lua require(\'pluginSettings.telescope\').search_dotfiles()<CR>', { noremap = true, silent = true })
-map('n', '<Leader>r', '<Cmd>luafile ~/.config/nvim/init.lua<CR>', { noremap = true, silent = true })
+map('n', '<Leader>r', '<Cmd>luafile ~/.config/nvim/init.lua<CR>', { noremap = true })
 -- Edit snippets
 map('n', '<Leader>u', '<Cmd>UltiSnipsEdit<CR>', { noremap = true, silent = true })
+-- Open Todo List
+map('n', '<Leader>t', '<Cmd>e ~/Documents/github/Todo.txt<CR>', { noremap = true, silent = true })
 -- Saving files with <C-s>
 map('n', '<C-s>', '<Cmd>up!<CR>', { noremap = true, silent = true })
 map('i', '<C-s>', '<Esc><Cmd>up!<CR>', { noremap = true, silent = true })

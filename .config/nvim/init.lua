@@ -1,12 +1,17 @@
--- Plugin Shenanigans
-require('plugins')
-require('pluginSettings/galaxyline')
-require('pluginSettings/hexokinase')
-require('pluginSettings/nvim-tree')
-require('pluginSettings/presence')
-require('pluginSettings/telescope')
-require('pluginSettings/ultisnips')
-require('pluginSettings/vimtex')
+-- Get path to my lua config files
+local config = vim.api.nvim_exec([[echo stdpath('config')]], true)..'/lua/'
 
-require('settings')
-require('keybinds')
+-- Plugin Shenanigans
+-- I use dofile instead of require so I can reload my settings without closing
+-- and reopening NeoVim
+dofile(config..'plugins.lua')
+dofile(config..'pluginSettings/galaxyline.lua')
+dofile(config..'pluginSettings/hexokinase.lua')
+dofile(config..'pluginSettings/nvim-tree.lua')
+dofile(config..'pluginSettings/presence.lua')
+dofile(config..'pluginSettings/telescope.lua')
+dofile(config..'pluginSettings/ultisnips.lua')
+dofile(config..'pluginSettings/vimtex.lua')
+
+dofile(config..'settings.lua')
+dofile(config..'keybinds.lua')

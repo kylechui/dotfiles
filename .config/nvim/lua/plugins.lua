@@ -46,4 +46,6 @@ return require('packer').startup(function()
     'RRethy/vim-hexokinase',
     run = 'make hexokinase'
   }
+  -- To-do list manager
+  use 'dbeniamine/todo.txt-vim'
 end)
