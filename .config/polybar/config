@@ -296,17 +296,27 @@ ramp-volume-1 = 
 ramp-volume-2 = 
 
 click-right = rofi-pulseaudio
-
 [module/microphone]
-type = custom/script
+type = custom/ipc
 
-interval = 1
-exec = ~/.config/polybar/microphone.sh
+hook-0 = ~/.config/polybar/mic-volume.sh show-vol
+initial = 1
 
-click-left = exec amixer set Dmic0 toggle
-scroll-up = exec amixer set Dmic0 5%+
-scroll-down = exec amixer set Dmic0 5%-
-click-right = rofi-pulseaudio source output
+click-left = ~/.config/polybar/mic-volume.sh mute-vol; polybar-msg -p %pid% hook microphone 1
+scroll-up = ~/.config/polybar/mic-volume.sh inc-vol; polybar-msg -p %pid% hook microphone 1
+scroll-down = ~/.config/polybar/mic-volume.sh dec-vol; polybar-msg -p %pid% hook microphone 1
+click-right = /usr/bin/python3 ~/bin/scripts/rofi_audio_set_default_source.py
+
+; [module/microphone]
+; type = custom/script
+; 
+; interval = 1
+; exec = ~/.config/polybar/microphone.sh
+; 
+; click-left = exec amixer set Dmic0 toggle
+; scroll-up = exec amixer set Dmic0 1%+
+; scroll-down = exec amixer set Dmic0 1%-
+; click-right = rofi-pulseaudio source output
 
 [module/battery]
 type = internal/battery
