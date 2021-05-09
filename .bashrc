@@ -3,10 +3,10 @@
 # export DISPLAY=$(grep -m 1 nameserver /etc/resolv.conf | awk '{print $2}'):0.0
 export PULSE_SERVER=tcp:$(grep -m 1 nameserver /etc/resolv.conf | awk '{print $2}')
 export DISTRO_DNS=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}')
-export LIBGL_ALWAYS_INDIRECT=1
+export LIBGL_ALWAYS_INDIRECT=0
 export GOPATH=$HOME/go
 export PATH=$HOME/.bazel/bin:$PATH:$HOME/bin:$GOPATH/bin:$HOME/.cargo/bin:/opt/android-studio/bin:/usr/roborio/bin:$HOME/.nvim/bin:$HOME/.bazel/bin/:$HOME/.local/bin
-export EDITOR=nvim
+export EDITOR=neovide
 export GPG_TTY=$(tty)
 export JAVA_HOME=/usr/lib/jvm/java-11-oracle/
 
