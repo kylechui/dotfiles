@@ -9,11 +9,13 @@ o.softtabstop=2
 o.shiftwidth=2
 o.expandtab=true
 o.maxmempattern=2500
-
+o.mouse='n'
 -- gui stuff
---o.background=dark
-vim.g.gruvbox_material_background = 'hard'
+vim.g.gruvbox_material_background='hard'
 vim.cmd('colorscheme gruvbox-material')
+o.guifont='FiraCode Nerd Font:h16'
+vim.g.neovide_cursor_animation_length=0.1
+vim.g.neovide_cursor_animate_in_insert_mode=0
 wo.number=true
 wo.relativenumber=true
 wo.cursorline=true

@@ -4,7 +4,7 @@ map('n', '<Space>', '<NOP>', { noremap = true, silent = true })
 vim.g.mapleader = ' '
 -- Keybinds for editing and sourcing init files
 map('n', '<Leader>s', '<Cmd>lua require(\'pluginSettings.telescope\').search_dotfiles()<CR>', { noremap = true, silent = true })
-map('n', '<Leader>r', '<Cmd>luafile ~/.config/nvim/init.lua<CR>', { noremap = true })
+map('n', '<Leader>r', '<Cmd>luafile $MYVIMRC<CR>', { noremap = true })
 -- Edit snippets
 map('n', '<Leader>u', '<Cmd>UltiSnipsEdit<CR>', { noremap = true, silent = true })
 -- Open Todo List
@@ -16,6 +16,8 @@ map('v', '<C-s>', '<Esc><Cmd>up!<CR>', { noremap = true, silent = true })
 -- Deleting words with <C-BS>
 map('i', '', '<C-w>', { noremap = true, silent = true })
 map('c', '', '<C-w>', { noremap = true, silent = true })
+map('i', '<C-BS>', '<C-w>', { noremap = true, silent = true })
+map('c', '<C-BS>', '<C-w>', { noremap = true, silent = true })
 -- Open/close file explorer
 map('n', '<C-\\>', '<Esc><Cmd>NvimTreeToggle<CR>', { noremap = true, silent = true })
 -- Move towards the beginning/end of a line
@@ -31,6 +33,8 @@ map('n', 'Y', 'y$', { noremap = true, silent = true })
 -- Better buffer navigation/deletion
 map('n', '<Leader>j', '<Cmd>bn<CR>', { noremap = true, silent = true })
 map('n', '<Leader>k', '<Cmd>bp<CR>', { noremap = true, silent = true })
+map('n', '<C-Tab>', '<Cmd>bn<CR>', { noremap = true, silent = true })
+map('n', '<C-S-Tab>', '<Cmd>bp<CR>', { noremap = true, silent = true })
 map('n', '<C-h>', '<C-w>h', { noremap = true, silent = true })
 map('n', '<C-j>', '<C-w>j', { noremap = true, silent = true })
 map('n', '<C-k>', '<C-w>k', { noremap = true, silent = true })
@@ -38,6 +42,7 @@ map('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })
 map('n', '<C-w>', '<Cmd>bd!<CR>', { noremap = true, silent = true })
 map('i', '<C-w>', '<Cmd>bd!<CR>', { noremap = true, silent = true })
 -- Telescope fuzzy find stuff
+map('n', '<Leader>f.', '<Cmd>lua require(\'telescope.builtin\').find_files()<CR>', { noremap = true, silent = true })
 map('n', '<Leader>ff', '<Cmd>lua require(\'pluginSettings.telescope\').search_workspace()<CR>', { noremap = true, silent = true })
 map('n', '<Leader>fb', '<Cmd>lua require(\'telescope.builtin\').buffers()<CR>', { noremap = true, silent = true })
 map('n', '<Leader>fg', '<Cmd>lua require(\'telescope.builtin\').live_grep()<CR>', { noremap = true, silent = true })
@@ -50,5 +55,10 @@ map('v', 'K', ':m \'<-2<CR>gv', { noremap = true, silent = true })
 -- Commenting things out with <C-/>
 map('n', '', '<Cmd>Commentary<CR>', { noremap = true, silent = true })
 map('v', '', ':Commentary<CR>gv', { noremap = true, silent = true })
+map('n', '<C-/>', '<Cmd>Commentary<CR>', { noremap = true, silent = true })
+map('v', '<C-/>', ':Commentary<CR>gv', { noremap = true, silent = true })
 -- Allow for repeating commands in visual mode
 map('v', '.', ':normal.<CR>', { noremap = true, silent = true })
+-- Stop the mouse from going into visual mode
+map('n', '<LeftDrag>', '<LeftMouse>', { noremap = true, silent = true })
+map('n', '<LeftRelease>', '<LeftMouse>', { noremap = true, silent = true })

@@ -1,6 +1,5 @@
-vim.api.nvim_exec([[
-let g:UltiSnipsExpandTrigger = '<Tab>'
-let g:UltiSnipsJumpForwardTrigger = '<Tab>'
-let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
-let g:UltiSnipsEditSplit = 'vertical'
-]], false)
+vim.g.UltiSnipsExpandTrigger = '<Tab>'
+vim.g.UltiSnipsJumpForwardTrigger = '<Tab>'
+vim.g.UltiSnipsJumpBackwardTrigger = '<S-Tab>'
+vim.g.UltiSnipsEditSplit = 'vertical'
+vim.g.UltiSnipsSnippetDirectories = { 'mySnippets' }
