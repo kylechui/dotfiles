@@ -165,11 +165,9 @@ bindsym $mod+Shift+z sticky toggle
 # bindsym Mod1+shift+bar exec lpass-rofi
 bindsym Mod1+shift+bar exec rofi -modi 1pass:op-rofi -show 1pass
 
-# Screen Shots (Windows shortcut and mouse bind [F15])
-bindsym $mod+Shift+s exec --no-startup-id flameshot gui
-bindcode 193 exec --no-startup-id flameshot gui
 
-bindcode 248 exec amixer set Dmic0 toggle
+# bindcode 248 exec ~/.config/polybar/mic-volume.sh mute-vol
+bindcode 248 exec ~/.config/polybar/mic-volume.sh mute-vol && polybar-msg -p $(pidof polybar) hook microphone 1
 
 # Brightness controls
 bindsym XF86MonBrightnessUp   exec --no-startup-id light -A 5
@@ -189,16 +187,23 @@ bindsym XF86AudioPause exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
-# Mouse left/right gestures to go to previous/next desktops
+# Mouse rebinds
 bindcode 191 workspace next
 bindcode 192 workspace prev
+bindcode 193 exec --no-startup-id ~/.config/logiops/mouseBinds/gestureDown.sh &
+bindcode 195 exec --no-startup-id ~/.config/logiops/mouseBinds/back.sh &
+bindcode 196 exec --no-startup-id ~/.config/logiops/mouseBinds/forward.sh &
+bindcode 197 exec --no-startup-id ~/.config/logiops/mouseBinds/scrollLeft.sh &
+bindcode 198 exec --no-startup-id ~/.config/logiops/mouseBinds/scrollRight.sh &
 
 
 
 
-# Make Authy a floating window
-for_window [title="^Authy$"] floating enable
-for_window [instance="origin.exe"] floating enable
+
+# Screenshots 
+bindsym $mod+Shift+s exec --no-startup-id flameshot gui
+
+
 
 bindsym $mod+Delete exec powermenu
 bindsym $mod+shift+Delete exec playerctl pause ; exec lock-session

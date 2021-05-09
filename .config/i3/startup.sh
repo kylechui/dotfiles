@@ -19,7 +19,7 @@ main() {
   killall -q polybar picom feh dunst xautolock xcompmgr nm-applet blueman-applet
   feh --no-xinerama --bg-scale $HOME/.wallpapers/gruvbox.png &
 
-  setxkbmap -option "caps:swapescape"
+  # setxkbmap -option "caps:swapescape"
   polybar -r top &
 
   dunst &
