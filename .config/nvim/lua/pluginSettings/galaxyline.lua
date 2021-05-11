@@ -10,20 +10,20 @@ gl.short_line_list = {'packer', 'NvimTree', 'Outline', 'LspTrouble'}
 local colors = {
     bg = '#3C3836',
     fg = '#AAB2BF',
-    section_bg = '#38393f',
-    blue = '#83a598',
+    section_bg = '#38393F',
+    blue = '#83A598',
     green = '#8EC07C',
-    purple = '#d3869b',
-    orange = '#e5c07b',
-    red1 = '#e06c75',
-    red2 = '#be5046',
+    purple = '#D3869B',
+    orange = '#E5C07B',
+    red1 = '#E06C75',
+    red2 = '#BE5046',
     yellow = '#FABD2F',
-    gray1 = '#5c6370',
-    gray2 = '#2c323d',
-    gray3 = '#3e4452',
-    darkgrey = '#5c6370',
+    grey1 = '#5C6370',
+    grey2 = '#2C323D',
+    grey3 = '#3E4452',
     grey = '#848586',
-    middlegrey = '#8791A5'
+    middlegrey = '#8791A5',
+    darkgrey = '#5C6370'
 }
 
 -- Local helper functions
@@ -177,8 +177,6 @@ gls.left[3] = {
         provider = get_current_file_name,
         condition = buffer_not_empty,
         highlight = {colors.fg, colors.section_bg},
-        separator = '',
-        separator_highlight = {colors.section_bg, colors.bg}
     }
 }
 -- gls.left[4] = {
@@ -249,21 +247,6 @@ gls.left[14] = {
     }
 }
 
--- Right side
--- gls.right[0] = {
---     ShowLspClient = {
---         provider = 'GetLspClient',
---         condition = function()
---             local tbl = {['dashboard'] = true, [''] = true}
---             if tbl[vim.bo.filetype] then return false end
---             return true
---         end,
---         icon = ' ',
---         highlight = {colors.middlegrey, colors.bg},
---         separator = ' ',
---         separator_highlight = {colors.section_bg, colors.bg}
---     }
--- }
 gls.right[1] = {
     DiffAdd = {
         provider = 'DiffAdd',
@@ -296,53 +279,70 @@ gls.right[4] = {
         highlight = {colors.section_bg, colors.bg}
     }
 }
-gls.right[6] = {
+gls.right[5] = {
     GitBranch = {
         provider = {function() return '  ' end, 'GitBranch'},
         condition = condition.check_git_workspace,
         highlight = {colors.middlegrey, colors.bg}
     }
 }
-gls.right[7] = {
+gls.right[6] = {
     GitRoot = {
         provider = {GetGitRoot},
         condition = function()
             return utils.has_width_gt(50) and condition.check_git_workspace
         end,
-        -- icon = '  ',
         highlight = {colors.fg, colors.bg},
         separator = ' ',
         separator_highlight = {colors.middlegrey, colors.bg}
-        -- separator = ' ',
-        -- separator_highlight = {colors.section_bg, colors.bg}
+    }
+}
+gls.right[7] = {
+    BufferType = {
+        provider = 'FileTypeName',
+        separator = ' ',
+        separator_highlight = {'NONE', colors.section_bg, 'bold'},
+        highlight = {colors.fg, colors.section_bg},
     }
 }
 
 gls.right[8] = {
-    LineInfo = {
+    WordCount = {
         provider = {
             function()
-                local s
-                if (vim.fn.mode() == 'v' or vim.fn.mode() == 'V')
-                then
-                  s = string.format(' %s words ', vim.fn.wordcount().visual_words)
+                if (vim.fn.mode() == 'v' or vim.fn.mode() == 'V') then
+                  return string.format(' %s words ', vim.fn.wordcount().visual_words)
                 else
-                  s = string.format(' %s words ', vim.fn.wordcount().words)
+                  return string.format(' %s words ', vim.fn.wordcount().words)
                 end
-                return s .. string.format(' %s:%s ', vim.fn.line('.'), vim.fn.col('.'))
-            end,
+            end
         },
         separator = ' ',
-        separator_highlight = {'NONE', colors.bg},
+        separator_highlight = {'NONE', colors.bg, 'bold'},
         highlight = {colors.bg, colors.blue, 'bold'}
     }
 }
--- gls.right[9] = {
---     ScrollBar = {
---         provider = 'ScrollBar',
---         highlight = {colors.purple, colors.section_bg}
---     }
--- }
+gls.right[9] = {
+    LineInfo = {
+        provider = {
+            function()
+                return string.format('%s:%s', vim.fn.line('.'), vim.fn.col('.'))
+            end
+        },
+        separator = '|',
+        separator_highlight = {colors.bg, colors.blue, 'bold'},
+        highlight = {colors.bg, colors.blue, 'bold'}
+    }
+}
+
+gls.right[10] = {
+    PerCent = {
+        provider = 'LinePercent',
+        separator = '|',
+        separator_highlight = {colors.bg, colors.blue, 'bold'},
+        highlight = {colors.bg, colors.blue, 'bold'}
+    }
+}
 
 -- Short status line
 gls.short_line_left[1] = {

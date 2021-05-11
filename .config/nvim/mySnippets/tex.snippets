@@ -27,7 +27,7 @@ endsnippet
 # Text modifiers
 #
 context "text()"
-snippet " "quotes" wA
+snippet " "quotes" iA
 \`\`$1''$0
 endsnippet
 
@@ -52,7 +52,7 @@ $`!p snip.rv = match.group(1)`$`!p snip.rv = match.group(2)`$0
 endsnippet
 
 context "text()"
-snippet " (-?\d+)([?!.,; ])" "digit conversion" wrA
+snippet " (-?[\d\.]+)([?!,; ])" "digit conversion" wrA
  $`!p snip.rv = match.group(1)`$`!p snip.rv = match.group(2)`$0
 endsnippet
 

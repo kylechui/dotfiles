@@ -17,7 +17,6 @@ return require('packer').startup(function()
     requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
   }
   use 'nvim-telescope/telescope-fzy-native.nvim'
-
   -- Status line and bufferline
   use {
     'glepnir/galaxyline.nvim',
@@ -30,7 +29,7 @@ return require('packer').startup(function()
   -- Colour scheme
   use 'sainnhe/gruvbox-material'
   -- Universal way to add comments
-  use 'tpope/vim-commentary'
+  use 'b3nj5m1n/kommentary'
   -- Surround stuff with delimiters
   use 'tpope/vim-surround'
   -- LaTeX integration
@@ -42,10 +41,9 @@ return require('packer').startup(function()
   -- Discord integration
   use 'andweeb/presence.nvim'
   -- Highlight hex codes
-  use {
-    'RRethy/vim-hexokinase',
-    run = 'make hexokinase'
-  }
+  use 'norcalli/nvim-colorizer.lua'
   -- To-do list manager
   use 'dbeniamine/todo.txt-vim'
+  -- Automatically insert pairs (for delimiters)
+  use 'windwp/nvim-autopairs'
 end)

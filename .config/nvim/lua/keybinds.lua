@@ -52,13 +52,20 @@ map('n', 'J', '<Cmd>m+<CR>', { noremap = true, silent = true })
 map('v', 'J', ':m \'>+1<CR>gv', { noremap = true, silent = true })
 map('n', 'K', '<Cmd>m-2<CR>', { noremap = true, silent = true })
 map('v', 'K', ':m \'<-2<CR>gv', { noremap = true, silent = true })
--- Commenting things out with <C-/>
-map('n', '', '<Cmd>Commentary<CR>', { noremap = true, silent = true })
-map('v', '', ':Commentary<CR>gv', { noremap = true, silent = true })
-map('n', '<C-/>', '<Cmd>Commentary<CR>', { noremap = true, silent = true })
-map('v', '<C-/>', ':Commentary<CR>gv', { noremap = true, silent = true })
+-- Navigate by wrapped lines by default
+map('n', 'j', 'v:count ? (v:count > 5 ? "m\'" . v:count : \'\') . \'j\' : \'gj\'', { noremap = true, silent = true, expr = true })
+map('n', 'k', 'v:count ? (v:count > 5 ? "m\'" . v:count : \'\') . \'k\' : \'gk\'', { noremap = true, silent = true, expr = true })
+map('v', 'j', 'v:count ? (v:count > 5 ? "m\'" . v:count : \'\') . \'j\' : \'gj\'', { noremap = true, silent = true, expr = true })
+map('v', 'k', 'v:count ? (v:count > 5 ? "m\'" . v:count : \'\') . \'k\' : \'gk\'', { noremap = true, silent = true, expr = true })
+-- Universal comments with <C-/>
+map('n', '<C-/>', '<Plug>kommentary_line_default', {})
+map('v', '<C-/>', '<Plug>kommentary_visual_default', {})
 -- Allow for repeating commands in visual mode
 map('v', '.', ':normal.<CR>', { noremap = true, silent = true })
 -- Stop the mouse from going into visual mode
 map('n', '<LeftDrag>', '<LeftMouse>', { noremap = true, silent = true })
 map('n', '<LeftRelease>', '<LeftMouse>', { noremap = true, silent = true })
+-- Better deletion of visual selections
+map('v', '<Leader>p', '"_dP', { noremap = true, silent = true })
+-- Spell check
+map('i', '<C-l>', '<c-g>u<esc>[s1z=`]a<c-g>u', { noremap = true, silent = true })
