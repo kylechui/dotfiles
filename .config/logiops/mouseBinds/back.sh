@@ -12,6 +12,9 @@ case $WCLASS in
   *"flameshot"*)
     xdotool key ctrl+z
     ;;
+  *"neovide"*)
+    xdtotool key ctrl+o
+    ;;
   *)
     xdotool click 8
     ;;
