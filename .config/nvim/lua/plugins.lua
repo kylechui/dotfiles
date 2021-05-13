@@ -14,20 +14,24 @@ return require('packer').startup(function()
   -- Telescope nonsense
   use {
     'nvim-telescope/telescope.nvim',
-    requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
+    requires = { {'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'} }
   }
   use 'nvim-telescope/telescope-fzy-native.nvim'
+  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   -- Status line and bufferline
   use {
     'glepnir/galaxyline.nvim',
     branch = 'main',
-    requires = {'kyazdani42/nvim-web-devicons', opt = true}
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
   use 'akinsho/nvim-bufferline.lua'
   -- File explorer
   use 'kyazdani42/nvim-tree.lua'
   -- Colour scheme
   use 'sainnhe/gruvbox-material'
+  -- Treesitter for better syntax highlighting
+  use { 'nvim-treesitter/nvim-treesitter', config = 'vim.cmd[[TSUpdate]]' }
+  use 'nvim-treesitter/playground'
   -- Universal way to add comments
   use 'b3nj5m1n/kommentary'
   -- Surround stuff with delimiters
@@ -46,4 +50,6 @@ return require('packer').startup(function()
   use 'dbeniamine/todo.txt-vim'
   -- Automatically insert pairs (for delimiters)
   use 'windwp/nvim-autopairs'
+  -- Github integration
+  use 'tpope/vim-fugitive'
 end)

@@ -6,7 +6,7 @@ export DISTRO_DNS=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exi
 export LIBGL_ALWAYS_INDIRECT=0
 export GOPATH=$HOME/go
 export PATH=$HOME/.bazel/bin:$PATH:$HOME/bin:$GOPATH/bin:$HOME/.cargo/bin:/opt/android-studio/bin:/usr/roborio/bin:$HOME/.nvim/bin:$HOME/.bazel/bin/:$HOME/.local/bin
-export EDITOR=neovide
+export EDITOR=nvim
 export GPG_TTY=$(tty)
 export JAVA_HOME=/usr/lib/jvm/java-11-oracle/
 
@@ -307,21 +307,6 @@ export NVM_DIR="$HOME/.nvm"
 source "$HOME/.cargo/env"
 export SPICETIFY_INSTALL="/home/kylec/spicetify-cli"
 export PATH="$SPICETIFY_INSTALL:$PATH"
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/jishnu/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/jishnu/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/jishnu/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/jishnu/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
 
 # source ~/.local/share/blesh/ble.sh
 eval "$(starship init bash)"

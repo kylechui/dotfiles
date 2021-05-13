@@ -38,7 +38,7 @@ augroup END
 vim.cmd([[
 augroup spellCheck
   autocmd!
-  autocmd FileType text,md,tex setlocal spell
-  autocmd FileType text,md,tex set spelllang=en_gb
+  autocmd FileType text,tex,md setlocal spell
+  autocmd FileType text,tex,md set spelllang=en_gb
 augroup END
 ]])

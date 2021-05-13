@@ -75,17 +75,25 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/kylec/.local/share/nvim/site/pack/packer/start/galaxyline.nvim"
   },
-  gruvbox = {
-    loaded = true,
-    path = "/home/kylec/.local/share/nvim/site/pack/packer/start/gruvbox"
-  },
   ["gruvbox-material"] = {
     loaded = true,
     path = "/home/kylec/.local/share/nvim/site/pack/packer/start/gruvbox-material"
   },
+  kommentary = {
+    loaded = true,
+    path = "/home/kylec/.local/share/nvim/site/pack/packer/start/kommentary"
+  },
+  ["nvim-autopairs"] = {
+    loaded = true,
+    path = "/home/kylec/.local/share/nvim/site/pack/packer/start/nvim-autopairs"
+  },
   ["nvim-bufferline.lua"] = {
     loaded = true,
     path = "/home/kylec/.local/share/nvim/site/pack/packer/start/nvim-bufferline.lua"
+  },
+  ["nvim-colorizer.lua"] = {
+    loaded = true,
+    path = "/home/kylec/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua"
   },
   ["nvim-tree.lua"] = {
     loaded = true,
@@ -119,6 +127,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/kylec/.local/share/nvim/site/pack/packer/start/telescope.nvim"
   },
+  ["todo.txt-vim"] = {
+    loaded = true,
+    path = "/home/kylec/.local/share/nvim/site/pack/packer/start/todo.txt-vim"
+  },
   ultisnips = {
     loaded = true,
     path = "/home/kylec/.local/share/nvim/site/pack/packer/start/ultisnips"
@@ -126,14 +138,6 @@ _G.packer_plugins = {
   ["vim-be-good"] = {
     loaded = true,
     path = "/home/kylec/.local/share/nvim/site/pack/packer/start/vim-be-good"
-  },
-  ["vim-commentary"] = {
-    loaded = true,
-    path = "/home/kylec/.local/share/nvim/site/pack/packer/start/vim-commentary"
-  },
-  ["vim-hexokinase"] = {
-    loaded = true,
-    path = "/home/kylec/.local/share/nvim/site/pack/packer/start/vim-hexokinase"
   },
   ["vim-surround"] = {
     loaded = true,

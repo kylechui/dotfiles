@@ -82,9 +82,7 @@ bindsym $mod+a focus parent
 # colour picker
 bindsym $mod+c exec --no-startup-id colour-picker
 
-# next/prev workspace
-bindsym $mod+n workspace next
-bindsym $mod+p workspace prev
+bindsym $mod+n exec neovide
 
 bindsym $mod+x [urgent=latest] focus
 
