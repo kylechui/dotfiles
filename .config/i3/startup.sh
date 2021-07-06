@@ -15,11 +15,22 @@ main() {
   # while pgrep -x dropbox >/dev/null; do
   #   sleep 1;
   # done
+  xset r rate 280 40
+  # xmodmap ~/.Xmodmap
+  xmodmap -e "keycode 255 = Escape"
+  xmodmap -e "clear Lock"
+
+  xmodmap -e "keycode 66 = Super_L"
+  xmodmap -e "add Mod4 = Super_L"
+
+  xmodmap -e "keycode 9 = Caps_Lock"
+  xmodmap -e "add Lock = Caps_Lock"
+
+  xcape -e 'Super_L=Escape;Shift_L=Shift_L|9;Shift_R=Shift_R|0'
 
   killall -q polybar picom feh dunst xautolock xcompmgr nm-applet blueman-applet
   feh --no-xinerama --bg-scale $HOME/.wallpapers/gruvbox.png &
 
-  # setxkbmap -option "caps:swapescape"
   polybar -r top &
 
   dunst &
