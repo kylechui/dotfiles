@@ -11,8 +11,11 @@ export GPG_TTY=$(tty)
 export JAVA_HOME=/usr/lib/jvm/java-11-oracle/
 
 alias e=$EDITOR
+alias rm="rm -i"
 alias kmux="pkill tmux:\ server"
 alias tmux="tmux attach"
+
+alias update="sudo apt-get update && sudo apt-get dist-upgrade"
 
 RED="\[\033[0;31m\]"
 YELLOW="\[\033[0;33m\]"
@@ -310,3 +313,33 @@ export PATH="$SPICETIFY_INSTALL:$PATH"
 
 # source ~/.local/share/blesh/ble.sh
 eval "$(starship init bash)"
+
+alias cpcompile='g++ -g -Wall -Wextra -pedantic -std=gnu++17 -O2 -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=2 -fsanitize=address -static-libasan -fsanitize=undefined -fno-sanitize-recover=all -fstack-protector'
+
+# coding function
+cprun() {
+  if [ ! -z $2 ]; then
+    if [ $2 = 's' ]; then
+      cpcompile $1
+      time ./a.out
+    elif [ $2 = 'o' ]; then
+      (./a.out </home/kylec/Documents/github/codeforces/input.txt) >/home/kylec/Documents/github/codeforces/output.txt
+    elif [ $2 = 'd' ]; then
+      cpcompile -DLOCAL $1
+      time ./a.out </home/kylec/Documents/github/codeforces/input.txt
+    elif [ $2 = 'r' ]; then
+      time ./a.out </home/kylec/Documents/github/codeforces/input.txt
+    elif [ $2 = 'f' ]; then
+      g++ -std=gnu++17 -O2 -DLOCAL $1
+      time ./a.out </home/kylec/Documents/github/codeforces/input.txt
+    fi
+  else
+    cpcompile $1
+    time ./a.out </home/kylec/Documents/github/codeforces/input.txt
+  fi
+}
+
+cpmake() {
+  cat $1 >$2.cc
+  code $2.cc
+}
