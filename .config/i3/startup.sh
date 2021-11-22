@@ -11,7 +11,14 @@ dropbox-run() {
 }
 
 main() {
+  # Set key repeat delay and speed
   xset r rate 280 40
+  # Set trackpad acceleration speed
+  xinput set-prop "SYNA3297:00 06CB:CD50 Touchpad" "libinput Accel Speed" 0.1
+  # Set trackpad tap to click
+  xinput set-prop "SYNA3297:00 06CB:CD50 Touchpad" "libinput Tapping Enabled" 1
+  # Set natural scrolling
+  xinput set-prop "SYNA3297:00 06CB:CD50 Touchpad" "libinput Natural Scrolling Enabled" 1
 
   xmodmap -e "keycode 255 = Escape"
   xmodmap -e "clear Lock"
@@ -27,9 +34,11 @@ main() {
   killall -q polybar picom feh dunst xautolock xcompmgr nm-applet blueman-applet
   feh --no-xinerama --bg-scale $HOME/.wallpapers/gruvbox.png &
 
-  polybar -r top &
-  dunst &
-  nm-applet &
+  sleep 1 & 
+
+  polybar -r top & sleep 1 &
+  dunst & sleep 1 &
+  nm-applet & sleep 1 &
   blueman-applet &
 
   xcompmgr -c -l0 -t0 -r0 -o.00 &
