@@ -59,11 +59,6 @@ bindsym $mod+e exec thunar
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
-# change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-# bindsym $mod+e layout toggle split
-
 bindsym $mod+m exec ~/.screenlayout/ToggleMonitors.sh
 # bindsym $mod+Shift+m exec i3-output-swap
 
@@ -190,10 +185,6 @@ bindcode 196 exec --no-startup-id ~/.config/logiops/mouseBinds/forward.sh &
 # bindcode 197 exec --no-startup-id ~/.config/logiops/mouseBinds/scrollLeft.sh &
 # bindcode 198 exec --no-startup-id ~/.config/logiops/mouseBinds/scrollRight.sh &
 
-
-
-
-
 # Screenshots 
 bindsym $mod+Shift+s exec --no-startup-id flameshot gui
 
@@ -264,8 +255,8 @@ title_align center
 
 assign [class="zoom"] workspace number 1
 assign [class="discord"] workspace number 8
-assign [class="spotify"] workspace number 9
 for_window [window_role="About"] floating enable
+for_window [class="Spotify"] move to workspace number 9, workspace number 9
 for_window [class="colour-picker"] floating enable
 for_window [class="Inkscape"] floating enable
 for_window [class="float"] floating enable
