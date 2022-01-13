@@ -8,8 +8,8 @@ muted = #5c5551
 urgent = #bd2c40
 
 [settings]
-throttle-ms = 50
-throttle-limit = 5
+throttle-output = 5
+throttle-output-for = 10
 compositing-foreground = lighten
 
 [bar/top-gap]
@@ -54,6 +54,8 @@ modules-right = battery microphone volume xbacklight packages popup-calendar tim
 tray-position = left
 tray-padding = 2
 tray-maxsize = 24
+
+wm-restack = i3
 
 enable-ipc = true
 
@@ -414,4 +416,3 @@ click-left  = polybar-msg -p %pid% hook dunst 1
 click-right = polybar-msg -p %pid% hook dunst 2
 
 ; vim:ft=dosini
-
