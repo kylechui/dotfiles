@@ -16,20 +16,29 @@
     pf = push -f
     l = log --oneline --decorate --color --graph
 
+[init]
+	defaultBranch = main
+
+[core]
+    editor = nvim
+
 [color]
     diff = auto
     status = auto
     branch = auto
+
 [push]
     default = simple
+
 [merge]
     tool = nvim -d
+
 [mergetool]
     keepBackup = false
+
 [gui]
 	fontui = -family Hack -size 11 -weight normal -slant roman -underline 0 -overstrike 0
 	fontdiff = -family Hack -size 11 -weight normal -slant roman -underline 0 -overstrike 0
+
 [credential]
 	helper = cache
-[init]
-	defaultBranch = main

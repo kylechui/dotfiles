@@ -310,7 +310,6 @@ background_opacity: 1.0
 key_bindings:
   - { key: V,        mods: Control|Shift,       action: Paste                  }
   - { key: C,        mods: Control|Shift,       action: Copy                   }
-  # - { key: Q,        mods: Control,       action: Quit                         }
   - { key: N,        mods: Control,       action: SpawnNewInstance             }
   - { key: Return,   mods: Control,       action: ToggleFullscreen             }
   - { key: Home,                          chars: "\x1bOH",   mode: AppCursor   }
@@ -360,7 +359,7 @@ key_bindings:
   - { key: F11,                           chars: "\x1b[23~"                    }
   - { key: F12,                           chars: "\x1b[24~"                    }
   - { key: Back,                          chars: "\x7f"                        }
-  - { key: Back,     mods: Control,       chars: "\x17"                        }
+  # - { key: Back,     mods: Control,       chars: "\x1b\x08"                    }
   - { key: W,        mods: Control,       chars: "\x17"                        }
   - { key: Insert,                        chars: "\x1b[2~"                     }
   - { key: Delete,                        chars: "\x1b[3~"                     }

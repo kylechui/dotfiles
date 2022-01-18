@@ -1,8 +1,8 @@
-# export TERM=alacritty
 # List of common aliases
 alias e="nvim"
+alias vim="nvim"
 alias rm="rm -i"
-alias update="sudo apt-get update && sudo apt-get dist-upgrade"
+alias update="sudo apt update && sudo apt upgrade"
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 # Archive extractor function
