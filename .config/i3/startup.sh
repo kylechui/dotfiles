@@ -13,6 +13,8 @@ main() {
   xinput set-prop "$TOUCHPAD" "libinput Tapping Enabled" 1
   # Set natural scrolling
   xinput set-prop "$TOUCHPAD" "libinput Natural Scrolling Enabled" 1
+  # Disable touchscreen
+  xinput disable "ELAN2514:00 04F3:29E0 Touchscreen"
 
     # spare_modifier="Hyper_L"
     # xmodmap -e "keycode 66 = $spare_modifier"
