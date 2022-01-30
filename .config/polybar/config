@@ -11,6 +11,11 @@ urgent = #bd2c40
 throttle-output = 5
 throttle-output-for = 10
 compositing-foreground = lighten
+compositing-background = source
+; compositing-foreground = over
+; compositing-overline = over
+; compositing-underline = over
+; compositing-border = over
 
 [bar/top-gap]
 dpi = ${xrdb:Xft.dpi:96}
@@ -47,7 +52,7 @@ font-3 = TerminessTTF Nerd Font:style=Solid:pixelsize=12;2
 font-4 = monospace:pixelsize=10;2
 font-5 = sans:pixelsize=10;2
 
-modules-left = memory cpu spotify
+modules-left = memory cpu wireless-network spotify
 modules-center = i3
 modules-right = battery microphone volume xbacklight packages popup-calendar time
 
@@ -181,9 +186,9 @@ bar-used-fill = %{O-1}█
 bar-used-empty = %{O-1}▁
 bar-used-empty-foreground = #666
 
-[module/wired]
+[module/wired-network]
 type = internal/network
-interface = enp0s31f6
+interface = eth1
 interval = 3.0
 
 ; Available tags:
@@ -221,9 +226,9 @@ label-connected = %{F#66aa66}%linkspeed%%{F-} %{T2} %downspeed:7%  %upspee
 ramp-signal-0 = " "
 format-prefix-foreground = ${colors.foreground}
 
-[module/wifi]
+[module/wireless-network]
 type = internal/network
-interface = wlp2s0
+interface = wlo1
 interval = 3.0
 
 ; Available tags:
