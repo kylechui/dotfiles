@@ -105,7 +105,10 @@ function _omz {
   return 0
 }
 
-compdef _omz omz
+# If run from a script, do not set the completion function
+if (( ${+functions[compdef]} )); then
+  compdef _omz omz
+fi
 
 ## Utility functions
 
@@ -299,10 +302,8 @@ multi == 1 && length(\$0) > 0 {
   # Restart the zsh session if there were no errors
   _omz::log info "plugins disabled: ${(j:, :)dis_plugins}."
 
-  # Old zsh versions don't have ZSH_ARGZERO
-  local zsh="${ZSH_ARGZERO:-${functrace[-1]%:*}}"
-  # Check whether to run a login shell
-  [[ "$zsh" = -* || -o login ]] && exec -l "${zsh#-}" || exec "$zsh"
+  # Only reload zsh if run in an interactive session
+  [[ ! -o interactive ]] || _omz::reload
 }
 
 function _omz::plugin::enable {
@@ -375,10 +376,8 @@ multi == 1 && /^[^#]*\)/ {
   # Restart the zsh session if there were no errors
   _omz::log info "plugins enabled: ${(j:, :)add_plugins}."
 
-  # Old zsh versions don't have ZSH_ARGZERO
-  local zsh="${ZSH_ARGZERO:-${functrace[-1]%:*}}"
-  # Check whether to run a login shell
-  [[ "$zsh" = -* || -o login ]] && exec -l "${zsh#-}" || exec "$zsh"
+  # Only reload zsh if run in an interactive session
+  [[ ! -o interactive ]] || _omz::reload
 }
 
 function _omz::plugin::info {
@@ -574,12 +573,27 @@ function _omz::pr::test {
 
     # Rebase pull request branch against the current master
     _omz::log info "rebasing PR #$1..."
-    command git rebase master ohmyzsh/pull-$1 || {
-      command git rebase --abort &>/dev/null
-      _omz::log warn "could not rebase PR #$1 on top of master."
-      _omz::log warn "you might not see the latest stable changes."
-      _omz::log info "run \`zsh\` to test the changes."
-      return 1
+    local ret gpgsign
+    {
+      # Back up commit.gpgsign setting: use --local to get the current repository
+      # setting, not the global one. If --local is not a known option, it will
+      # exit with a 129 status code.
+      gpgsign=$(command git config --local commit.gpgsign 2>/dev/null) || ret=$?
+      [[ $ret -ne 129 ]] || gpgsign=$(command git config commit.gpgsign 2>/dev/null)
+      command git config commit.gpgsign false
+
+      command git rebase master ohmyzsh/pull-$1 || {
+        command git rebase --abort &>/dev/null
+        _omz::log warn "could not rebase PR #$1 on top of master."
+        _omz::log warn "you might not see the latest stable changes."
+        _omz::log info "run \`zsh\` to test the changes."
+        return 1
+      }
+    } always {
+      case "$gpgsign" in
+      "") command git config --unset commit.gpgsign ;;
+      *) command git config commit.gpgsign "$gpgsign" ;;
+      esac
     }
 
     _omz::log info "fetch of PR #${1} successful."
@@ -731,10 +745,8 @@ EOF
   # Restart the zsh session if there were no errors
   _omz::log info "'$1' theme set correctly."
 
-  # Old zsh versions don't have ZSH_ARGZERO
-  local zsh="${ZSH_ARGZERO:-${functrace[-1]%:*}}"
-  # Check whether to run a login shell
-  [[ "$zsh" = -* || -o login ]] && exec -l "${zsh#-}" || exec "$zsh"
+  # Only reload zsh if run in an interactive session
+  [[ ! -o interactive ]] || _omz::reload
 }
 
 function _omz::theme::use {

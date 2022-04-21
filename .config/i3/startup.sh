@@ -42,8 +42,8 @@ main() {
   killall -q polybar picom feh dunst xautolock xcompmgr nm-applet blueman-applet
   feh --no-xinerama --bg-scale $HOME/.wallpapers/gruvbox.png &
    
-  polybar -r top & 
-  nm-applet & 
+  polybar -r top &
+  nm-applet &
   blueman-applet &
   dunst & 
 

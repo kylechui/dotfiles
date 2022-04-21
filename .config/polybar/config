@@ -52,7 +52,7 @@ font-3 = TerminessTTF Nerd Font:style=Solid:pixelsize=12;2
 font-4 = monospace:pixelsize=10;2
 font-5 = sans:pixelsize=10;2
 
-modules-left = memory cpu wireless-network spotify
+modules-left = memory cpu spotify
 modules-center = i3
 modules-right = battery microphone volume xbacklight packages popup-calendar time
 

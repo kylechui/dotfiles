@@ -37,11 +37,24 @@
 #
 set -e
 
+# Make sure important variables exist if not already defined
+#
+# $USER is defined by login(1) which is not always executed (e.g. containers)
+# POSIX: https://pubs.opengroup.org/onlinepubs/009695299/utilities/id.html
+USER=${USER:-$(id -u -n)}
+# $HOME is defined at the time of login, but it could be unset. If it is unset,
+# a tilde by itself (~) will not be expanded to the current user's home directory.
+# POSIX: https://pubs.opengroup.org/onlinepubs/009696899/basedefs/xbd_chap08.html#tag_08_03
+HOME="${HOME:-$(getent passwd $USER 2>/dev/null | cut -d: -f6)}"
+# macOS does not have getent, but this works even if $HOME is unset
+HOME="${HOME:-$(eval echo ~$USER)}"
+
+
 # Track if $ZSH was provided
 custom_zsh=${ZSH:+yes}
 
 # Default settings
-ZSH=${ZSH:-~/.oh-my-zsh}
+ZSH="${ZSH:-$HOME/.oh-my-zsh}"
 REPO=${REPO:-ohmyzsh/ohmyzsh}
 REMOTE=${REMOTE:-https://github.com/${REPO}.git}
 BRANCH=${BRANCH:-master}
@@ -50,9 +63,6 @@ BRANCH=${BRANCH:-master}
 CHSH=${CHSH:-yes}
 RUNZSH=${RUNZSH:-yes}
 KEEP_ZSHRC=${KEEP_ZSHRC:-no}
-
-# Sane defaults
-USER=${USER:-$(whoami)}
 
 
 command_exists() {
@@ -263,16 +273,27 @@ setup_ohmyzsh() {
     exit 1
   fi
 
-  git clone -c core.eol=lf -c core.autocrlf=false \
-    -c fsck.zeroPaddedFilemode=ignore \
-    -c fetch.fsck.zeroPaddedFilemode=ignore \
-    -c receive.fsck.zeroPaddedFilemode=ignore \
-    -c oh-my-zsh.remote=origin \
-    -c oh-my-zsh.branch="$BRANCH" \
-    --depth=1 --branch "$BRANCH" "$REMOTE" "$ZSH" || {
+  # Manual clone with git config options to support git < v1.7.2
+  git init --quiet "$ZSH" && cd "$ZSH" \
+  && git config core.eol lf \
+  && git config core.autocrlf false \
+  && git config fsck.zeroPaddedFilemode ignore \
+  && git config fetch.fsck.zeroPaddedFilemode ignore \
+  && git config receive.fsck.zeroPaddedFilemode ignore \
+  && git config oh-my-zsh.remote origin \
+  && git config oh-my-zsh.branch "$BRANCH" \
+  && git remote add origin "$REMOTE" \
+  && git fetch --depth=1 origin \
+  && git checkout -b "$BRANCH" "origin/$BRANCH" || {
+    [ ! -d "$ZSH" ] || {
+      cd -
+      rm -rf "$ZSH" 2>/dev/null
+    }
     fmt_error "git clone of oh-my-zsh repo failed"
     exit 1
   }
+  # Exit installation directory
+  cd -
 
   echo
 }
