@@ -77,7 +77,7 @@ bindsym $mod+a focus parent
 # colour picker
 bindsym $mod+c exec --no-startup-id pick-colour-picker
 
-bindsym $mod+n exec neovide
+bindsym $mod+n exec neovide --multigrid
 
 bindsym $mod+x [urgent=latest] focus
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
