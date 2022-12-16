@@ -10,7 +10,7 @@ ln -s $CFG/.config/alacritty $CONFIG/alacritty
 ln -s $CFG/.config/autostart $CONFIG/autostart
 ln -s $CFG/.config/logiops $CONFIG/logiops
 ln -s $CFG/.config/zathura $CONFIG/zathura
-ln -s $CFG/.oh-my-zsh $HOME/.oh-my-zsh
+ln -s $CFG/.oh-my-zsh/custom $HOME/.oh-my-zsh/custom
 ln -s $CFG/.zshrc $HOME/.zshrc
 sudo ln -s $CFG/default.conf /etc/keyd/default.conf
 
@@ -63,7 +63,7 @@ git clone https://github.com/rvaiya/keyd
 cd keyd
 make && sudo make install
 # Configure keyd to run on startup
-sudo systemctl enable -- now keyd
+sudo systemctl enable --now keyd
 
 ################################################################################
 #                                   LogiOps                                    #
