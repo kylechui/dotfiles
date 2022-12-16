@@ -5,15 +5,6 @@ CONFIG=$HOME/.config
 # Move the dotfiles directory to ~/.cfg
 mv ../dotfiles $CFG
 
-# Create symlinks to the desired locations
-ln -s $CFG/.config/alacritty $CONFIG/alacritty
-ln -s $CFG/.config/autostart $CONFIG/autostart
-ln -s $CFG/.config/logiops $CONFIG/logiops
-ln -s $CFG/.config/zathura $CONFIG/zathura
-ln -s $CFG/.oh-my-zsh/custom $HOME/.oh-my-zsh/custom
-ln -s $CFG/.zshrc $HOME/.zshrc
-sudo ln -s $CFG/default.conf /etc/keyd/default.conf
-
 ################################################################################
 #                               General Settings                               #
 ################################################################################
@@ -92,3 +83,12 @@ rm NoiseTorch_x64_v0.12.2.tgz
 # TODO (currently manual):
     # Set up GitHub SSH Key
     # Setup i3wm
+
+# Create symlinks to the desired locations
+ln -s $CFG/.config/alacritty $CONFIG/alacritty
+ln -s $CFG/.config/autostart $CONFIG/autostart
+ln -s $CFG/.config/logiops $CONFIG/logiops
+ln -s $CFG/.config/zathura $CONFIG/zathura
+ln -s $CFG/.oh-my-zsh/custom $HOME/.oh-my-zsh/custom
+ln -s $CFG/.zshrc $HOME/.zshrc
+sudo ln -s $CFG/default.conf /etc/keyd/default.conf
