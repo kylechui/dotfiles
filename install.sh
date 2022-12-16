@@ -22,7 +22,8 @@ sudo apt install alacritty flameshot
 ################################################################################
 
 # Install Oh My Zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+(sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)")&
+wait
 # Install Oh My Zsh plugins
 sudo apt install autojump
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
@@ -39,9 +40,8 @@ sudo apt install texlive-base texlive-latex-extra texlive-fonts-extra python3-py
 #                                    Neovim                                    #
 ################################################################################
 
-wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
-sudo chmod +x nvim.appimage
-sudo mv nvim.appimage /usr/local/bin/nvim
+sudo wget -O /usr/local/bin/nvim https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+sudo chmod +x /usr/local/bin/nvim
 
 ################################################################################
 #                                     Keyd                                     #
@@ -83,10 +83,10 @@ rm NoiseTorch_x64_v0.12.2.tgz
     # Setup i3wm
 
 # Create symlinks to the desired locations
-ln -s $CFG/.config/alacritty $CONFIG/alacritty
-ln -s $CFG/.config/autostart $CONFIG/autostart
-ln -s $CFG/.config/logiops $CONFIG/logiops
-ln -s $CFG/.config/zathura $CONFIG/zathura
-ln -s $CFG/.oh-my-zsh/custom $HOME/.oh-my-zsh/custom
-ln -s $CFG/.zshrc $HOME/.zshrc
-sudo ln -s $CFG/default.conf /etc/keyd/default.conf
+ln -sf $CFG/.config/alacritty $CONFIG
+ln -sf $CFG/.config/autostart $CONFIG
+ln -sf $CFG/.config/logiops $CONFIG
+ln -sf $CFG/.config/zathura $CONFIG
+ln -sf $CFG/.oh-my-zsh/custom/* $HOME/.oh-my-zsh/custom
+ln -sf $CFG/.zshrc $HOME
+sudo ln -sf $CFG/default.conf /etc/keyd
