@@ -2,8 +2,6 @@
 
 CFG=$HOME/.cfg
 CONFIG=$HOME/.config
-# Move the dotfiles directory to ~/.cfg
-mv ../dotfiles $CFG
 
 ################################################################################
 #                               General Settings                               #
