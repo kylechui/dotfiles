@@ -1,15 +1,18 @@
 #!/bin/sh
 
+CFG=$HOME/.cfg
+CONFIG=$HOME/.config
 # Move the dotfiles directory to ~/.cfg
-mv ../dotfiles.git ~/.cfg
+mv ../dotfiles.git $CFG
 
-# Move configuration files into their respective locations
-mv ./.config/* ~/.config && rmdir ./.config
-mv ./.oh-my-zsh ~/.oh-my-zsh
-mv ./.zshrc ~/.zshrc
-sudo mv ./default.conf /etc/keyd/default.conf
-
-# Create symlinks for all of the configuration files
+# Create symlinks to the desired locations
+ln -s $CFG/.config/alacritty $CONFIG/alacritty
+ln -s $CFG/.config/autostart $CONFIG/autostart
+ln -s $CFG/.config/logiops $CONFIG/logiops
+ln -s $CFG/.config/zathura $CONFIG/zathura
+ln -s $CFG/.oh-my-zsh $HOME/.oh-my-zsh
+ln -s $CFG/.zshrc $HOME/.zshrc
+sudo ln -s $CFG/default.conf /etc/keyd/default.conf
 
 ################################################################################
 #                               General Settings                               #

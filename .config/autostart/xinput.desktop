@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=xinput disable 8
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=Disable Touchscreen
+Name=Disable Touchscreen
+Comment[en_US]=Disables the touchscreen on my HP Spectre x360
+Comment=Disables the touchscreen on my HP Spectre x360
