@@ -1,8 +1,0 @@
-#!/bin/sh
-
-rofi -no-lazy-grab -modi 'C:greenclip print' \
-  -show C \
-  -run-command '{cmd}' \
-  -columns 1 \
-  -theme gruvbox-dark-hard.rasi
-
