@@ -3,7 +3,7 @@
 CFG=$HOME/.cfg
 CONFIG=$HOME/.config
 # Move the dotfiles directory to ~/.cfg
-mv ../dotfiles.git $CFG
+mv ../dotfiles $CFG
 
 # Create symlinks to the desired locations
 ln -s $CFG/.config/alacritty $CONFIG/alacritty
