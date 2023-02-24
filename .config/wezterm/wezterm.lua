@@ -1,0 +1,1 @@
+/home/kylec/.config/wezterm/wezterm.lua
