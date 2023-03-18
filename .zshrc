@@ -107,3 +107,6 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 [ -f "/home/kylec/.ghcup/env" ] && source "/home/kylec/.ghcup/env" # ghcup-env
+
+# opam configuration
+[[ ! -r /home/kylec/.opam/opam-init/init.zsh ]] || source /home/kylec/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
