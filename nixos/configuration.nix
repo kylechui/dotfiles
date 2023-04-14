@@ -24,28 +24,7 @@
 
   ### Enable some default programs
   networking.networkmanager.enable = true;
-  programs.nm-applet.enable = true;
-  programs.firefox.enable = true;
-  programs.autojump.enable = true;
-  programs.zsh = {
-    enable = true;
-    enableCompletion = true;
-    shellAliases = {
-      e = "nvim";
-      ll = "ls -al";
-    };
-    autosuggestions.enable = true;
-    syntaxHighlighting.enable = true;
-    ohMyZsh = {
-      enable = true;
-      theme = "robbyrussell";
-      # theme = "powerlevel10k/powerlevel10k";
-      plugins = [
-        "git"
-        "autojump"
-      ];
-    };
-  };
+  programs.zsh.enable = true;
 
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
@@ -66,8 +45,8 @@
 
   services.xserver = {
     enable = true;
-    # layout = "us";
-    # xkbVariant = "";
+    layout = "us";
+    xkbVariant = "";
     xkbOptions = "caps:swapescape";
     libinput = {
       enable = true;
@@ -121,9 +100,7 @@
   environment.systemPackages = with pkgs; [
     neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wezterm
-    i3
     wget
-    rofi
     spotify
     discord
     zathura
@@ -132,7 +109,6 @@
     fzf
     networkmanagerapplet
     arandr
-    # alsa-oss
     pavucontrol
     flameshot
     gnome.nautilus
@@ -140,8 +116,8 @@
     xclip
     git
     unzip
-    zsh-powerlevel10k
     # Language support
+    cargo
     gcc
     llvmPackages_9.libclang
     gnumake
@@ -183,9 +159,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "22.11"; # Did you read the comment?
-
-  home-manager.users.kylec = { pkgs, ... }: {
-    home.packages = [ pkgs.httpie ];
-    home.stateVersion = "22.11";
-  };
 }

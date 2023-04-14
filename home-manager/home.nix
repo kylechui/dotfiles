@@ -6,9 +6,18 @@
   home.username = "kylec";
   home.homeDirectory = "/home/kylec";
 
-  home.packages = with pkgs; [
-    htop
-  ];
+  imports =
+    [ # Include application-specific configuration
+      ./apps/i3.nix
+      ./apps/autorandr.nix
+      ./apps/wezterm.nix
+      ./apps/zsh.nix
+    ];
+
+  programs.firefox.enable = true;
+  programs.rofi.enable = true;
+  services.network-manager-applet.enable = true;
+  services.blueman-applet.enable = true;
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
