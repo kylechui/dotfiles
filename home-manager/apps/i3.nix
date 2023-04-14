@@ -7,6 +7,7 @@
       enable = true;
       config = {
         modifier = "Mod4";
+        defaultWorkspace = "workspace number 1";
         bars = [
           { position = "top"; }
         ];
@@ -43,7 +44,7 @@
           "${mod}+x" = "split h";
           "${mod}+v" = "split v";
           "${mod}+Shift+e" = "exec \"i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'\"";
-          "${mod}+Escape" = "exec lock-session";
+          "${mod}+Escape" = "exec i3lock";
           "${mod}+Shift+q" = "kill";
           "${mod}+f" = "fullscreen toggle";
           "${mod}+Shift+f" = "floating toggle";

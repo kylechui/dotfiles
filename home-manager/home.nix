@@ -1,5 +1,3 @@
-{ config, pkgs, ... }:
-
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -8,16 +6,25 @@
 
   imports =
     [ # Include application-specific configuration
-      ./apps/i3.nix
       ./apps/autorandr.nix
+      ./apps/flameshot.nix
+      ./apps/i3.nix
       ./apps/wezterm.nix
+      ./apps/zathura.nix
       ./apps/zsh.nix
     ];
 
   programs.firefox.enable = true;
+  programs.neovim.enable = true;
   programs.rofi.enable = true;
+  programs.git.enable = true;
+  programs.opam.enable = true;
   services.network-manager-applet.enable = true;
   services.blueman-applet.enable = true;
+
+  home.sessionVariables = {
+    EDITOR = "nvim";
+  };
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage

@@ -48,6 +48,8 @@
     layout = "us";
     xkbVariant = "";
     xkbOptions = "caps:swapescape";
+    autoRepeatInterval = 40;
+    autoRepeatDelay = 280;
     libinput = {
       enable = true;
       touchpad = {
@@ -58,7 +60,6 @@
     windowManager.i3 = {
       enable = true;
       extraPackages = with pkgs; [
-        dmenu
         i3status
         i3lock
       ];
@@ -86,36 +87,24 @@
   hardware.bluetooth.enable = true;
   hardware.pulseaudio.enable = true;
 
-  # Set some environment variables
-  environment.variables = {
-    PATH = [
-      "~/.local/share/nvim"
-    ];
-    EDITOR = "nvim";
-    TERMINAL = "wezterm";
-  };
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wezterm
     wget
     spotify
     discord
-    zathura
     logiops
     keyd
-    fzf
-    networkmanagerapplet
     arandr
     pavucontrol
     flameshot
     gnome.nautilus
     ripgrep
     xclip
-    git
     unzip
+    signal-desktop
+    xorg.xmodmap
+    xcape
     # Language support
     cargo
     gcc
@@ -126,7 +115,6 @@
     typescript
     nodejs
     ocaml
-    opam
     sumneko-lua-language-server
     stylua
   ];
