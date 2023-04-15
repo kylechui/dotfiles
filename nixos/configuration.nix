@@ -47,7 +47,6 @@
     enable = true;
     layout = "us";
     xkbVariant = "";
-    xkbOptions = "caps:swapescape";
     autoRepeatInterval = 40;
     autoRepeatDelay = 280;
     libinput = {
@@ -63,6 +62,18 @@
         i3status
         i3lock
       ];
+    };
+  };
+
+  # Overload caps lock to behave as super when held, esc when tapped
+  services.keyd = {
+    enable = true;
+    ids = [ "*" ];
+    settings = {
+      main = {
+        capslock = "overload(meta, esc)";
+        esc = "capslock";
+      };
     };
   };
 
@@ -89,35 +100,7 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    wget
-    spotify
-    discord
-    logiops
-    keyd
-    arandr
-    pavucontrol
-    flameshot
-    gnome.nautilus
-    ripgrep
-    xclip
-    unzip
-    signal-desktop
-    xorg.xmodmap
-    xcape
-    # Language support
-    cargo
-    gcc
-    llvmPackages_9.libclang
-    gnumake
-    cmake
-    python3
-    typescript
-    nodejs
-    ocaml
-    sumneko-lua-language-server
-    stylua
-  ];
+  environment.systemPackages = with pkgs; [];
 
   services.gvfs.enable = true;
 

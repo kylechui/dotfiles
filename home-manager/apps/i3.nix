@@ -5,12 +5,15 @@
     enable = true;
     windowManager.i3 = {
       enable = true;
+      extraConfig = ''
+        exec_always --no-startup-id "pkill nm-applet; nm-applet"
+        exec_always --no-startup-id "pkill blueman-applet; blueman-applet"
+        exec_always --no-startup-id polybar-msg cmd restart
+      '';
       config = {
         modifier = "Mod4";
         defaultWorkspace = "workspace number 1";
-        bars = [
-          { position = "top"; }
-        ];
+        bars = [];
         colors = {
           focused = {
             border = "#4c7899";
@@ -48,6 +51,8 @@
           "${mod}+Shift+q" = "kill";
           "${mod}+f" = "fullscreen toggle";
           "${mod}+Shift+f" = "floating toggle";
+          "${mod}+Shift+r" = "restart";
+          "${mod}+Shift+c" = "reload";
           # Basic navigation keybinds
           "${mod}+h" = "focus left";
           "${mod}+j" = "focus down";
@@ -87,6 +92,7 @@
           "${mod}+Shift+0" = "move container to workspace number 10";
         };
       };
+      # TODO: Fix this!
       # extraPackages = with pkgs; [
       #   dmenu
       #   i3status
