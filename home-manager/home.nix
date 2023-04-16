@@ -24,11 +24,16 @@
     ./apps/zsh.nix
   ];
 
+  services.network-manager-applet.enable = true;
+  services.blueman-applet.enable = true;
   programs.firefox.enable = true;
   programs.rofi.enable = true;
   programs.git.enable = true;
-  services.network-manager-applet.enable = true;
-  services.blueman-applet.enable = true;
+  programs.opam.enable = true;
+  programs.texlive = {
+    enable = true;
+    extraPackages = tpkgs: { inherit (tpkgs) scheme-full; };
+  };
 
   home.packages = with pkgs; [
     ripgrep
@@ -49,6 +54,32 @@
     unzip
     wget
     xclip
+    # C/C++
+    gcc
+    llvmPackages_15.clang-unwrapped
+    # Rust
+    cargo
+    # Python
+    python3
+    black
+    # JavaScript/TypeScript
+    typescript
+    nodejs
+    # OCaml
+    ocaml
+    ocamlformat
+    # Haskell
+    ghc
+    haskell-language-server
+    stylish-haskell
+    # Nix
+    rnix-lsp
+    nixfmt
+    # Lua
+    sumneko-lua-language-server
+    stylua
+    # LaTeX
+    texlab
   ];
 
   # This value determines the Home Manager release that your

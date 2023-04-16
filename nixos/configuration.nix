@@ -51,7 +51,6 @@
     libinput = {
       enable = true;
       touchpad = {
-        # dev = "/dev/input/event11";
         naturalScrolling = true;
         disableWhileTyping = true;
       };
@@ -63,6 +62,12 @@
   };
 
   # Overload caps lock to behave as super when held, esc when tapped
+  # environment.etc."libinput/local-overrides.quirks".text = ''
+  #   [Serial Keyboards]
+  #   MatchUdevType=keyboard
+  #   MatchName=keyd virtual keyboard
+  #   AttrKeyboardIntegration=internal
+  # '';
   services.keyd = {
     enable = true;
     ids = [ "*" ];
