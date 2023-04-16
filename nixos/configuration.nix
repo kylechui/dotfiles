@@ -5,10 +5,9 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -52,16 +51,14 @@
     libinput = {
       enable = true;
       touchpad = {
+        # dev = "/dev/input/event11";
         naturalScrolling = true;
         disableWhileTyping = true;
       };
     };
     windowManager.i3 = {
       enable = true;
-      extraPackages = with pkgs; [
-        i3status
-        i3lock
-      ];
+      extraPackages = with pkgs; [ i3status i3lock ];
     };
   };
 
@@ -89,7 +86,7 @@
     description = "Kyle Chui";
     extraGroups = [ "networkmanager" "wheel" ];
     shell = pkgs.zsh;
-    packages = with pkgs; [];
+    packages = with pkgs; [ ];
   };
 
   # Allow unfree packages
@@ -100,7 +97,7 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [];
+  environment.systemPackages = with pkgs; [ ];
 
   services.gvfs.enable = true;
 

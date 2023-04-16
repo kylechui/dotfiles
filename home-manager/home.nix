@@ -13,61 +13,42 @@
     package = pkgs.dracula-theme;
   };
 
-  imports =
-    [ # Include application-specific configuration
-      ./apps/autorandr.nix
-      ./apps/flameshot.nix
-      ./apps/i3.nix
-      ./apps/polybar.nix
-      ./apps/wezterm.nix
-      ./apps/zathura.nix
-      ./apps/zsh.nix
-    ];
+  imports = [ # Include application-specific configuration
+    ./apps/autorandr.nix
+    ./apps/flameshot.nix
+    ./apps/i3.nix
+    ./apps/neovim.nix
+    ./apps/polybar.nix
+    ./apps/wezterm.nix
+    ./apps/zathura.nix
+    ./apps/zsh.nix
+  ];
 
   programs.firefox.enable = true;
-  programs.neovim.enable = true;
   programs.rofi.enable = true;
   programs.git.enable = true;
-  programs.opam.enable = true;
   services.network-manager-applet.enable = true;
   services.blueman-applet.enable = true;
 
-  home.sessionVariables = {
-    EDITOR = "nvim";
-  };
-
   home.packages = with pkgs; [
-    nerdfonts
-    networkmanagerapplet
-
-    wget
-    spotify
-    discord
-    logiops
-    arandr
-    pavucontrol
-    flameshot
-    gnome.nautilus
     ripgrep
-    xclip
-    unzip
-    signal-desktop
-    element-desktop
-    obsidian
-    # Language support
-    cargo
-    gcc
-    llvmPackages_9.libclang
-    gnumake
+    nerdfonts
+    arandr
     cmake
-    python3
-    typescript
-    nodejs
-    ocaml
-    ghc
-    haskell-language-server
-    sumneko-lua-language-server
-    stylua
+    discord
+    element-desktop
+    gnome.nautilus
+    gnumake
+    logiops
+    networkmanagerapplet
+    obsidian
+    pavucontrol
+    python311Packages.pygments # For using the `minted` package
+    signal-desktop
+    spotify
+    unzip
+    wget
+    xclip
   ];
 
   # This value determines the Home Manager release that your

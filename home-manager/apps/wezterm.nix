@@ -8,6 +8,7 @@
           -- Fix font size issue with i3wm
           adjust_window_size_when_changing_font_size = false,
           warn_about_missing_glyphs = false,
+          -- enable_csi_u_key_encoding = true,
           -- Set cursor style to vertical bar
           default_cursor_style = "SteadyBar",
           -- Minimalist window settings

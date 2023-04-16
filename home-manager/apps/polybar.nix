@@ -13,24 +13,21 @@ let
 in {
   services.polybar = {
     enable = true;
-    package = pkgs.polybar.override {
-      i3Support = true;
-    };
+    package = pkgs.polybar.override { i3Support = true; };
     script = "polybar -r top &";
     settings = {
       "bar/top" = {
         modules-left = "cpu memory i3";
         modules-center = "date";
-        modules-right = "battery"; # microphone volume xbacklight packages popup-calendar time";
+        modules-right =
+          "battery"; # microphone volume xbacklight packages popup-calendar time";
         tray-position = "right";
         enable-ipc = true;
         wm-restack = "i3";
         width = "100%";
         height = "24pt";
         separator = " | ";
-        font = [
-          "JetBrains Mono Nerd Font:size=11;2"
-        ];
+        font = [ "JetBrains Mono Nerd Font:size=11;2" ];
       };
       "module/cpu" = {
         type = "internal/cpu";
