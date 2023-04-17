@@ -58,7 +58,7 @@
     };
     windowManager.i3 = {
       enable = true;
-      extraPackages = with pkgs; [ i3status i3lock ];
+      extraPackages = with pkgs; [ i3lock ];
     };
   };
 

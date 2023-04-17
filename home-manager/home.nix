@@ -48,6 +48,8 @@
     networkmanagerapplet
     obsidian
     pavucontrol
+    playerctl
+    brightnessctl
     python311Packages.pygments # For using the `minted` package
     signal-desktop
     spotify

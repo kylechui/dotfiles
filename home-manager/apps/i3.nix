@@ -13,7 +13,6 @@
       config = {
         modifier = "Mod4";
         defaultWorkspace = "workspace number 1";
-        bars = [ ];
         colors = {
           focused = {
             border = "#4c7899";
@@ -52,6 +51,20 @@
             "${mod}+Shift+f" = "floating toggle";
             "${mod}+Shift+r" = "restart";
             "${mod}+Shift+c" = "reload";
+            # Laptop keys
+            "XF86MonBrightnessDown" =
+              "exec --no-startup-id brightnessctl -d 'intel_backlight' set 10%-";
+            "XF86MonBrightnessUp" =
+              "exec --no-startup-id brightnessctl -d 'intel_backlight' set +10%";
+            "XF86AudioLowerVolume" =
+              "exec --no-startup-id pactl set-sink-volume 1 -5%";
+            "XF86AudioRaiseVolume" =
+              "exec --no-startup-id pactl set-sink-volume 1 +5%";
+            "XF86AudioPrev" = "exec --no-startup-id playerctl previous";
+            "XF86AudioPause" = "exec --no-startup-id playerctl play-pause";
+            "XF86AudioNext" = "exec --no-startup-id playerctl next";
+            "XF86AudioMute" =
+              "exec --no-startup-id pactl set-sink-mute 1 toggle";
             # Basic navigation keybinds
             "${mod}+h" = "focus left";
             "${mod}+j" = "focus down";
@@ -90,13 +103,14 @@
             "${mod}+Shift+9" = "move container to workspace number 9";
             "${mod}+Shift+0" = "move container to workspace number 10";
           };
+        keycodebindings = {
+          # Logiops keycode bindings (set in logiops.nix)
+          "193" = "workspace next"; # Gesture left
+          "194" = "workspace prev"; # Gesture right
+          "195" = "exec --no-startup-id flameshot gui"; # Gesture down
+        };
       };
       # TODO: Fix this!
-      # extraPackages = with pkgs; [
-      #   dmenu
-      #   i3status
-      #   i3lock
-      # ];
       # extraConfig = ''
       #
       # # resize window (you can also use the mouse for that)
@@ -125,32 +139,6 @@
       #
       # bindsym $mod+r mode "resize"
       #
-      # # Brightness controls
-      # # bindsym XF86MonBrightnessDown exec brightnessctl -d "intel_backlight" set 10%-
-      # # bindsym XF86MonBrightnessUp   exec brightnessctl -d "intel_backlight" set +10%
-      #
-      # # Audio controls
-      # # bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +5%
-      # # bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -5%
-      # # bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute 1 toggle
-      #
-      # # bindcode 179 exec --no-startup-id pactl set-sink-volume 1 +5%
-      # # bindcode 148 exec --no-startup-id pactl set-sink-volume 1 -5%
-      # # bindcode 163 exec --no-startup-id pactl set-sink-mute 1 toggle
-      #
-      # # Media player controls
-      # # bindsym XF86AudioPause exec playerctl play-pause
-      # # bindsym XF86AudioNext  exec playerctl next
-      # # bindsym XF86AudioPrev  exec playerctl previous
-      #
-      # # Mouse rebinds
-      # # bindcode 191 workspace next
-      # # bindcode 192 workspace prev
-      # # bindcode 193 exec --no-startup-id ~/.config/logiops/mouseBinds/gestureDown.sh &
-      # # bindcode 195 exec --no-startup-id ~/.config/logiops/mouseBinds/back.sh &
-      # # bindcode 196 exec --no-startup-id ~/.config/logiops/mouseBinds/forward.sh &
-      # # bindcode 197 exec --no-startup-id ~/.config/logiops/mouseBinds/scrollLeft.sh &
-      # # bindcode 198 exec --no-startup-id ~/.config/logiops/mouseBinds/scrollRight.sh &
       # '';
     };
   };
