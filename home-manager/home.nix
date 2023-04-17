@@ -30,6 +30,7 @@
   programs.rofi.enable = true;
   programs.git.enable = true;
   programs.opam.enable = true;
+  programs.java.enable = true;
   programs.texlive = {
     enable = true;
     extraPackages = tpkgs: { inherit (tpkgs) scheme-full; };
@@ -56,15 +57,18 @@
     xclip
     # C/C++
     gcc
-    llvmPackages_15.clang-unwrapped
+    clang-tools
     # Rust
     cargo
     # Python
     python3
     black
+    # Java
+    jdt-language-server
     # JavaScript/TypeScript
     typescript
     nodejs
+    nodePackages.prettier
     # OCaml
     ocaml
     ocamlformat
