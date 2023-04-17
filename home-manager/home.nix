@@ -45,7 +45,6 @@
     element-desktop
     gnome.nautilus
     gnumake
-    logiops
     networkmanagerapplet
     obsidian
     pavucontrol
