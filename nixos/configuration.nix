@@ -25,6 +25,7 @@
   ### Enable some default programs
   networking.networkmanager.enable = true;
   programs.zsh.enable = true;
+  programs.noisetorch.enable = true;
 
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
@@ -58,7 +59,7 @@
     };
     windowManager.i3 = {
       enable = true;
-      extraPackages = with pkgs; [ i3lock ];
+      extraPackages = with pkgs; [ ];
     };
   };
 

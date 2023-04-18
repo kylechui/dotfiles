@@ -19,6 +19,7 @@
     ./apps/i3.nix
     ./apps/neovim.nix
     ./apps/polybar.nix
+    ./apps/rofi.nix
     ./apps/wezterm.nix
     ./apps/zathura.nix
     ./apps/zsh.nix
@@ -26,8 +27,8 @@
 
   services.network-manager-applet.enable = true;
   services.blueman-applet.enable = true;
+  services.betterlockscreen.enable = true;
   programs.firefox.enable = true;
-  programs.rofi.enable = true;
   programs.git.enable = true;
   programs.opam.enable = true;
   programs.java.enable = true;
@@ -37,8 +38,12 @@
   };
 
   home.packages = with pkgs; [
+    libnotify
+    zoom-us
     ripgrep
     nerdfonts
+    vlc
+    simplescreenrecorder
     arandr
     cmake
     discord
@@ -63,6 +68,8 @@
     cargo
     # Python
     python3
+    python310Packages.python-lsp-server
+    mypy
     black
     # Java
     jdt-language-server

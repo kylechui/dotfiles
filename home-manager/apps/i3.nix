@@ -9,10 +9,12 @@
         exec_always --no-startup-id "pkill nm-applet; nm-applet"
         exec_always --no-startup-id "pkill blueman-applet; blueman-applet"
         exec_always --no-startup-id polybar-msg cmd restart
+        exec_always "xrandr --auto; autorandr --change"
       '';
       config = {
         modifier = "Mod4";
         defaultWorkspace = "workspace number 1";
+        bars = [ ];
         colors = {
           focused = {
             border = "#4c7899";
@@ -24,6 +26,7 @@
         };
         focus = {
           followMouse = false;
+          newWindow = "focus";
           wrapping = "no";
         };
         fonts = {
@@ -40,12 +43,14 @@
             "${mod}+Return" = "exec wezterm";
             "${mod}+Shift+Return" = "exec firefox";
             "${mod}+Shift+s" = "exec --no-startup-id flameshot gui";
+            "${mod}+w" =
+              "exec --no-startup-id ~/.config/rofi/wifi-connect.sh &";
             "${mod}+e" = "exec nautilus";
             "${mod}+x" = "split h";
             "${mod}+v" = "split v";
             "${mod}+Shift+e" = ''
               exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"'';
-            "${mod}+Escape" = "exec i3lock";
+            "${mod}+Escape" = "exec betterlockscreen --lock --quiet";
             "${mod}+Shift+q" = "kill";
             "${mod}+f" = "fullscreen toggle";
             "${mod}+Shift+f" = "floating toggle";
