@@ -2,13 +2,15 @@
 
 let
   colors = {
-    background = "#1D2021";
-    foreground = "#EBDBB2";
-    foreground-alt = "#928374";
-    primary = "#FFB52A";
-    secondary = "#EE6137";
-    muted = "#5C5551";
-    urgent = "#BD2C40";
+    background = "#181820";
+    background-alt = "#1F1F28";
+    foreground = "#dcd7ba";
+    foreground-alt = "#8a8980";
+    primary = "#957fb8";
+    muted = "#727169";
+    urgent = "#c34043";
+    green = "#76946a";
+    red = "#c4746e";
   };
 in {
   services.polybar = {
@@ -17,30 +19,32 @@ in {
     script = "polybar -r top &";
     settings = {
       "bar/top" = {
-        modules-left = "cpu memory i3";
-        modules-center = "date";
-        modules-right =
-          "battery"; # microphone volume xbacklight packages popup-calendar time";
-        tray-position = "right";
+        background = colors.background;
+        foreground = colors.foreground;
         enable-ipc = true;
+        font = [ "JetBrains Mono Nerd Font:size=12;2" ];
+        height = 30;
+        line-size = 4;
+        module-margin-left = 1;
+        module-margin-right = 1;
+        modules-center = "date";
+        modules-left = "cpu memory i3";
+        modules-right =
+          "wlan pulseaudio battery"; # microphone volume xbacklight packages popup-calendar time";
         wm-restack = "i3";
-        width = "100%";
-        height = "24pt";
-        separator = " | ";
-        font = [ "JetBrains Mono Nerd Font:size=11;2" ];
       };
       "module/cpu" = {
         type = "internal/cpu";
         interval = 2;
         format-prefix = " ";
-        format-prefix-foreground = colors.foreground;
+        # format-prefix-foreground = colors.foreground;
         label = "%percentage:2%%";
       };
       "module/memory" = {
         type = "internal/memory";
         interval = 2;
         format-prefix = " ";
-        format-prefix-foreground = colors.foreground;
+        # format-prefix-foreground = colors.foreground;
         label = "%gb_used:8%/%gb_total%";
       };
       "module/i3" = {
@@ -48,6 +52,10 @@ in {
         index-sort = true;
         enable-scroll = false;
         label-focused-foreground = colors.primary;
+        label-focused-background = colors.background-alt;
+        label-focused-underline = colors.primary;
+        label-focused = " %index% ";
+        label-unfocused = " %index% ";
       };
       "module/date" = {
         type = "internal/date";
@@ -56,24 +64,73 @@ in {
         time = "%H:%M:%S";
         label = "%date% %time%";
       };
+      "module/wlan" = {
+        type = "internal/network";
+        interface = "wlo1";
+        interface-type = "wireless";
+        interval = 1;
+        ramp-signal-0 = "󰤯 ";
+        ramp-signal-1 = "󰤟 ";
+        ramp-signal-2 = "󰤢 ";
+        ramp-signal-3 = "󰤥 ";
+        ramp-signal-4 = "󰤨 ";
+        format-connected = "<ramp-signal> <label-connected>";
+        label-connected = ''"%{A1:wifimenu:}%essid%%{A}"'';
+        # label-connected-padding = "1";
+        format-disconnected = "<label-disconnected>";
+        # format-disconnected-padding = 1;
+        label-disconnected = "%{A1:wifimenu:}%{A}";
+        label-disconnected-foreground = colors.foreground-alt;
+        # label-disconnected-padding = 1;
+      };
+      "module/pulseaudio" = { # TODO: Figure this out!
+        interval = 1;
+        type = "internal/pulseaudio";
+        # format-muted = "<label-muted>";
+        # format-muted-prefix = "";
+        # format-muted-prefix-foreground = "${colors.overlay0}";
+        format-volume =
+          "%{A3:rofi-pulseaudio:}<ramp-volume> <label-volume>%{A}";
+        ramp-volume-0 = " ";
+        ramp-volume-1 = " ";
+        ramp-volume-2 = " ";
+        click-right = "pavucontrol&";
+        # format-volume-prefix = "%{T4}%{T-}";
+        # format-volume-prefix-foreground =;
+        # label-muted = "%{T1}%percentage%%%{T-}";
+        # label-muted-foreground = colors.muted;
+        # label-muted-padding = 1;
+        # label-volume = "%{T1}%percentage%%%{T-}";
+        # label-volume-padding = 1;
+        use-ui-max = true;
+      };
       "module/battery" = {
         type = "internal/battery";
         battery = "BAT0";
-        adapter = "AC";
-        full-at = "100";
-        format-charging = "<animation-charging> <label-charging>";
+        low-at = 30;
+        full-at = 98;
+        format-low-prefix = "";
+        format-low-foreground = colors.red;
+        format-full-prefix = "";
+        format-full-foreground = colors.green;
         format-discharging = "<ramp-capacity> <label-discharging>";
-        ramp-capacity-0 = " ";
-        ramp-capacity-1 = " ";
-        ramp-capacity-2 = " ";
-        ramp-capacity-3 = " ";
-        ramp-capacity-4 = " ";
-        animation-charging-0 = " ";
-        animation-charging-1 = " ";
-        animation-charging-2 = " ";
-        animation-charging-3 = " ";
-        animation-charging-4 = " ";
+        format-charging = "<animation-charging> <label-charging>";
+        ramp-capacity-0 = "";
+        ramp-capacity-1 = "";
+        ramp-capacity-2 = "";
+        ramp-capacity-3 = "";
+        ramp-capacity-4 = "";
+        ramp-capacity-5 = "";
         animation-charging-framerate = 750;
+        animation-charging-0 = "";
+        animation-charging-1 = "";
+        animation-charging-2 = "";
+        animation-charging-3 = "";
+        animation-charging-4 = "";
+        animation-charging-5 = "";
+        label-low-padding = 1;
+        label-charging-padding = 1;
+        label-discharging-padding = 1;
       };
     };
     # extraConfig = ''
@@ -447,25 +504,6 @@ in {
     #   ; Available tokens:
     #   ;   %percentage% (default)
     #   label-full = Charged
-    #
-    #   ; Only applies if <ramp-capacity> is used
-    #   ramp-capacity-0 = 
-    #   ramp-capacity-1 = 
-    #   ramp-capacity-2 = 
-    #   ramp-capacity-3 = 
-    #   ramp-capacity-4 = 
-    #
-    #   ; Only applies if <bar-capacity> is used
-    #   bar-capacity-width = 10
-    #
-    #   ; Only applies if <animation-charging> is used
-    #   animation-charging-0 = 
-    #   animation-charging-1 = 
-    #   animation-charging-2 = 
-    #   animation-charging-3 = 
-    #   animation-charging-4 = 
-    #   ; Framerate in milliseconds
-    #   animation-charging-framerate = 750
     #
     #   [global/wm]
     #   margin-top = 5
