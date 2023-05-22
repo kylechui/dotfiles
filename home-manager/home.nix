@@ -15,6 +15,8 @@
 
   imports = [ # Include application-specific configuration
     ./apps/autorandr.nix
+    ./apps/dunst.nix
+    ./apps/firefox.nix
     ./apps/flameshot.nix
     ./apps/i3.nix
     ./apps/neovim.nix
@@ -28,7 +30,6 @@
   services.network-manager-applet.enable = true;
   services.blueman-applet.enable = true;
   services.betterlockscreen.enable = true;
-  programs.firefox.enable = true;
   programs.git.enable = true;
   programs.opam.enable = true;
   programs.java.enable = true;
@@ -38,6 +39,13 @@
   };
 
   home.packages = with pkgs; [
+    # Temporary (for classes)
+    qgis
+
+    xcolor
+    vscode
+    qpdf
+    screenkey
     libnotify
     zoom-us
     ripgrep
@@ -45,38 +53,40 @@
     vlc
     simplescreenrecorder
     arandr
-    cmake
     discord
     element-desktop
-    gnome.nautilus
-    gnumake
+    xfce.thunar
     networkmanagerapplet
     obsidian
     pavucontrol
     playerctl
     brightnessctl
-    python311Packages.pygments # For using the `minted` package
     signal-desktop
     spotify
     unzip
     wget
     xclip
     # C/C++
+    cmake
+    gnumake
     gcc
     clang-tools
     # Rust
     cargo
     # Python
-    python3
-    python310Packages.python-lsp-server
-    mypy
+    python311
     black
+    mypy
+    nodePackages.pyright
     # Java
     jdt-language-server
+    java-language-server
     # JavaScript/TypeScript
-    typescript
     nodejs
-    nodePackages.prettier
+    typescript
+    nodePackages.typescript-language-server
+    # TODO: Add prettierd as a package
+    # nodePackages.prettierd
     # OCaml
     ocaml
     ocamlformat
@@ -90,7 +100,9 @@
     # Lua
     sumneko-lua-language-server
     stylua
+    selene
     # LaTeX
+    python311Packages.pygments # For using the `minted` package
     texlab
   ];
 

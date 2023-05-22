@@ -6,13 +6,17 @@
     windowManager.i3 = {
       enable = true;
       extraConfig = ''
-        exec_always --no-startup-id "pkill nm-applet; nm-applet"
-        exec_always --no-startup-id "pkill blueman-applet; blueman-applet"
+        # exec_always --no-startup-id "pkill nm-applet; nm-applet"
+        # exec_always --no-startup-id "pkill blueman-applet; blueman-applet"
         exec_always --no-startup-id polybar-msg cmd restart
         exec_always "xrandr --auto; autorandr --change"
       '';
       config = {
         modifier = "Mod4";
+        assigns = {
+          "8" = [{ class = "discord"; }];
+          # for_window [class="Spotify"] move to workspace number 9, workspace number 9
+        };
         defaultWorkspace = "workspace number 1";
         bars = [ ];
         colors = {
@@ -45,7 +49,7 @@
             "${mod}+Shift+s" = "exec --no-startup-id flameshot gui";
             "${mod}+w" =
               "exec --no-startup-id ~/.config/rofi/wifi-connect.sh &";
-            "${mod}+e" = "exec nautilus";
+            "${mod}+e" = "exec thunar";
             "${mod}+x" = "split h";
             "${mod}+v" = "split v";
             "${mod}+Shift+e" = ''
@@ -58,9 +62,9 @@
             "${mod}+Shift+c" = "reload";
             # Laptop keys
             "XF86MonBrightnessDown" =
-              "exec --no-startup-id brightnessctl -d 'intel_backlight' set 10%-";
+              "exec --no-startup-id brightnessctl -d 'intel_backlight' set 5%-";
             "XF86MonBrightnessUp" =
-              "exec --no-startup-id brightnessctl -d 'intel_backlight' set +10%";
+              "exec --no-startup-id brightnessctl -d 'intel_backlight' set +5%";
             "XF86AudioLowerVolume" =
               "exec --no-startup-id pactl set-sink-volume 1 -5%";
             "XF86AudioRaiseVolume" =
@@ -113,6 +117,7 @@
           "193" = "workspace next"; # Gesture left
           "194" = "workspace prev"; # Gesture right
           "195" = "exec --no-startup-id flameshot gui"; # Gesture down
+          "196" = "exec --no-startup-id xcolor -s clipboard"; # Gesture up
         };
       };
       # TODO: Fix this!

@@ -8,7 +8,9 @@
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./logiops.nix
+    ./keyd.nix
   ];
+  nixpkgs.config.permittedInsecurePackages = [ "electron-21.4.0" ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -22,10 +24,24 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
+  systemd.services.autorandr = {
+    wantedBy = [ "sleep.target" ];
+    after = [
+      "systemd-suspend.service"
+      "systemd-hybrid-sleep.service"
+      "systemd-hibernate.service"
+    ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "/home/kylec/test/test.sh";
+    };
+  };
+
   ### Enable some default programs
   networking.networkmanager.enable = true;
   programs.zsh.enable = true;
   programs.noisetorch.enable = true;
+  nix.settings.auto-optimise-store = true;
 
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
@@ -70,17 +86,6 @@
   #   MatchName=keyd virtual keyboard
   #   AttrKeyboardIntegration=internal
   # '';
-  services.keyd = {
-    enable = true;
-    ids = [ "*" ];
-    settings = {
-      main = {
-        capslock = "overload(meta, esc)";
-        esc = "capslock";
-      };
-    };
-  };
-
   # Power management
   services.tlp.enable = true;
 
@@ -91,7 +96,7 @@
   users.users.kylec = {
     isNormalUser = true;
     description = "Kyle Chui";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     shell = pkgs.zsh;
     packages = with pkgs; [ ];
   };
@@ -101,10 +106,12 @@
   # Enable Bluetooth
   hardware.bluetooth.enable = true;
   hardware.pulseaudio.enable = true;
+  virtualisation.docker.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [ ];
+  environment.wordlist.enable = true;
+  environment.systemPackages = with pkgs; [ scowl ];
 
   services.gvfs.enable = true;
 

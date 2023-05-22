@@ -3,7 +3,7 @@
 let
   colors = {
     background = "#181820";
-    background-alt = "#1F1F28";
+    background-alt = "#1f1f28";
     foreground = "#dcd7ba";
     foreground-alt = "#8a8980";
     primary = "#957fb8";
@@ -15,7 +15,10 @@ let
 in {
   services.polybar = {
     enable = true;
-    package = pkgs.polybar.override { i3Support = true; };
+    package = pkgs.polybar.override {
+      i3Support = true;
+      pulseSupport = true;
+    };
     script = "polybar -r top &";
     settings = {
       "bar/top" = {
@@ -30,21 +33,19 @@ in {
         modules-center = "date";
         modules-left = "cpu memory i3";
         modules-right =
-          "wlan pulseaudio battery"; # microphone volume xbacklight packages popup-calendar time";
+          "wlan pulseaudio battery"; # microphone xbacklight popup-calendar time";
         wm-restack = "i3";
       };
       "module/cpu" = {
         type = "internal/cpu";
         interval = 2;
         format-prefix = " ";
-        # format-prefix-foreground = colors.foreground;
         label = "%percentage:2%%";
       };
       "module/memory" = {
         type = "internal/memory";
         interval = 2;
         format-prefix = " ";
-        # format-prefix-foreground = colors.foreground;
         label = "%gb_used:8%/%gb_total%";
       };
       "module/i3" = {
@@ -69,40 +70,34 @@ in {
         interface = "wlo1";
         interface-type = "wireless";
         interval = 1;
-        ramp-signal-0 = "󰤯 ";
-        ramp-signal-1 = "󰤟 ";
-        ramp-signal-2 = "󰤢 ";
-        ramp-signal-3 = "󰤥 ";
-        ramp-signal-4 = "󰤨 ";
+        ramp-signal-0 = "󰤯";
+        ramp-signal-1 = "󰤟";
+        ramp-signal-2 = "󰤢";
+        ramp-signal-3 = "󰤥";
+        ramp-signal-4 = "󰤨";
         format-connected = "<ramp-signal> <label-connected>";
         label-connected = ''"%{A1:wifimenu:}%essid%%{A}"'';
         # label-connected-padding = "1";
         format-disconnected = "<label-disconnected>";
         # format-disconnected-padding = 1;
-        label-disconnected = "%{A1:wifimenu:}%{A}";
+        label-disconnected = "%{A1:wifimenu:}󰤮 %{A}";
         label-disconnected-foreground = colors.foreground-alt;
         # label-disconnected-padding = 1;
       };
       "module/pulseaudio" = { # TODO: Figure this out!
-        interval = 1;
         type = "internal/pulseaudio";
-        # format-muted = "<label-muted>";
-        # format-muted-prefix = "";
-        # format-muted-prefix-foreground = "${colors.overlay0}";
-        format-volume =
-          "%{A3:rofi-pulseaudio:}<ramp-volume> <label-volume>%{A}";
+        interval = 1;
+        format-muted = "<label-muted>";
+        format-muted-prefix = "󰝟 ";
+        format-muted-foreground = colors.muted;
+        # format-volume = "%{A3:rofi-pulseaudio:}<ramp-volume> <label-volume>%{A}";
+        format-volume = "<ramp-volume><label-volume>";
         ramp-volume-0 = " ";
         ramp-volume-1 = " ";
         ramp-volume-2 = " ";
-        click-right = "pavucontrol&";
-        # format-volume-prefix = "%{T4}%{T-}";
-        # format-volume-prefix-foreground =;
-        # label-muted = "%{T1}%percentage%%%{T-}";
-        # label-muted-foreground = colors.muted;
-        # label-muted-padding = 1;
-        # label-volume = "%{T1}%percentage%%%{T-}";
-        # label-volume-padding = 1;
-        use-ui-max = true;
+
+        click-right = "pavucontrol";
+        use-ui-max = false;
       };
       "module/battery" = {
         type = "internal/battery";
@@ -115,12 +110,11 @@ in {
         format-full-foreground = colors.green;
         format-discharging = "<ramp-capacity> <label-discharging>";
         format-charging = "<animation-charging> <label-charging>";
-        ramp-capacity-0 = "";
-        ramp-capacity-1 = "";
-        ramp-capacity-2 = "";
-        ramp-capacity-3 = "";
-        ramp-capacity-4 = "";
-        ramp-capacity-5 = "";
+        ramp-capacity-0 = "";
+        ramp-capacity-1 = "";
+        ramp-capacity-2 = "";
+        ramp-capacity-3 = "";
+        ramp-capacity-4 = "";
         animation-charging-framerate = 750;
         animation-charging-0 = "";
         animation-charging-1 = "";
@@ -423,22 +417,6 @@ in {
     #   format-prefix-foreground = ''${colors.foreground}
     #   format-label-foreground = ''${colors.urgent}
     #
-    #   [module/volume]
-    #   type = internal/pulseaudio
-    #
-    #   use-ui-max = true
-    #
-    #   format-volume = %{A3:rofi-pulseaudio:}<ramp-volume> <label-volume>%{A}
-    #   format-muted =  0%
-    #   format-muted-foreground = ''${colors.muted}
-    #   format-volume-foreground = ''${colors.foreground}
-    #   interval = 1
-    #
-    #   ramp-volume-0 = 
-    #   ramp-volume-1 = 
-    #   ramp-volume-2 = 
-    #
-    #   click-right = rofi-pulseaudio
     #   [module/microphone]
     #   type = custom/ipc
     #

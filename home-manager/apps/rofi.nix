@@ -8,12 +8,12 @@
       kb-row-up = "Up,Control+k";
       kb-row-down = "Down,Control+j";
       kb-remove-to-eol = "";
+      disable-history = true;
+      scroll-method = 1;
+      drun-display-format = "{name}";
       display-drun = "Applications:";
       display-window = "Windows:";
-      drun-display-format = "{name}";
       font = "JetBrainsMono Nerd Font Medium 11";
-      scroll-method = 1;
-      matching = "fuzzy";
     };
     theme = let inherit (config.lib.formats.rasi) mkLiteral;
     in {
