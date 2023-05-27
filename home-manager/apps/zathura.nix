@@ -71,7 +71,7 @@
       set notification-bg "#333333"
 
       set synctex true
-      set synctex-editor-command "neovim --remote +\"%{line}\" %{input}"
+      set synctex-editor-command "nvim --headless -c \"VimtexInverseSearch %{line} '%{input}'\""
 
       set notification-error-bg       "#282828" # bg
       set notification-error-fg       "#fb4934" # bright:red
