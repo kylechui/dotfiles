@@ -40,8 +40,8 @@
 
   home.packages = with pkgs; [
     # Temporary (for classes)
-    qgis
 
+    libreoffice-qt
     xcolor
     vscode
     qpdf
@@ -80,7 +80,6 @@
     nodePackages.pyright
     # Java
     jdt-language-server
-    java-language-server
     # JavaScript/TypeScript
     nodejs
     typescript
@@ -90,6 +89,7 @@
     # OCaml
     ocaml
     ocamlformat
+    dune_3
     # Haskell
     ghc
     haskell-language-server
