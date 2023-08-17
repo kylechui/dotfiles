@@ -7,6 +7,7 @@
     shellAliases = {
       e = "nvim";
       ll = "ls -al";
+      rm = "rm -I";
     };
     oh-my-zsh = {
       enable = true;
