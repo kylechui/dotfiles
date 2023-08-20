@@ -66,6 +66,7 @@
     unzip
     wget
     xclip
+    zoxide
     # C/C++
     cmake
     gnumake
