@@ -6,8 +6,6 @@
     windowManager.i3 = {
       enable = true;
       extraConfig = ''
-        # exec_always --no-startup-id "pkill nm-applet; nm-applet"
-        # exec_always --no-startup-id "pkill blueman-applet; blueman-applet"
         exec_always --no-startup-id polybar-msg cmd restart
         exec_always "xrandr --auto; autorandr --change"
       '';
@@ -17,6 +15,7 @@
           "8" = [{ class = "discord"; }];
           # for_window [class="Spotify"] move to workspace number 9, workspace number 9
         };
+        window.titlebar = false;
         defaultWorkspace = "workspace number 1";
         bars = [ ];
         colors = {
