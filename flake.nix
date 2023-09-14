@@ -9,24 +9,22 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, ... }:
-    let system = "x86_64-linux";
-    in {
-      nixosConfigurations = {
-        nixos = nixpkgs.lib.nixosSystem {
-          inherit system;
-          modules = [
-            ./nixos/configuration.nix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useUserPackages = true;
-                useGlobalPkgs = true;
-                users.kylec = ./home-manager/home.nix;
-              };
-            }
-          ];
-        };
+  outputs = { nixpkgs, home-manager, ... }: {
+    nixosConfigurations = {
+      nixos = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./nixos/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.kylec = import ./home-manager/home.nix;
+            };
+          }
+        ];
       };
     };
+  };
 }

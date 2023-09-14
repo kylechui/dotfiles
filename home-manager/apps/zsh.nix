@@ -1,9 +1,9 @@
 {
   programs.zsh = {
     enable = true;
+    syntaxHighlighting.enable = true;
     enableAutosuggestions = true;
     enableCompletion = true;
-    enableSyntaxHighlighting = true;
     shellAliases = {
       e = "nvim";
       ll = "ls -al";

@@ -1,8 +1,8 @@
 {
   services.keyd = {
     enable = true;
-    ids = [ "*" ];
-    settings = {
+    keyboards.default.ids = [ "*" ];
+    keyboards.default.settings = {
       main = {
         capslock = "overload(meta, esc)";
         esc = "capslock";
