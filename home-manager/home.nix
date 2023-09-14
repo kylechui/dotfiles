@@ -97,7 +97,7 @@
     haskell-language-server
     stylish-haskell
     # Nix
-    rnix-lsp
+    nixd
     nixfmt
     # Lua
     sumneko-lua-language-server

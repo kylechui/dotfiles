@@ -45,6 +45,10 @@
   programs.noisetorch.enable = true;
   nix.settings.auto-optimise-store = true;
 
+  # Enable flakes by default
+  nix.package = pkgs.nix;
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
 
