@@ -11,6 +11,8 @@ let
     urgent = "#c34043";
     green = "#76946a";
     red = "#c4746e";
+    orange = "#ffa066";
+    teal = "#949fb5";
   };
 in {
   services.polybar = {
@@ -39,14 +41,20 @@ in {
       "module/cpu" = {
         type = "internal/cpu";
         interval = 2;
-        format-prefix = " ";
         label = "%percentage:2%%";
+        format-prefix = " ";
+        format-foreground = colors.teal;
+        format-underline = colors.teal;
+        format-padding = 1;
       };
       "module/memory" = {
         type = "internal/memory";
         interval = 2;
-        format-prefix = " ";
         label = "%gb_used:8%/%gb_total%";
+        format-prefix = " ";
+        format-foreground = colors.orange;
+        format-underline = colors.orange;
+        format-padding = 1;
       };
       "module/i3" = {
         type = "internal/i3";
@@ -55,15 +63,20 @@ in {
         label-focused-foreground = colors.primary;
         label-focused-background = colors.background-alt;
         label-focused-underline = colors.primary;
-        label-focused = " %index% ";
-        label-unfocused = " %index% ";
+        label-focused = "%index%";
+        label-unfocused = "%index%";
+        label-focused-padding = 1;
+        label-unfocused-padding = 1;
       };
       "module/date" = {
         type = "internal/date";
         interval = 1;
         date = "%Y-%m-%d%";
         time = "%H:%M:%S";
-        label = "%date% %time%";
+        label = "%date%  %time%";
+        label-padding = "5px";
+        format-prefix = " ";
+        format-padding = 1;
       };
       "module/wlan" = {
         type = "internal/network";
@@ -80,6 +93,7 @@ in {
         format-disconnected = "<label-disconnected>";
         label-disconnected = "%{A1:wifimenu:}󰤮 %{A}";
         label-disconnected-foreground = colors.foreground-alt;
+        format-padding = 1;
       };
       "module/pulseaudio" = { # TODO: Figure this out!
         type = "internal/pulseaudio";
@@ -103,8 +117,10 @@ in {
         full-at = 98;
         format-low-prefix = "󰂃";
         format-low-foreground = colors.red;
+        label-low-underline = colors.red;
         format-full-prefix = "󰁹";
         format-full-foreground = colors.green;
+        format-full-underline = colors.green;
         format-discharging = "<ramp-capacity> <label-discharging>";
         format-charging = "<animation-charging> <label-charging>";
         ramp-capacity-0 = "󰁺";
@@ -118,10 +134,14 @@ in {
         animation-charging-2 = "󰁾";
         animation-charging-3 = "󰂀";
         animation-charging-4 = "󰂂";
-        label-low-padding = "4px";
-        label-full-padding = "4px";
-        label-charging-padding = "4px";
-        label-discharging-padding = "4px";
+        label-low-padding = "5px";
+        label-full-padding = "5px";
+        label-charging-padding = "5px";
+        label-discharging-padding = "5px";
+        format-low-padding = 1;
+        format-full-padding = 1;
+        format-charging-padding = 1;
+        format-discharging-padding = 1;
       };
     };
     # extraConfig = ''
