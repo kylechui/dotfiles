@@ -87,8 +87,7 @@
     nodejs
     typescript
     nodePackages.typescript-language-server
-    # TODO: Add prettierd as a package
-    # nodePackages.prettierd
+    prettierd
     # OCaml
     ocaml
     ocamlformat
