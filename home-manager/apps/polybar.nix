@@ -9,9 +9,10 @@ let
     primary = "#957fb8";
     muted = "#727169";
     urgent = "#c34043";
-    green = "#76946a";
     red = "#c4746e";
     orange = "#ffa066";
+    green = "#76946a";
+    blue = "#7e9cd8";
     teal = "#949fb5";
   };
 in {
@@ -34,8 +35,7 @@ in {
         module-margin-right = 1;
         modules-center = "date";
         modules-left = "cpu memory i3";
-        modules-right =
-          "wlan pulseaudio battery"; # microphone xbacklight popup-calendar time";
+        modules-right = "wlan bluetooth pulseaudio battery";
         wm-restack = "i3";
       };
       "module/cpu" = {
@@ -96,6 +96,17 @@ in {
         label-disconnected-foreground = colors.foreground-alt;
         format-padding = 1;
       };
+      "module/bluetooth" = {
+        type = "custom/script";
+        exec = "~/.config/polybar/bluetooth.sh";
+        interval = 5;
+        format =
+          "%{A1:/run/current-system/sw/bin/blueman-manager &:}󰂯 <label>%{A}";
+        format-foreground = colors.blue;
+        format-underline = colors.blue;
+        format-padding = 1;
+
+      };
       "module/pulseaudio" = { # TODO: Figure this out!
         type = "internal/pulseaudio";
         interval = 1;
@@ -151,6 +162,17 @@ in {
     text = ''
       close_on_unfocus = 1
       mainwindow_yoffset = 10
+    '';
+  };
+
+  home.file.".config/polybar/bluetooth.sh" = {
+    executable = true;
+    text = ''
+      PREFIX=/run/current-system/sw/bin
+      $PREFIX/bluetoothctl info \
+        | $PREFIX/grep "Alias:" \
+        | $PREFIX/head -n 1 \
+        | $PREFIX/sed -E "s/\s+Alias: (.*)/\1/"
     '';
   };
 }
