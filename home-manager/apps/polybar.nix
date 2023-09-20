@@ -101,11 +101,10 @@ in {
         exec = "~/.config/polybar/bluetooth.sh";
         interval = 5;
         format =
-          "%{A1:/run/current-system/sw/bin/blueman-manager &:}󰂯 <label>%{A}";
-        format-foreground = colors.blue;
+          "%{A1:/run/current-system/sw/bin/blueman-manager &:}<label>%{A}";
+        # format-foreground = colors.blue;
         format-underline = colors.blue;
         format-padding = 1;
-
       };
       "module/pulseaudio" = { # TODO: Figure this out!
         type = "internal/pulseaudio";
@@ -169,10 +168,15 @@ in {
     executable = true;
     text = ''
       PREFIX=/run/current-system/sw/bin
-      $PREFIX/bluetoothctl info \
+      DEVICE=$($PREFIX/bluetoothctl info \
         | $PREFIX/grep "Alias:" \
         | $PREFIX/head -n 1 \
-        | $PREFIX/sed -E "s/\s+Alias: (.*)/\1/"
+        | $PREFIX/sed -E "s/\s+Alias: (.*)/\1/")
+      if [[ ! -z $DEVICE ]]; then
+        echo "%{F${colors.blue}}󰂯 $DEVICE"
+      else
+        echo "%{F${colors.foreground-alt}}󰂲"
+      fi
     '';
   };
 }
