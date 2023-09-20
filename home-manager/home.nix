@@ -67,6 +67,7 @@
     wget
     xclip
     zoxide
+    gsimplecal
     nodePackages.vscode-langservers-extracted
     # C/C++
     cmake

@@ -74,8 +74,9 @@ in {
         date = "%Y-%m-%d%";
         time = "%H:%M:%S";
         label = "%date%  %time%";
-        label-padding = "5px";
-        format-prefix = " ";
+        format =
+          "%{A1:/etc/profiles/per-user/kylec/bin/gsimplecal:}  <label>%{A}";
+        format-underline = colors.foreground;
         format-padding = 1;
       };
       "module/wlan" = {
