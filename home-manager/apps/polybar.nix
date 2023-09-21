@@ -10,10 +10,14 @@ let
     muted = "#727169";
     urgent = "#c34043";
     red = "#c4746e";
+    red2 = "#d9a594";
+    yellow = "#dca561";
     orange = "#ffa066";
     green = "#76946a";
     blue = "#7e9cd8";
+    violet = "#9cabca";
     teal = "#949fb5";
+    pink = "#d27e99";
   };
 in {
   services.polybar = {
@@ -89,12 +93,16 @@ in {
         ramp-signal-2 = "󰤢";
         ramp-signal-3 = "󰤥";
         ramp-signal-4 = "󰤨";
-        format-connected = "<ramp-signal> <label-connected>";
         label-connected = ''"%{A1:wifimenu:}%essid%%{A}"'';
-        format-disconnected = "<label-disconnected>";
+        format-connected = "<ramp-signal> <label-connected>";
+        format-connected-foreground = colors.red2;
+        format-connected-underline = colors.red2;
+        format-connected-padding = 1;
         label-disconnected = "%{A1:wifimenu:}󰤮 %{A}";
         label-disconnected-foreground = colors.foreground-alt;
-        format-padding = 1;
+        format-disconnected = "<label-disconnected>";
+        format-disconnected-underline = colors.foreground-alt;
+        format-disconnected-padding = 1;
       };
       "module/bluetooth" = {
         type = "custom/script";
@@ -112,12 +120,15 @@ in {
         format-muted = "<label-muted>";
         format-muted-prefix = "󰝟 ";
         format-muted-foreground = colors.muted;
-        # format-volume = "%{A3:rofi-pulseaudio:}<ramp-volume> <label-volume>%{A}";
-        format-volume = "<ramp-volume><label-volume>";
+        format-muted-underline = colors.muted;
+        format-muted-padding = 1;
+        format-volume = "%{A3:pavucontrol &:}<ramp-volume><label-volume>%{A}";
+        format-volume-foreground = colors.pink;
+        format-volume-underline = colors.pink;
+        format-volume-padding = 1;
         ramp-volume-0 = " ";
         ramp-volume-1 = " ";
         ramp-volume-2 = " ";
-
         click-right = "pavucontrol";
         use-ui-max = false;
       };
