@@ -11,7 +11,7 @@ let
     urgent = "#c34043";
     red = "#c4746e";
     red2 = "#d9a594";
-    yellow = "#dca561";
+    yellow = "#f9d791";
     orange = "#ffa066";
     green = "#76946a";
     blue = "#7e9cd8";
@@ -139,12 +139,16 @@ in {
         full-at = 98;
         format-low-prefix = "󰂃";
         format-low-foreground = colors.red;
-        label-low-underline = colors.red;
+        format-low-underline = colors.red;
         format-full-prefix = "󰁹";
         format-full-foreground = colors.green;
         format-full-underline = colors.green;
-        format-discharging = "<ramp-capacity> <label-discharging>";
         format-charging = "<animation-charging> <label-charging>";
+        format-charging-foreground = colors.green;
+        format-charging-underline = colors.green;
+        format-discharging = "<ramp-capacity> <label-discharging>";
+        format-discharging-foreground = colors.yellow;
+        format-discharging-underline = colors.yellow;
         ramp-capacity-0 = "󰁺";
         ramp-capacity-1 = "󰁼";
         ramp-capacity-2 = "󰁾";
