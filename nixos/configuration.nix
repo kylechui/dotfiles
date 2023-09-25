@@ -43,6 +43,7 @@
   networking.networkmanager.enable = true;
   programs.zsh.enable = true;
   programs.noisetorch.enable = true;
+  programs.steam.enable = true;
   nix.settings.auto-optimise-store = true;
 
   # Enable flakes by default
