@@ -40,7 +40,7 @@
 
   home.packages = with pkgs; [
     # Temporary (for classes)
-    ungoogled-chromium
+    chromium
     libreoffice-qt
     xcolor
     vscode
