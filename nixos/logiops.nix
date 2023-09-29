@@ -8,13 +8,14 @@
   systemd.services.logiops = {
     enable = true;
     description = "An unofficial userspace driver for HID++ Logitech devices";
-    wantedBy = [ "sleep.target" ];
+    wantedBy = [ "multi-user.target" ];
     after = [
       "systemd-suspend.service"
       "systemd-hybrid-sleep.service"
       "systemd-hibernate.service"
     ];
     serviceConfig = {
+      Type = "exec";
       Restart = "always";
       ExecStart = "${pkgs.logiops}/bin/logid";
     };
