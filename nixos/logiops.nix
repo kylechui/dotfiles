@@ -9,11 +9,6 @@
     enable = true;
     description = "An unofficial userspace driver for HID++ Logitech devices";
     wantedBy = [ "multi-user.target" ];
-    after = [
-      "systemd-suspend.service"
-      "systemd-hybrid-sleep.service"
-      "systemd-hibernate.service"
-    ];
     serviceConfig = {
       Type = "exec";
       Restart = "always";
