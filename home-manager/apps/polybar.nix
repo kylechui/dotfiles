@@ -172,21 +172,20 @@ in {
     };
   };
 
-  home.file.".config/gsimplecal/config" = {
+  xdg.configFile."gsimplecal/config" = {
     text = ''
       close_on_unfocus = 1
       mainwindow_yoffset = 10
     '';
   };
 
-  home.file.".config/polybar/bluetooth.sh" = {
+  xdg.configFile."polybar/bluetooth.sh" = {
     executable = true;
     text = ''
-      PREFIX=/run/current-system/sw/bin
-      DEVICE=$($PREFIX/bluetoothctl info \
-        | $PREFIX/grep "Alias:" \
-        | $PREFIX/head -n 1 \
-        | $PREFIX/sed -E "s/\s+Alias: (.*)/\1/")
+      DEVICE=$(${pkgs.bluez}/bin/bluetoothctl info \
+        | ${pkgs.toybox}/bin/grep "Alias:" \
+        | ${pkgs.toybox}/bin/head -n 1 \
+        | ${pkgs.toybox}/bin/sed -E "s/\s+Alias: (.*)/\1/")
       if [[ ! -z $DEVICE ]]; then
         echo "%{F${colors.blue}}󰂯 $DEVICE"
       else
