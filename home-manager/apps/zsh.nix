@@ -8,6 +8,10 @@
       e = "nvim";
       ll = "ls -al";
       rm = "rm -I";
+      nf = "nix flake";
+      nfi = "nix flake init";
+      nfu = "nix flake update";
+      nd = "nix develop";
     };
     oh-my-zsh = {
       enable = true;
