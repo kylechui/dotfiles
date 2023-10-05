@@ -26,19 +26,6 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  systemd.services.autorandr = {
-    wantedBy = [ "sleep.target" ];
-    after = [
-      "systemd-suspend.service"
-      "systemd-hybrid-sleep.service"
-      "systemd-hibernate.service"
-    ];
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "/home/kylec/test/test.sh";
-    };
-  };
-
   ### Enable some default programs
   networking.networkmanager.enable = true;
   programs.zsh.enable = true;
@@ -84,6 +71,11 @@
       enable = true;
       extraPackages = with pkgs; [ ];
     };
+  };
+
+  services.autorandr = {
+    enable = true;
+    defaultTarget = "mobile";
   };
 
   # Overload caps lock to behave as super when held, esc when tapped
