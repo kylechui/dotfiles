@@ -5,6 +5,8 @@
   # paths it should manage.
   home.username = "kylec";
   home.homeDirectory = "/home/kylec";
+  # Necessary for some bug related to rendering manpage
+  manual.manpages.enable = false;
 
   home.pointerCursor = {
     gtk.enable = true;
@@ -91,7 +93,7 @@
     nodejs
     typescript
     nodePackages.typescript-language-server
-    prettierd
+    unstable.prettierd
     # OCaml
     ocaml
     ocamlformat
@@ -101,7 +103,7 @@
     haskell-language-server
     stylish-haskell
     # Nix
-    nixd
+    unstable.nixd
     nixfmt
     # Lua
     sumneko-lua-language-server
