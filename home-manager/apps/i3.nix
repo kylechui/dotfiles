@@ -45,6 +45,7 @@
             "${mod}+space" = "exec rofi -show drun";
             "${mod}+Return" = "exec wezterm";
             "${mod}+Shift+Return" = "exec firefox";
+            "${mod}+BackSpace" = "split toggle";
             "${mod}+Shift+s" = "exec --no-startup-id flameshot gui";
             "${mod}+w" =
               "exec --no-startup-id ~/.config/rofi/wifi-connect.sh &";
