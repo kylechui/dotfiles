@@ -45,6 +45,7 @@
             "${mod}+space" = "exec rofi -show drun";
             "${mod}+Return" = "exec wezterm";
             "${mod}+Shift+Return" = "exec firefox";
+            "${mod}+p" = "exec firefox --private-window";
             "${mod}+BackSpace" = "split toggle";
             "${mod}+Shift+s" = "exec --no-startup-id flameshot gui";
             "${mod}+w" =
