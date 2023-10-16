@@ -69,7 +69,7 @@
     };
     windowManager.i3 = {
       enable = true;
-      extraPackages = with pkgs; [ ];
+      extraPackages = [ ];
     };
   };
 
@@ -97,7 +97,7 @@
     description = "Kyle Chui";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     shell = pkgs.zsh;
-    packages = with pkgs; [ ];
+    packages = [ ];
   };
 
   # Allow unfree packages
