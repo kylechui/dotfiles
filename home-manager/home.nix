@@ -75,6 +75,7 @@
     zoxide
     gsimplecal
     nodePackages.vscode-langservers-extracted
+    tree
     # C/C++
     cmake
     gnumake
