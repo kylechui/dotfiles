@@ -46,6 +46,7 @@
 
   home.packages = with pkgs; [
     # Temporary (for classes)
+    unstable.localsend
     chromium
     libreoffice-qt
     xcolor
@@ -58,6 +59,7 @@
     nerdfonts
     vlc
     simplescreenrecorder
+    pandoc
     arandr
     discord
     element-desktop
