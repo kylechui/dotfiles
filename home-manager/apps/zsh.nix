@@ -11,7 +11,7 @@
       nf = "nix flake";
       nfi = "nix flake init";
       nfu = "nix flake update";
-      nd = "nix develop";
+      nd = "nix develop --ignore-environment";
     };
     oh-my-zsh = {
       enable = true;

@@ -83,8 +83,6 @@
     gnumake
     gcc
     clang-tools
-    # Rust
-    cargo
     # Python
     python311
     black
@@ -98,15 +96,14 @@
     nodePackages.typescript-language-server
     unstable.prettierd
     # OCaml
-    ocaml
     ocamlformat
     dune_3
+    ocamlPackages.ocaml-lsp
     # Haskell
-    ghc
     haskell-language-server
     stylish-haskell
     # Nix
-    unstable.nixd
+    unstable.nil
     nixfmt
     # Lua
     sumneko-lua-language-server
