@@ -45,39 +45,37 @@
   };
 
   home.packages = with pkgs; [
-    # Temporary (for classes)
-    unstable.localsend
-    chromium
-    libreoffice-qt
-    xcolor
-    vscode
-    qpdf
-    screenkey
-    libnotify
-    zoom-us
-    ripgrep
-    nerdfonts
-    vlc
-    simplescreenrecorder
-    pandoc
-    arandr
-    discord
-    element-desktop
-    xfce.thunar
-    networkmanagerapplet
-    obsidian
-    pavucontrol
-    playerctl
-    brightnessctl
-    signal-desktop
-    spotify
+    # CLI Utilities
+    zip
     unzip
-    wget
     xclip
     zoxide
-    gsimplecal
-    nodePackages.vscode-langservers-extracted
+    ripgrep
+    arandr
     tree
+    pandoc
+    gsimplecal # Pop-up calendar [polybar]
+    xcolor # Color picker [i3]
+    playerctl # Audio controls [i3]
+    brightnessctl # Brightness controls [i3]
+    libnotify # Notification daemon [rofi]
+    # Social
+    element-desktop
+    signal-desktop
+    discord
+    zoom-us
+    # Other apps
+    spotify
+    unstable.localsend
+    pavucontrol
+    obsidian
+    libreoffice-qt
+    screenkey
+    simplescreenrecorder
+
+    nerdfonts
+    xfce.thunar
+    nodePackages.vscode-langservers-extracted
     # C/C++
     cmake
     gnumake
