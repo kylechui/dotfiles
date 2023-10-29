@@ -10,7 +10,6 @@
     ./logiops.nix
     ./keyd.nix
   ];
-  nixpkgs.config.permittedInsecurePackages = [ "electron-21.4.0" ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
