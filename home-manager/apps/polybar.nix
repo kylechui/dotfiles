@@ -78,7 +78,7 @@ in {
         date = "%Y-%m-%d%";
         time = "%H:%M:%S";
         label = "%date%  %time%";
-        format = "%{A1:${pkgs.gsimplecal} &:}  <label>%{A}";
+        format = "%{A1:${pkgs.gsimplecal}/bin/gsimplecal &:}  <label>%{A}";
         format-underline = colors.foreground;
         format-padding = 1;
       };
