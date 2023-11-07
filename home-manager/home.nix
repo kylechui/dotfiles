@@ -103,6 +103,8 @@
     # Nix
     unstable.nil
     nixfmt
+    # Coq
+    coqPackages.coq-lsp
     # Lua
     sumneko-lua-language-server
     stylua
