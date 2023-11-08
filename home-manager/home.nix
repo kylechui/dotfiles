@@ -24,6 +24,7 @@
     ./apps/neovim.nix
     ./apps/polybar.nix
     ./apps/rofi.nix
+    ./apps/vscodium.nix
     ./apps/wezterm.nix
     ./apps/zathura.nix
     ./apps/zsh.nix
