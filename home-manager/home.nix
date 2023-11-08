@@ -17,6 +17,7 @@
 
   imports = [ # Include application-specific configuration
     ./apps/autorandr.nix
+    ./apps/chromium.nix
     ./apps/dunst.nix
     ./apps/firefox.nix
     ./apps/flameshot.nix
