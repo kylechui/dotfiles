@@ -13,6 +13,10 @@
     };
     functions = {
       fish_user_key_bindings = { body = "bind -k nul accept-autosuggestion"; };
+      last_history_item = { body = "echo -- $history[1]"; };
     };
+    shellInit = ''
+      abbr --add !! --position anywhere --function last_history_item
+    '';
   };
 }
