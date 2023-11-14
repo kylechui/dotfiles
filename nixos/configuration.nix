@@ -27,7 +27,7 @@
 
   ### Enable some default programs
   networking.networkmanager.enable = true;
-  programs.zsh.enable = true;
+  programs.fish.enable = true;
   programs.noisetorch.enable = true;
   nix.settings.auto-optimise-store = true;
 
@@ -94,7 +94,7 @@
     isNormalUser = true;
     description = "Kyle Chui";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
-    shell = pkgs.zsh;
+    shell = pkgs.fish;
     packages = [ ];
   };
 

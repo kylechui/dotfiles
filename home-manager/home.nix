@@ -20,7 +20,9 @@
     ./apps/chromium.nix
     ./apps/dunst.nix
     ./apps/firefox.nix
+    ./apps/fish.nix
     ./apps/flameshot.nix
+    ./apps/fzf.nix
     ./apps/i3.nix
     ./apps/neovim.nix
     ./apps/polybar.nix
@@ -28,7 +30,7 @@
     ./apps/vscodium.nix
     ./apps/wezterm.nix
     ./apps/zathura.nix
-    ./apps/zsh.nix
+    ./apps/zoxide.nix
   ];
 
   services.network-manager-applet.enable = true;
@@ -51,7 +53,6 @@
     zip
     unzip
     xclip
-    zoxide
     ripgrep
     arandr
     tree
