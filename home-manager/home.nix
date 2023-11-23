@@ -98,7 +98,6 @@
     unstable.prettierd
     # OCaml
     ocamlformat
-    dune_3
     ocamlPackages.ocaml-lsp
     # Haskell
     haskell-language-server
