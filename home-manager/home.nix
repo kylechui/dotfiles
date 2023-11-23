@@ -71,7 +71,7 @@
     spotify
     unstable.localsend
     pavucontrol
-    obsidian
+    unstable.obsidian
     libreoffice-qt
     screenkey
     simplescreenrecorder
