@@ -6,17 +6,26 @@ in {
     enable = true;
     windowManager.i3 = {
       enable = true;
-      extraConfig = ''
-        exec_always --no-startup-id polybar-msg cmd restart
-        exec_always "xrandr --auto; autorandr --change"
-      '';
       config = {
+        startup = [
+          {
+            command = "polybar-msg cmd restart";
+            always = true;
+          }
+          {
+            command = "autorandr --change";
+            always = true;
+          }
+        ];
         modifier = mod;
-        assigns = {
-          "8" = [{ class = "discord"; }];
-          # for_window [class="Spotify"] move to workspace number 9, workspace number 9
+        assigns = { "8" = [{ class = "discord"; }]; };
+        window = {
+          titlebar = false;
+          commands = [{
+            command = "move to workspace number 9";
+            criteria = { class = "Spotify"; };
+          }];
         };
-        window.titlebar = false;
         defaultWorkspace = "workspace number 1";
         bars = [ ];
         colors = {
