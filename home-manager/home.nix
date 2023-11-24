@@ -42,7 +42,6 @@
     userEmail = "kyle.chui+github@pm.me";
   };
   programs.opam.enable = true;
-  programs.java.enable = true;
   programs.texlive = {
     enable = true;
     extraPackages = tpkgs: { inherit (tpkgs) scheme-full; };
