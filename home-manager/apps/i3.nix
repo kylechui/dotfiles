@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 let mod = "Mod4";
 in {
@@ -9,11 +9,11 @@ in {
       config = {
         startup = [
           {
-            command = "polybar-msg cmd restart";
+            command = "${pkgs.polybar}/bin/polybar-msg cmd restart";
             always = true;
           }
           {
-            command = "autorandr --change";
+            command = "${pkgs.autorandr}/bin/autorandr --change";
             always = true;
           }
         ];
@@ -50,19 +50,21 @@ in {
         gaps = { smartBorders = "on"; };
         keybindings = {
           "${mod}+Tab" = "workspace back_and_forth";
-          "${mod}+space" = "exec rofi -show drun";
-          "${mod}+Return" = "exec wezterm";
-          "${mod}+Shift+Return" = "exec firefox";
-          "${mod}+p" = "exec firefox --private-window";
+          "${mod}+space" = "exec ${pkgs.rofi}/bin/rofi -show drun";
+          "${mod}+Return" = "exec ${pkgs.wezterm}/bin/wezterm";
+          "${mod}+Shift+Return" = "exec ${pkgs.firefox}/bin/firefox";
+          "${mod}+p" = "exec ${pkgs.firefox}/bin/firefox --private-window";
           "${mod}+BackSpace" = "split toggle";
-          "${mod}+Shift+s" = "exec --no-startup-id flameshot gui";
+          "${mod}+Shift+s" =
+            "exec --no-startup-id ${pkgs.flameshot}/bin/flameshot gui";
           "${mod}+w" = "exec --no-startup-id ~/.config/rofi/wifi-connect.sh &";
-          "${mod}+e" = "exec thunar";
+          "${mod}+e" = "exec ${pkgs.xfce.thunar}/bin/thunar";
           "${mod}+x" = "split h";
           "${mod}+v" = "split v";
           "${mod}+Shift+e" = ''
             exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"'';
-          "${mod}+Escape" = "exec betterlockscreen --lock --quiet";
+          "${mod}+Escape" =
+            "exec ${pkgs.betterlockscreen}/bin/betterlockscreen --lock --quiet";
           "${mod}+Shift+q" = "kill";
           "${mod}+f" = "fullscreen toggle";
           "${mod}+Shift+f" = "floating toggle";
@@ -70,17 +72,21 @@ in {
           "${mod}+Shift+c" = "reload";
           # Laptop keys
           "XF86MonBrightnessDown" =
-            "exec --no-startup-id brightnessctl -d 'intel_backlight' set 5%-";
+            "exec --no-startup-id ${pkgs.brightnessctl}/bin/brightnessctl -d 'intel_backlight' set 5%-";
           "XF86MonBrightnessUp" =
-            "exec --no-startup-id brightnessctl -d 'intel_backlight' set +5%";
+            "exec --no-startup-id ${pkgs.brightnessctl}/bin/brightnessctl -d 'intel_backlight' set +5%";
           "XF86AudioLowerVolume" =
-            "exec --no-startup-id pactl set-sink-volume 1 -5%";
+            "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-volume 1 -5%";
           "XF86AudioRaiseVolume" =
-            "exec --no-startup-id pactl set-sink-volume 1 +5%";
-          "XF86AudioPrev" = "exec --no-startup-id playerctl previous";
-          "XF86AudioPause" = "exec --no-startup-id playerctl play-pause";
-          "XF86AudioNext" = "exec --no-startup-id playerctl next";
-          "XF86AudioMute" = "exec --no-startup-id pactl set-sink-mute 1 toggle";
+            "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-volume 1 +5%";
+          "XF86AudioPrev" =
+            "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl previous";
+          "XF86AudioPause" =
+            "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl play-pause";
+          "XF86AudioNext" =
+            "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl next";
+          "XF86AudioMute" =
+            "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-mute 1 toggle";
           # Basic navigation keybinds
           "${mod}+h" = "focus left";
           "${mod}+j" = "focus down";
@@ -119,12 +125,18 @@ in {
           "${mod}+Shift+9" = "move container to workspace number 9";
           "${mod}+Shift+0" = "move container to workspace number 10";
         };
-        keycodebindings = {
-          # Logiops keycode bindings (set in logiops.nix)
-          "193" = "workspace next"; # Gesture left
-          "194" = "workspace prev"; # Gesture right
-          "195" = "exec --no-startup-id flameshot gui"; # Gesture down
-          "196" = "exec --no-startup-id xcolor -s clipboard"; # Gesture up
+        keycodebindings = let # Logiops keycode bindings (set in logiops.nix)
+          gesture_left = "193";
+          gesture_right = "194";
+          gesture_down = "195";
+          gesture_up = "196";
+        in {
+          ${gesture_left} = "workspace next";
+          ${gesture_right} = "workspace prev";
+          ${gesture_down} =
+            "exec --no-startup-id ${pkgs.flameshot}/bin/flameshot gui";
+          ${gesture_up} =
+            "exec --no-startup-id ${pkgs.xcolor}/bin/xcolor -s clipboard";
         };
       };
       # TODO: Fix this!

@@ -26,7 +26,7 @@ in {
       i3Support = true;
       pulseSupport = true;
     };
-    script = "polybar -r top &";
+    script = "${pkgs.polybar}/bin/polybar -r top &";
     settings = {
       "bar/top" = {
         background = colors.background;
@@ -92,12 +92,14 @@ in {
         ramp-signal-2 = "󰤢";
         ramp-signal-3 = "󰤥";
         ramp-signal-4 = "󰤨";
-        label-connected = ''"%{A1:wifimenu:}%essid%%{A}"'';
+        label-connected = ''
+          "%{A1:${pkgs.networkmanagerapplet}/bin/nm-connection-editor:}%essid%%{A}"'';
         format-connected = "<ramp-signal> <label-connected>";
         format-connected-foreground = colors.red2;
         format-connected-underline = colors.red2;
         format-connected-padding = 1;
-        label-disconnected = "%{A1:wifimenu:}󰤮 %{A}";
+        label-disconnected =
+          "%{A1:${pkgs.networkmanagerapplet}/bin/nm-connection-editor:}󰤮 %{A}";
         label-disconnected-foreground = colors.foreground-alt;
         format-disconnected = "<label-disconnected>";
         format-disconnected-underline = colors.foreground-alt;
@@ -107,9 +109,8 @@ in {
         type = "custom/script";
         exec = "~/.config/polybar/bluetooth.sh";
         interval = 5;
-        format =
-          "%{A1:/run/current-system/sw/bin/blueman-manager &:}<label>%{A}";
-        # format-foreground = colors.blue;
+        format = "%{A1:${pkgs.blueman}/bin/blueman-manager &:}<label>%{A}";
+        format-foreground = colors.blue;
         format-underline = colors.blue;
         format-padding = 1;
       };
@@ -121,7 +122,8 @@ in {
         format-muted-foreground = colors.muted;
         format-muted-underline = colors.muted;
         format-muted-padding = 1;
-        format-volume = "%{A3:pavucontrol &:}<ramp-volume><label-volume>%{A}";
+        format-volume =
+          "%{A3:${pkgs.pavucontrol}/bin/pavucontrol &:}<ramp-volume><label-volume>%{A}";
         format-volume-foreground = colors.pink;
         format-volume-underline = colors.pink;
         format-volume-padding = 1;

@@ -56,11 +56,6 @@
     arandr
     tree
     pandoc
-    gsimplecal # Pop-up calendar [polybar]
-    xcolor # Color picker [i3]
-    playerctl # Audio controls [i3]
-    brightnessctl # Brightness controls [i3]
-    libnotify # Notification daemon [rofi]
     # Social
     element-desktop
     signal-desktop

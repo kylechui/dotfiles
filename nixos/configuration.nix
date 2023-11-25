@@ -29,6 +29,7 @@
   networking.networkmanager.enable = true;
   programs.fish.enable = true;
   programs.noisetorch.enable = true;
+  programs.dconf.enable = true;
   nix.settings.auto-optimise-store = true;
 
   # Enable flakes by default
