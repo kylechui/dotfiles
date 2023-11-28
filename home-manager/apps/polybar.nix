@@ -26,9 +26,9 @@ in {
       i3Support = true;
       pulseSupport = true;
     };
-    script = "${pkgs.polybar}/bin/polybar -r top &";
+    script = "${pkgs.polybar}/bin/polybar &";
     settings = {
-      "bar/top" = {
+      "bar/default" = {
         background = colors.background;
         foreground = colors.foreground;
         enable-ipc = true;
@@ -40,7 +40,6 @@ in {
         modules-center = "date";
         modules-left = "cpu memory i3";
         modules-right = "wlan bluetooth pulseaudio battery";
-        wm-restack = "i3";
       };
       "module/cpu" = {
         type = "internal/cpu";
