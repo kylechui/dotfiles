@@ -1,18 +1,23 @@
 { pkgs, ... }:
 
 {
-  # Install logiops package
-  environment.systemPackages = [ pkgs.logiops ];
-
   # Create systemd service
   systemd.services.logiops = {
     enable = true;
     description = "An unofficial userspace driver for HID++ Logitech devices";
     wantedBy = [ "multi-user.target" ];
+    script = ''
+      #!/usr/bin/sh
+      while true; do
+        if ${pkgs.bluez}/bin/bluetoothctl devices Connected | ${pkgs.gnugrep}/bin/grep -q "MX Master 3" ; then
+          ${pkgs.logiops}/bin/logid
+        fi
+        sleep 5;
+      done
+    '';
     serviceConfig = {
-      Type = "exec";
+      Type = "simple";
       Restart = "always";
-      ExecStart = "${pkgs.logiops}/bin/logid";
     };
   };
 
