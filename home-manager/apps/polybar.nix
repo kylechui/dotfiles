@@ -19,14 +19,15 @@ let
     teal = "#949fb5";
     pink = "#d27e99";
   };
+  polybar = pkgs.polybar.override {
+    i3Support = true;
+    pulseSupport = true;
+  };
 in {
   services.polybar = {
     enable = true;
-    package = pkgs.polybar.override {
-      i3Support = true;
-      pulseSupport = true;
-    };
-    script = "${pkgs.polybar}/bin/polybar &";
+    package = polybar;
+    script = "${polybar}/bin/polybar &";
     settings = {
       "bar/default" = {
         background = colors.background;
