@@ -184,9 +184,9 @@ in {
     executable = true;
     text = ''
       DEVICE=$(${pkgs.bluez}/bin/bluetoothctl info \
-        | ${pkgs.toybox}/bin/grep "Alias:" \
-        | ${pkgs.toybox}/bin/head -n 1 \
-        | ${pkgs.toybox}/bin/sed -E "s/\s+Alias: (.*)/\1/")
+        | ${pkgs.gnugrep}/bin/grep "Alias:" \
+        | ${pkgs.coreutils}/bin/head -n 1 \
+        | ${pkgs.gnused}/bin/sed -E "s/\s+Alias: (.*)/\1/")
       if [[ ! -z $DEVICE ]]; then
         echo "%{F${colors.blue}}󰂯 $DEVICE"
       else
