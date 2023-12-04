@@ -56,6 +56,7 @@
     tree
     pandoc
     htop
+    libnotify
     # Social
     element-desktop
     signal-desktop

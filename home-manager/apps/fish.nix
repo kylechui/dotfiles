@@ -1,3 +1,5 @@
+{ pkgs, ... }:
+
 {
   programs.fish = {
     enable = true;
@@ -19,5 +21,14 @@
     shellInit = ''
       abbr --add !! --position anywhere --function last_history_item
     '';
+    plugins = [{
+      name = "done";
+      src = pkgs.fetchFromGitHub {
+        owner = "franciscolourenco";
+        repo = "done";
+        rev = "fbea3f682f9f32d957946490436e9dde8a67c367";
+        sha256 = "sha256-BGHfwKoMfOZUsa05kEt8W2luc1aC3Su/OyaGmcb4UiI=";
+      };
+    }];
   };
 }
