@@ -9,7 +9,7 @@
       nf = "nix flake";
       nfi = "nix flake init";
       nfu = "nix flake update";
-      nd = "nix develop";
+      nd = "nix develop --max-jobs auto --builders 'cores = 0'";
     };
     functions = {
       fish_user_key_bindings = { body = "bind -k nul accept-autosuggestion"; };
