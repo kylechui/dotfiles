@@ -1,3 +1,5 @@
+{ pkgs, ... }:
+
 {
   programs.wezterm = {
     enable = true;
@@ -45,6 +47,9 @@
           -- Font settings
           font = wezterm.font("JetBrains Mono"),
           font_size = 14.0,
+          default_prog = {
+            "${pkgs.bash}/bin/bash", "-c", "exec -- ${pkgs.fish}/bin/fish -l -i"
+          },
       }
     '';
   };

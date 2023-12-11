@@ -31,6 +31,7 @@
   programs.fish.enable = true;
   programs.noisetorch.enable = true;
   programs.dconf.enable = true;
+  programs.steam.enable = true;
   nix.settings.auto-optimise-store = true;
 
   # Enable flakes by default
@@ -78,13 +79,6 @@
     defaultTarget = "mobile";
   };
 
-  # Overload caps lock to behave as super when held, esc when tapped
-  # environment.etc."libinput/local-overrides.quirks".text = ''
-  #   [Serial Keyboards]
-  #   MatchUdevType=keyboard
-  #   MatchName=keyd virtual keyboard
-  #   AttrKeyboardIntegration=internal
-  # '';
   # Power management
   services.tlp.enable = true;
 
@@ -96,7 +90,7 @@
     isNormalUser = true;
     description = "Kyle Chui";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
-    shell = pkgs.fish;
+    shell = pkgs.bash;
     packages = [ ];
   };
 
