@@ -21,14 +21,32 @@
     shellInit = ''
       abbr --add !! --position anywhere --function last_history_item
     '';
-    plugins = [{
-      name = "done";
-      src = pkgs.fetchFromGitHub {
-        owner = "franciscolourenco";
-        repo = "done";
-        rev = "fbea3f682f9f32d957946490436e9dde8a67c367";
-        sha256 = "sha256-BGHfwKoMfOZUsa05kEt8W2luc1aC3Su/OyaGmcb4UiI=";
-      };
-    }];
+    plugins = [
+      {
+        name = "done";
+        src = pkgs.fetchFromGitHub {
+          owner = "franciscolourenco";
+          repo = "done";
+          rev = "fbea3f682f9f32d957946490436e9dde8a67c367";
+          sha256 = "sha256-BGHfwKoMfOZUsa05kEt8W2luc1aC3Su/OyaGmcb4UiI=";
+        };
+      }
+      {
+        name = "kanagawa";
+        src = pkgs.stdenv.mkDerivation {
+          name = "kanagawa-fish";
+          src = pkgs.fetchFromGitHub {
+            owner = "rebelot";
+            repo = "kanagawa.nvim";
+            rev = "c19b9023842697ec92caf72cd3599f7dd7be4456";
+            sha256 = "sha256-pbLcomZHzC2JGKF4oII6AAm5q/dzQtNfFAZVNX74nB8=";
+          };
+          buildPhase = ''
+            mkdir -p $out
+            mv extras/kanagawa.fish $out/init.fish
+          '';
+        };
+      }
+    ];
   };
 }
