@@ -31,7 +31,7 @@
     '';
     plugins = [{
       name = "done";
-      src = pkgs.fishPlugins.done;
+      src = pkgs.fishPlugins.done.src;
     }];
   };
 }
