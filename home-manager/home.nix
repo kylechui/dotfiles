@@ -74,6 +74,8 @@
     nerdfonts
     xfce.thunar
     nodePackages.vscode-langservers-extracted
+    # Shell
+    shellcheck
     # C/C++
     cmake
     gnumake
