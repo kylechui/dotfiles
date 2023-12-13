@@ -96,6 +96,7 @@
     # OCaml
     ocamlformat
     ocamlPackages.ocaml-lsp
+    dune_3
     # Haskell
     haskell-language-server
     stylish-haskell
