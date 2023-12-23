@@ -54,6 +54,31 @@
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
   };
+  i18n.inputMethod = {
+    enabled = "fcitx5";
+    fcitx5 = {
+      addons = [ pkgs.fcitx5-chinese-addons pkgs.fcitx5-rime pkgs.fcitx5-gtk ];
+      settings = {
+        globalOptions = { "Hotkey/TriggerKeys" = { "0" = "Alt+space"; }; };
+        inputMethod = {
+          "Groups/0" = {
+            Name = "Default";
+            "Default Layout" = "us";
+            DefaultIM = "keyboard-us";
+          };
+          "Groups/0/Items/0" = {
+            Name = "keyboard-us";
+            Layout = "";
+          };
+          "Groups/0/Items/1" = {
+            Name = "pinyin";
+            Layout = "";
+          };
+          GroupOrder = { "0" = "Default"; };
+        };
+      };
+    };
+  };
 
   services.xserver = {
     enable = true;
@@ -96,6 +121,7 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.permittedInsecurePackages = [ "electron-25.9.0" ];
   # Enable Bluetooth
   hardware.bluetooth.enable = true;
   hardware.pulseaudio.enable = true;
