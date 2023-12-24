@@ -12,6 +12,7 @@
     ./wifi.nix
     ./keyd.nix
     ./logiops.nix
+    ./noisetorch.nix
   ];
 
   # Bootloader.
@@ -30,7 +31,6 @@
   ### Enable some default programs
   networking.networkmanager.enable = true;
   programs.fish.enable = true;
-  programs.noisetorch.enable = true;
   programs.dconf.enable = true;
   programs.steam.enable = true;
   nix.settings.auto-optimise-store = true;
