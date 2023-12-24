@@ -2,21 +2,19 @@
 
 {
   # Create systemd service
+  # https://github.com/PixlOne/logiops/blob/5547f52cadd2322261b9fbdf445e954b49dfbe21/src/logid/logid.service.in
   systemd.services.logiops = {
-    enable = true;
-    description = "An unofficial userspace driver for HID++ Logitech devices";
-    wantedBy = [ "multi-user.target" ];
-    script = ''
-      while true; do
-        if ${pkgs.bluez}/bin/bluetoothctl devices Connected | ${pkgs.gnugrep}/bin/grep -q "MX Master 3" ; then
-          ${pkgs.logiops}/bin/logid
-        fi
-        sleep 5;
-      done
-    '';
+    description = "Logitech Configuration Daemon";
+    startLimitIntervalSec = 0;
+    after = [ "multi-user.target" ];
+    wants = [ "multi-user.target" ];
+    wantedBy = [ "graphical.target" ];
     serviceConfig = {
-      Restart = "always";
       Type = "simple";
+      # https://github.com/PixlOne/logiops/issues/269#issuecomment-1012608838
+      ExecStartPre = "${pkgs.kmod}/bin/modprobe hid_logitech_hidpp || :";
+      ExecStart = "${pkgs.logiops}/bin/logid";
+      User = "root";
     };
   };
 
