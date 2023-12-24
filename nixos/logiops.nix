@@ -7,7 +7,6 @@
     description = "An unofficial userspace driver for HID++ Logitech devices";
     wantedBy = [ "multi-user.target" ];
     script = ''
-      #!/usr/bin/sh
       while true; do
         if ${pkgs.bluez}/bin/bluetoothctl devices Connected | ${pkgs.gnugrep}/bin/grep -q "MX Master 3" ; then
           ${pkgs.logiops}/bin/logid
@@ -16,8 +15,8 @@
       done
     '';
     serviceConfig = {
-      Type = "simple";
       Restart = "always";
+      Type = "simple";
     };
   };
 
