@@ -11,10 +11,19 @@ in {
           {
             command = "${pkgs.polybar}/bin/polybar-msg cmd restart";
             always = true;
+            notification = false;
           }
           {
             command = "${pkgs.autorandr}/bin/autorandr --change";
             always = true;
+            notification = false;
+          }
+          {
+            # TODO: Figure out why providing raw path doesn't work
+            # Environment variables are likely not set properly
+            command = "fcitx5";
+            always = true;
+            notification = false;
           }
         ];
         modifier = mod;

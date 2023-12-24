@@ -1,16 +1,20 @@
 { pkgs, ... }:
 
 {
-  #   # Create fcitx5 service
-  #   systemd.services.bruhmoment = {
-  #     description = "Fcitx5 Input Method";
-  #     wantedBy = [ "graphical-session.target" ];
-  #     serviceConfig = {
-  #       ExecStart = "${pkgs.fcitx5}/bin/fcitx5";
-  #       Restart = "always";
-  #       Type = "simple";
-  #     };
+  # TODO: Fix this systemd service
+  # Create fcitx5 service
+  # systemd.services.fcitx5-daemon = {
+  #   description = "Fcitx5 Input Method Editor";
+  #   wantedBy = [ "graphical-session.target" ];
+  #   partOf = [ "graphical-session.target" ];
+  #   # after = [ "graphical-session-pre.target" ];
+  #   serviceConfig = {
+  #     ExecStart = "${pkgs.fcitx5}/bin/fcitx5";
+  #     Restart = "on-failure";
+  #     # Type = "forking";
   #   };
+  # };
+
   i18n.inputMethod = {
     enabled = "fcitx5";
     fcitx5 = {
