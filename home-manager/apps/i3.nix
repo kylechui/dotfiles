@@ -25,6 +25,13 @@ in {
             always = true;
             notification = false;
           }
+          {
+            # TODO: Figure out why providing raw path doesn't work
+            # Using /run/wrappers/bin/noisetorch doesn't work either
+            command = "noisetorch -i";
+            always = true;
+            notification = false;
+          }
         ];
         modifier = mod;
         assigns = { "8" = [{ class = "discord"; }]; };
