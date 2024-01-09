@@ -6,8 +6,7 @@
   systemd.services.logiops = {
     description = "Logitech Configuration Daemon";
     startLimitIntervalSec = 0;
-    after = [ "multi-user.target" ];
-    wants = [ "multi-user.target" ];
+    after = [ "graphical.target" ];
     wantedBy = [ "graphical.target" ];
     serviceConfig = {
       Type = "simple";
