@@ -100,7 +100,11 @@
   nixpkgs.config.permittedInsecurePackages = [ "electron-25.9.0" ];
   # Enable Bluetooth
   hardware.bluetooth.enable = true;
-  hardware.pulseaudio.enable = true;
+  # hardware.pulseaudio.enable = true;
+  services.pipewire = {
+    enable = true;
+    pulse.enable = true;
+  };
   virtualisation.docker.enable = true;
 
   # List packages installed in system profile. To search, run:
