@@ -21,7 +21,7 @@ in {
           {
             # TODO: Figure out why providing raw path doesn't work
             # Environment variables are likely not set properly
-            command = "fcitx5";
+            command = "fcitx5 -d -r";
             always = true;
             notification = false;
           }
