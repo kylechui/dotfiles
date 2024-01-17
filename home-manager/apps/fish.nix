@@ -14,7 +14,13 @@
       nd = "nix develop --max-jobs auto --builders 'cores = 0'";
     };
     functions = {
-      fish_user_key_bindings = { body = "bind -k nul accept-autosuggestion"; };
+      fish_user_key_bindings = {
+        body = ''
+          # Use `fish_key_reader` to figure out key sequences
+          bind -k nul accept-autosuggestion # This is <C-Space>
+          bind -k backspace backward-kill-word # This is <C-BS>
+        '';
+      };
       fish_greeting = { body = ""; };
       last_history_item = { body = "echo -- $history[1]"; };
     };
