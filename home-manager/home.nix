@@ -57,6 +57,7 @@
     pandoc
     htop
     libnotify
+    sshfs
     # Social
     element-desktop
     signal-desktop
@@ -66,7 +67,7 @@
     spotify
     unstable.localsend
     pavucontrol
-    unstable.obsidian
+    obsidian
     libreoffice-qt
     screenkey
     simplescreenrecorder
