@@ -35,9 +35,18 @@
         }
       }
     '';
-    plugins = [{
-      name = "done";
-      src = pkgs.fishPlugins.done.src;
-    }];
+    plugins = [
+      {
+        name = "done";
+        src = pkgs.fishPlugins.done.src;
+      }
+      {
+        name = "colored-manpages";
+        src = fetchGit {
+          url = "https://github.com/decors/fish-colored-man";
+          rev = "1ad8fff696d48c8bf173aa98f9dff39d7916de0e";
+        };
+      }
+    ];
   };
 }
