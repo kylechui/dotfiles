@@ -3,6 +3,9 @@
 {
   programs.fish = {
     enable = true;
+    interactiveShellInit = ''
+      set -g fish_key_bindings fish_vi_key_bindings 
+    '';
     shellAliases = {
       e = "nvim";
       ll = "ls -al";
@@ -17,12 +20,11 @@
       fish_user_key_bindings = {
         body = ''
           # Use `fish_key_reader` to figure out key sequences
-          bind -k nul accept-autosuggestion # This is <C-Space>
-          bind -k backspace backward-kill-word # This is <C-BS>
+          bind -M insert -k nul accept-autosuggestion # This is <C-Space>
+          bind -M insert -k backspace backward-kill-word # This is <C-BS>
         '';
       };
       fish_greeting = { body = ""; };
-
       pretty_ms = {
         argumentNames = [ "ms" "interval" ];
         body = ''
