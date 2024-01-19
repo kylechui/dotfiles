@@ -24,6 +24,7 @@
       fish_greeting = { body = ""; };
 
       pretty_ms = {
+        argumentNames = [ "ms" "interval" ];
         body = ''
           set -l interval_ms
           set -l scale 1
