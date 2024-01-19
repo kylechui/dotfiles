@@ -22,6 +22,63 @@
         '';
       };
       fish_greeting = { body = ""; };
+
+      pretty_ms = {
+        body = ''
+          set -l interval_ms
+          set -l scale 1
+
+          switch $interval
+            case s
+              set interval_ms 1000
+            case m
+              set interval_ms 60000
+            case h
+              set interval_ms 3600000
+              set scale 2
+            end
+
+          math -s$scale "$ms/$interval_ms"
+          echo -ns $interval
+        '';
+      };
+      cmd_duration = {
+        body = ''
+          [ -z "$CMD_DURATION" -o "$CMD_DURATION" -lt 100 ]
+          and return
+
+          if [ "$CMD_DURATION" -lt 5000 ]
+            echo -ns $CMD_DURATION 'ms'
+          else if [ "$CMD_DURATION" -lt 60000 ]
+            pretty_ms $CMD_DURATION s
+          else if [ "$CMD_DURATION" -lt 3600000 ]
+            set_color $fish_color_error
+            pretty_ms $CMD_DURATION m
+          else
+            set_color $fish_color_error
+            pretty_ms $CMD_DURATION h
+          end
+
+          set_color $fish_color_normal
+          set_color $fish_color_autosuggestion
+
+          echo -ns ' ⮂ '
+        '';
+      };
+      fish_right_prompt = {
+        body = ''
+          set -l theme_date_format "+%H:%M:%S "
+          set -l theme_date_timezone "America/Los_Angeles"
+          set_color $fish_color_autosuggestion
+
+          # Show the duration of the last command
+          cmd_duration
+          # Show the current time
+          date $theme_date_format
+
+          set_color normal
+        '';
+      };
       last_history_item = { body = "echo -- $history[1]"; };
     };
     shellInit = ''
