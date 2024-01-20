@@ -75,6 +75,28 @@
           echo -ns ' ⮂ '
         '';
       };
+      fish_mode_prompt = {
+        body = ''
+          switch $fish_bind_mode
+            case default
+              set_color --bold 7E9CD8
+              echo '[N] '
+            case insert
+              set_color --bold 76946A
+              echo '[I] '
+            case replace replace_one
+              set_color --bold FF9E64
+              echo '[R] '
+            case visual
+              set_color --bold 957FB8
+              echo '[V] '
+            case '*'
+              set_color --bold red
+              echo '[?] '
+          end
+          set_color normal
+        '';
+      };
       fish_right_prompt = {
         body = ''
           set -l theme_date_format "+%H:%M:%S "
