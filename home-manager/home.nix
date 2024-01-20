@@ -24,6 +24,7 @@
     ./apps/flameshot.nix
     ./apps/fzf.nix
     ./apps/i3.nix
+    ./apps/ncspot.nix
     ./apps/neovim.nix
     ./apps/polybar.nix
     ./apps/rofi.nix
