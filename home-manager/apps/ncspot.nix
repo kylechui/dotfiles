@@ -12,15 +12,17 @@
       use_nerdfont = true;
       keybindings = {
         "a" = "focus library";
-        "d" = "noop";
-        "s" = "shuffle";
         "q" = "focus queue";
+        "Ctrl+f" = "focus search";
+        "s" = "shuffle";
         "y" = "share selected";
         "Space" = "toggleplayback";
-        "Ctrl+f" = "search";
+        "Ctrl+d" = "move down 20";
+        "Ctrl+u" = "move up 20";
         "Shift+j" = "move down 5";
         "Shift+k" = "move up 5";
         "Shift+q" = "quit";
+        "d" = "noop";
       };
     };
   };
