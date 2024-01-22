@@ -24,6 +24,23 @@
       nd = "nix develop --max-jobs auto --builders 'cores = 0'";
     };
     functions = {
+      gwa = {
+        argumentNames = [ "branch" ];
+        description = "git worktree add";
+        body = ''
+          git branch $branch
+          git worktree add $branch $branch
+          cd $branch
+        '';
+      };
+      gwr = {
+        argumentNames = [ "branch" ];
+        description = "git worktree remove";
+        body = ''
+          git worktree remove $branch
+          git branch -D $branch
+        '';
+      };
       fish_user_key_bindings = {
         body = ''
           # Use `fish_key_reader` to figure out key sequences
