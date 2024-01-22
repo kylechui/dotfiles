@@ -28,6 +28,15 @@
         argumentNames = [ "branch" ];
         description = "git worktree add";
         body = ''
+          set -l current_dir (pwd)
+          while not test -d "worktrees"
+            cd ..
+            if test (pwd) = "/"
+              echo "Could not find worktrees directory"
+              cd $current_dir
+              return 1
+            end
+          end
           git branch $branch
           git worktree add $branch $branch
           cd $branch
@@ -37,8 +46,18 @@
         argumentNames = [ "branch" ];
         description = "git worktree remove";
         body = ''
+          set -l current_dir (pwd)
+          while not test -d "worktrees"
+            cd ..
+            if test (pwd) = "/"
+              echo "Could not find worktrees directory"
+              cd $current_dir
+              return 1
+            end
+          end
           git worktree remove $branch
           git branch -D $branch
+          cd $current_dir
         '';
       };
       fish_user_key_bindings = {
