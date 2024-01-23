@@ -18,15 +18,15 @@
       ll = "ls -al";
       rm = "rm -I";
       gst = "git status";
+      gf = "git fetch --all";
       nf = "nix flake";
       nfi = "nix flake init";
       nfu = "nix flake update";
       nd = "nix develop --max-jobs auto --builders 'cores = 0'";
     };
     functions = {
-      gwa = {
-        argumentNames = [ "branch" ];
-        description = "git worktree add";
+      gc = {
+        description = "git checkout";
         body = ''
           set -l current_dir (pwd)
           while not test -d "worktrees"
@@ -37,7 +37,33 @@
               return 1
             end
           end
+          set -l branch (
+            ${pkgs.git}/bin/git branch --list \
+            | ${pkgs.gnused}/bin/sed -E "s/^.{2}//" \
+            | ${pkgs.fzf}/bin/fzf
+          )
+          if test -z $branch
+            echo "No branch selected"
+            cd $current_dir
+            return 1
+          end
+          cd $branch
+        '';
+      };
+      gwa = {
+        argumentNames = [ "branch" ];
+        description = "git worktree add";
+        body = ''
           git branch $branch
+          set -l current_dir (pwd)
+          while not test -d "worktrees"
+            cd ..
+            if test (pwd) = "/"
+              echo "Could not find worktrees directory"
+              cd $current_dir
+              return 1
+            end
+          end
           git worktree add $branch $branch
           cd $branch
         '';
