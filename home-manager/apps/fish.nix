@@ -17,26 +17,39 @@
       e = "nvim";
       ll = "ls -al";
       rm = "rm -I";
-      gst = "git status";
+      gc = "git_checkout";
+      gwa = "git_worktree_add";
+      gwr = "git_worktree_remove";
       gf = "git fetch --all";
+      gst = "git status";
       nf = "nix flake";
       nfi = "nix flake init";
       nfu = "nix flake update";
       nd = "nix develop --max-jobs auto --builders 'cores = 0'";
     };
     functions = {
-      gc = {
-        description = "git checkout";
+      find_git_repository = {
+        description =
+          "Recursively search upwards to find the root of the git repository";
         body = ''
-          set -l current_dir (pwd)
-          while not test -d "worktrees"
+          set -l original_dir (pwd)
+          while not test -d ".git" -o -d "worktrees"
             cd ..
             if test (pwd) = "/"
-              echo "Could not find worktrees directory"
-              cd $current_dir
+              echo "Could not find git repository"
+              cd $original_dir
               return 1
             end
           end
+          echo (pwd)
+          cd $original_dir
+        '';
+      };
+      git_checkout = {
+        description = "git checkout";
+        body = ''
+          set -l original_dir (pwd)
+          cd (find_git_repository)
           set -l branch (
             ${pkgs.git}/bin/git branch --list \
             | ${pkgs.gnused}/bin/sed -E "s/^.{2}//" \
@@ -44,46 +57,32 @@
           )
           if test -z $branch
             echo "No branch selected"
-            cd $current_dir
+            cd $original_dir
             return 1
           end
           cd $branch
         '';
       };
-      gwa = {
-        argumentNames = [ "branch" ];
+      git_worktree_add = {
         description = "git worktree add";
+        argumentNames = [ "branch" ];
         body = ''
+          set -l original_dir (pwd)
+          cd (find_git_repository)
           git branch $branch
-          set -l current_dir (pwd)
-          while not test -d "worktrees"
-            cd ..
-            if test (pwd) = "/"
-              echo "Could not find worktrees directory"
-              cd $current_dir
-              return 1
-            end
-          end
           git worktree add $branch $branch
           cd $branch
         '';
       };
-      gwr = {
-        argumentNames = [ "branch" ];
+      git_worktree_remove = {
         description = "git worktree remove";
+        argumentNames = [ "branch" ];
         body = ''
-          set -l current_dir (pwd)
-          while not test -d "worktrees"
-            cd ..
-            if test (pwd) = "/"
-              echo "Could not find worktrees directory"
-              cd $current_dir
-              return 1
-            end
-          end
+          set -l original_dir (pwd)
+          cd (find_git_repository)
           git worktree remove $branch
           git branch -D $branch
-          cd $current_dir
+          cd $original_dir
         '';
       };
       fish_user_key_bindings = {
