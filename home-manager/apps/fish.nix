@@ -36,7 +36,7 @@
           while not test -d ".git" -o -d "worktrees"
             cd ..
             if test (pwd) = "/"
-              echo "Could not find git repository"
+              echo "Could not find git repository" >&2
               cd $original_dir
               return 1
             end
@@ -56,7 +56,7 @@
             | ${pkgs.fzf}/bin/fzf
           )
           if test -z $branch
-            echo "No branch selected"
+            echo "No branch selected" &>2
             cd $original_dir
             return 1
           end
@@ -67,10 +67,9 @@
         description = "git worktree add";
         argumentNames = [ "branch" ];
         body = ''
-          set -l original_dir (pwd)
           cd (find_git_repository)
-          git branch $branch
-          git worktree add $branch $branch
+          ${pkgs.git}/bin/git branch $branch
+          ${pkgs.git}/bin/git worktree add $branch $branch
           cd $branch
         '';
       };
@@ -80,8 +79,8 @@
         body = ''
           set -l original_dir (pwd)
           cd (find_git_repository)
-          git worktree remove $branch
-          git branch -D $branch
+          ${pkgs.git}/bin/git worktree remove $branch
+          ${pkgs.git}/bin/git branch -D $branch
           cd $original_dir
         '';
       };
