@@ -45,10 +45,17 @@
           cd $original_dir
         '';
       };
+      branch_exists = {
+        description = "Check if a branch exists";
+        argumentNames = [ "branch" ];
+        body = ''
+          ${pkgs.git}/bin/git branch --all | ${pkgs.gnugrep}/bin/grep -q "$branch"
+        '';
+      };
       get_branches = {
         description = "List all branches in the current git repository";
         body = ''
-          ${pkgs.git}/bin/git branch --list \
+          ${pkgs.git}/bin/git branch --all \
           | ${pkgs.gnused}/bin/sed -E "s/^.{2}//"
         '';
       };
@@ -94,8 +101,19 @@
         body = ''
           set -l original_dir (pwd)
           cd (find_git_repository)
-          ${pkgs.git}/bin/git worktree remove $branch
-          ${pkgs.git}/bin/git branch -D $branch
+          if test -z $branch
+            set -f branch (get_branches | ${pkgs.fzf}/bin/fzf)
+            if test -z $branch
+              echo "No branch selected" >&2
+              return 1
+            end
+          end
+          if test -d $branch
+            ${pkgs.git}/bin/git worktree remove $branch
+          end
+          if branch_exists $branch
+            ${pkgs.git}/bin/git branch -D $branch
+          end
           cd $original_dir
         '';
       };
