@@ -33,7 +33,7 @@
           "Recursively search upwards to find the root of the git repository";
         body = ''
           set -l original_dir (pwd)
-          while not test -d ".git" -o -d "worktrees"
+          while not test -d ".git" -o -f "packed-refs"
             cd ..
             if test (pwd) = "/"
               echo "Could not find git repository" >&2
@@ -45,21 +45,25 @@
           cd $original_dir
         '';
       };
+      get_branches = {
+        description = "List all branches in the current git repository";
+        body = ''
+          ${pkgs.git}/bin/git branch --list \
+          | ${pkgs.gnused}/bin/sed -E "s/^.{2}//"
+        '';
+      };
       git_checkout = {
         description = "git checkout";
+        argumentNames = [ "name" ];
         body = ''
           set -l original_dir (pwd)
-          cd (find_git_repository)
-          set -l branch (
-            ${pkgs.git}/bin/git branch --list \
-            | ${pkgs.gnused}/bin/sed -E "s/^.{2}//" \
-            | ${pkgs.fzf}/bin/fzf
-          )
+          set -l branch (get_branches | ${pkgs.fzf}/bin/fzf --query="$name")
           if test -z $branch
-            echo "No branch selected" &>2
+            echo "No branch selected" >&2
             cd $original_dir
             return 1
           end
+          cd (find_git_repository)
           cd $branch
         '';
       };
@@ -67,9 +71,20 @@
         description = "git worktree add";
         argumentNames = [ "branch" ];
         body = ''
+          if test -z $branch
+            set -f branch (get_branches | ${pkgs.fzf}/bin/fzf)
+            if test -z $branch
+              echo "No branch selected" >&2
+              return 1
+            end
+          end
           cd (find_git_repository)
-          ${pkgs.git}/bin/git branch $branch
-          ${pkgs.git}/bin/git worktree add $branch $branch
+          if not ${pkgs.git}/bin/git rev-parse --verify $branch >/dev/null
+              ${pkgs.git}/bin/git branch $branch
+          end
+          if not test -d $branch
+            ${pkgs.git}/bin/git worktree add $branch $branch
+          end
           cd $branch
         '';
       };
