@@ -86,8 +86,8 @@
             end
           end
           cd (find_git_repository)
-          if not ${pkgs.git}/bin/git rev-parse --verify $branch >/dev/null
-              ${pkgs.git}/bin/git branch $branch
+          if not branch_exists $branch
+            ${pkgs.git}/bin/git branch $branch
           end
           if not test -d $branch
             ${pkgs.git}/bin/git worktree add $branch $branch
