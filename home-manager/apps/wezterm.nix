@@ -4,8 +4,6 @@
   programs.wezterm = {
     enable = true;
     extraConfig = ''
-      local wezterm = require("wezterm")
-
       return {
           -- Fix font size issue with i3wm
           adjust_window_size_when_changing_font_size = false,
