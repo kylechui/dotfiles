@@ -79,7 +79,12 @@
         argumentNames = [ "branch" ];
         body = ''
           if test -z $branch
-            set -f branch (get_branches | ${pkgs.fzf}/bin/fzf)
+            set -f branch (
+              ${pkgs.git}/bin/git ls-remote \
+              | ${pkgs.gnugrep}/bin/grep "refs/heads" \
+              | ${pkgs.gnused}/bin/sed -E "s/^.*\s*refs\/heads\/(.*)\$/\1/" \
+              | ${pkgs.fzf}/bin/fzf
+            )
             if test -z $branch
               echo "No branch selected" >&2
               return 1
