@@ -9,11 +9,6 @@ in {
       config = {
         startup = [
           {
-            command = "${pkgs.autorandr}/bin/autorandr --change";
-            always = true;
-            notification = false;
-          }
-          {
             # TODO: Figure out why providing raw path doesn't work
             # Environment variables are likely not set properly
             command = "fcitx5 -d -r";
