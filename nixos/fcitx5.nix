@@ -26,10 +26,12 @@
         pkgs.fcitx5-chinese-addons
         pkgs.fcitx5-rime
         pkgs.fcitx5-gtk
-        pkgs.fcitx5-nord
+        pkgs.fcitx5-material-color
       ];
       settings = {
-        addons = { classicui.globalSection.Theme = "Nord-Dark"; };
+        addons = {
+          classicui.globalSection.Theme = "Material-Color-deepPurple";
+        };
         globalOptions = { "Hotkey/TriggerKeys" = { "0" = "Alt+space"; }; };
         inputMethod = {
           "Groups/0" = {
