@@ -1,3 +1,5 @@
+{ pkgs, ... }:
+
 {
   programs.autorandr = {
     enable = true;
@@ -34,6 +36,9 @@
           };
         };
       };
+    };
+    hooks.postswitch = {
+      "restart-polybar" = "${pkgs.polybar}/bin/polybar-msg cmd restart";
     };
   };
 }

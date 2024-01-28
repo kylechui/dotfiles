@@ -9,11 +9,6 @@ in {
       config = {
         startup = [
           {
-            command = "${pkgs.polybar}/bin/polybar-msg cmd restart";
-            always = true;
-            notification = false;
-          }
-          {
             command = "${pkgs.autorandr}/bin/autorandr --change";
             always = true;
             notification = false;
