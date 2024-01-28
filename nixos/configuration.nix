@@ -35,6 +35,16 @@
   programs.steam.enable = true;
   nix.settings.auto-optimise-store = true;
 
+  # Execute XDG Autostart items, even with no desktop manager
+  services.xserver.desktopManager.runXdgAutostartIfNone = true;
+  environment.etc."xdg/autostart/disable-touchscreen.desktop".text = ''
+    [Desktop Entry]
+    Name=Disable Touchscreen
+    Comment=Disable Touchscreen
+    Exec=${pkgs.xorg.xinput}/bin/xinput disable 'ELAN2514:00 04F3:29E0'
+    X-GNOME-Autostart-enabled=true
+  '';
+
   # Enable flakes by default
   nix.package = pkgs.nix;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

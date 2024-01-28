@@ -14,12 +14,6 @@ in {
             notification = false;
           }
           {
-            # Disable laptop touchscreen
-            command = "xinput disable 'ELAN2514:00 04F3:29E0'";
-            always = true;
-            notification = false;
-          }
-          {
             # TODO: Figure out why providing raw path doesn't work
             # Environment variables are likely not set properly
             command = "fcitx5 -d -r";
