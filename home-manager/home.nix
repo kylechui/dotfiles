@@ -37,11 +37,18 @@
   services.network-manager-applet.enable = true;
   services.blueman-applet.enable = true;
   services.betterlockscreen.enable = true;
+
   programs.git = {
     enable = true;
     userName = "Kyle Chui";
     userEmail = "kyle.chui+github@pm.me";
+    iniContent = {
+      commit.gpgSign = true;
+      gpg.format = "ssh";
+      user.signingKey = "~/.ssh/id_ed25519.pub";
+    };
   };
+
   programs.texlive = {
     enable = true;
     extraPackages = tpkgs: { inherit (tpkgs) scheme-full; };
