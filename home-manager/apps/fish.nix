@@ -19,6 +19,7 @@
       e = "nvim";
       ll = "ls -al";
       rm = "rm -I";
+      gm = "git mergetool";
       gc = "git_checkout";
       gwa = "git_worktree_add";
       gwr = "git_worktree_remove";

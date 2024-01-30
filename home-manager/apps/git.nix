@@ -11,7 +11,8 @@
       merge.tool = "nvimdiff";
       mergetool = {
         keepBackup = false;
-        vimdiff.layout = "LOCAL,MERGED,REMOTE";
+        # Focus cursor on the middle (merged) window
+        nvimdiff.cmd = "nvim -d $LOCAL $MERGED $REMOTE -c 'wincmd l'";
       };
     };
   };
