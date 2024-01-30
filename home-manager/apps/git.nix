@@ -11,7 +11,7 @@
       merge.tool = "nvimdiff";
       mergetool = {
         keepBackup = false;
-        nvimdiff.layout = "LOCAL,MERGED,REMOTE";
+        vimdiff.layout = "LOCAL,MERGED,REMOTE";
       };
     };
   };
