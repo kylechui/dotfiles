@@ -12,6 +12,8 @@
       set -g fish_cursor_insert line
       set -g fish_cursor_replace underscore
       set -g fish_cursor_replace_one underscore
+      # Set manpage search color
+      set -g man_standout -b 938aa9 1f1f28
     '';
     shellAliases = {
       e = "nvim";
