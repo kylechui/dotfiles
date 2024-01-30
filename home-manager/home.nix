@@ -73,7 +73,6 @@
 
     nerdfonts
     xfce.thunar
-    nodePackages.vscode-langservers-extracted
     # Shell
     shellcheck
     # C/C++
@@ -86,8 +85,6 @@
     black
     mypy
     nodePackages.pyright
-    # Java
-    jdt-language-server
     # JavaScript/TypeScript
     nodejs
     typescript
@@ -97,14 +94,9 @@
     ocamlformat
     ocamlPackages.ocaml-lsp
     dune_3
-    # Haskell
-    haskell-language-server
-    stylish-haskell
     # Nix
     unstable.nil
     nixfmt
-    # Coq
-    coqPackages.coq-lsp
     # Lua
     sumneko-lua-language-server
     stylua
