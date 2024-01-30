@@ -102,7 +102,7 @@
   users.users.kylec = {
     isNormalUser = true;
     description = "Kyle Chui";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" ];
     shell = pkgs.bash;
     packages = [ ];
   };
@@ -117,7 +117,6 @@
     enable = true;
     pulse.enable = true;
   };
-  virtualisation.docker.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
