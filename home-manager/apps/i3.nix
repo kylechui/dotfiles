@@ -9,6 +9,19 @@ in {
       config = {
         startup = [
           {
+            # Disables touchscreen on startup
+            command =
+              "${pkgs.xorg.xinput}/bin/xinput disable 'ELAN2514:00 04F3:29E0'";
+            always = true;
+            notification = false;
+          }
+          {
+            # Necessary to load i3 module in polybar, in case polybar loads too early
+            command = "${pkgs.polybar}/bin/polybar-msg cmd restart";
+            always = true;
+            notification = true;
+          }
+          {
             # TODO: Figure out why providing raw path doesn't work
             # Environment variables are likely not set properly
             command = "fcitx5 -d -r";
