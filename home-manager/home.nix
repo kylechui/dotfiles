@@ -57,7 +57,9 @@
     htop
     libnotify
     sshfs
+    fd
     jq
+    yq
     # Social
     element-desktop
     signal-desktop
