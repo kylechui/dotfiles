@@ -29,6 +29,7 @@
       nfi = "nix flake init";
       nfu = "nix flake update";
       nd = "nix develop --max-jobs auto --builders 'cores = 0'";
+      cat = "bat";
     };
     functions = {
       find_git_repository = {

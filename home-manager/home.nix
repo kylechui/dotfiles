@@ -40,6 +40,7 @@
   services.blueman-applet.enable = true;
   services.betterlockscreen.enable = true;
 
+  programs.bat.enable = true;
   programs.texlive = {
     enable = true;
     extraPackages = tpkgs: { inherit (tpkgs) scheme-full; };
