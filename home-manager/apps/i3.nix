@@ -30,7 +30,7 @@ in {
           {
             # TODO: Figure out why providing raw path doesn't work
             # Environment variables are likely not set properly
-            command = "fcitx5 -d -r --disable-addon cloudpinyin";
+            command = "fcitx5 -d -r --disable cloudpinyin";
             always = true;
             notification = false;
           }
