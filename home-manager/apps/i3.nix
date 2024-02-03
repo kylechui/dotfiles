@@ -9,6 +9,12 @@ in {
       config = {
         startup = [
           {
+            # Applies the correct monitor configuration on startup
+            command = "${pkgs.autorandr}/bin/autorandr --change";
+            always = true;
+            notification = false;
+          }
+          {
             # Disables touchscreen on startup
             command =
               "${pkgs.xorg.xinput}/bin/xinput disable 'ELAN2514:00 04F3:29E0'";
