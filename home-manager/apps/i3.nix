@@ -28,8 +28,8 @@ in {
             notification = true;
           }
           {
-            # TODO: Figure out why providing raw path doesn't work
-            # Environment variables are likely not set properly
+            # Can't use `${pkgs.fcitx5}` because addons in `fcitx5.nix` modify
+            # the package itself
             command = "fcitx5 -d -r --disable cloudpinyin";
             always = true;
             notification = false;
