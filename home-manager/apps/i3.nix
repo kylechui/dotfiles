@@ -35,9 +35,7 @@ in {
             notification = false;
           }
           {
-            # TODO: Figure out why providing raw path doesn't work
-            # Using /run/wrappers/bin/noisetorch doesn't work either
-            command = "noisetorch -i";
+            command = "${pkgs.noisetorch}/bin/noisetorch -i";
             always = true;
             notification = false;
           }
