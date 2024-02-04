@@ -9,34 +9,35 @@ in {
       config = {
         startup = [
           {
-            # Applies the correct monitor configuration on startup
-            command = "${pkgs.autorandr}/bin/autorandr --change";
-            always = true;
+            # Go to workspace 1 on boot
+            command = "i3-msg workspace 1";
             notification = false;
           }
           {
-            # Disables touchscreen on startup
+            # Applies the correct monitor configuration on boot
+            command = "${pkgs.autorandr}/bin/autorandr --change";
+            notification = false;
+          }
+          {
+            # Disables touchscreen on boot
             command =
               "${pkgs.xorg.xinput}/bin/xinput disable 'ELAN2514:00 04F3:29E0'";
-            always = true;
             notification = false;
           }
           {
             # Necessary to load i3 module in polybar, in case polybar loads too early
             command = "${pkgs.polybar}/bin/polybar-msg cmd restart";
-            always = true;
-            notification = true;
+            notification = false;
+          }
+          {
+            # Enable noise suppression on boot
+            command = "${pkgs.noisetorch}/bin/noisetorch -i";
+            notification = false;
           }
           {
             # Can't use `${pkgs.fcitx5}` because addons in `fcitx5.nix` modify
             # the package itself
             command = "fcitx5 -d -r --disable cloudpinyin";
-            always = true;
-            notification = false;
-          }
-          {
-            command = "${pkgs.noisetorch}/bin/noisetorch -i";
-            always = true;
             notification = false;
           }
         ];
