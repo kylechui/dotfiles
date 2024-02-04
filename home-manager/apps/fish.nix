@@ -68,7 +68,12 @@
         argumentNames = [ "name" ];
         body = ''
           set -l original_dir (pwd)
-          set -l branch (get_branches | ${pkgs.fzf}/bin/fzf --query="$name")
+          set -l branches (get_branches | ${pkgs.gnugrep}/bin/grep "$name")
+          if test (count $branches) -eq 1
+            set -f branch (echo $branches | head -n 1)
+          else
+            set -f branch (get_branches | ${pkgs.fzf}/bin/fzf --query="$name")
+          end
           if test -z $branch
             echo "No branch selected" >&2
             cd $original_dir
