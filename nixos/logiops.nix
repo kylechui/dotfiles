@@ -10,12 +10,16 @@
     wantedBy = [ "graphical.target" ];
     serviceConfig = {
       Type = "simple";
-      # https://github.com/PixlOne/logiops/issues/269#issuecomment-1012608838
-      ExecStartPre = "${pkgs.kmod}/bin/modprobe hid_logitech_hidpp || :";
       ExecStart = "${pkgs.logiops}/bin/logid";
       User = "root";
     };
   };
+
+  # Add a `udev` rule to restart `logiops` when the mouse is connected
+  # https://github.com/PixlOne/logiops/issues/156#issuecomment-1887054527
+  services.udev.extraRules = ''
+    ACTION=="add", KERNEL=="hid_logitech_hidpp", RUN+="${pkgs.systemd}/bin/systemctl --no-block restart logiops.service"
+  '';
 
   # Configuration for logiops
   environment.etc."logid.cfg".text = ''
