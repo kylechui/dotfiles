@@ -1,4 +1,7 @@
+{ pkgs, ... }:
+
 {
+  home.packages = [ pkgs.difftastic ];
   programs.git = {
     enable = true;
     userName = "Kyle Chui";
@@ -14,6 +17,14 @@
         # Focus cursor on the middle (merged) window
         nvimdiff.cmd = "nvim -d $LOCAL $MERGED $REMOTE -c 'wincmd l'";
       };
+      # Better diffing
+      diff = {
+        tool = "difftastic";
+        external = "difft";
+      };
+      difftool.prompt = false;
+      "difftool \"difftastic\"".cmd = "difft $LOCAL $REMOTE";
+      pager.difftool = true;
     };
   };
 }
