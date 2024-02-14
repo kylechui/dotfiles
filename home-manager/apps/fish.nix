@@ -33,20 +33,9 @@
     };
     functions = {
       find_git_repository = {
-        description =
-          "Recursively search upwards to find the root of the git repository";
+        description = "Find the root of the git repository";
         body = ''
-          set -l original_dir (pwd)
-          while not test -d ".git" -o -f "packed-refs"
-            cd ..
-            if test (pwd) = "/"
-              echo "Could not find git repository" >&2
-              cd $original_dir
-              return 1
-            end
-          end
-          echo (pwd)
-          cd $original_dir
+          ${pkgs.git}/bin/git rev-parse --git-common-dir 2>/dev/null
         '';
       };
       branch_exists = {
