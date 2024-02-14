@@ -1,11 +1,11 @@
 { pkgs, ... }:
 
 {
-  home.packages = [ pkgs.difftastic ];
   programs.git = {
     enable = true;
     userName = "Kyle Chui";
     userEmail = "kyle.chui+github@pm.me";
+    difftastic.enable = true;
     iniContent = {
       commit.gpgSign = true;
       gpg.format = "ssh";
@@ -15,15 +15,15 @@
       mergetool = {
         keepBackup = false;
         # Focus cursor on the middle (merged) window
-        nvimdiff.cmd = "nvim -d $LOCAL $MERGED $REMOTE -c 'wincmd l'";
+        nvimdiff.cmd =
+          "${pkgs.neovim-nightly}/bin/nvim -d $LOCAL $MERGED $REMOTE -c 'wincmd l'";
       };
       # Better diffing
-      diff = {
-        tool = "difftastic";
-        external = "difft";
+      diff.tool = "difftastic";
+      difftool = {
+        prompt = false;
+        difftastic.cmd = "${pkgs.difftastic}/bin/difft $LOCAL $REMOTE";
       };
-      difftool.prompt = false;
-      "difftool \"difftastic\"".cmd = "difft $LOCAL $REMOTE";
       pager.difftool = true;
     };
   };
