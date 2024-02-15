@@ -76,6 +76,7 @@
     simplescreenrecorder
 
     nerdfonts
+    iosevka
     xfce.thunar
     # Shell
     shellcheck

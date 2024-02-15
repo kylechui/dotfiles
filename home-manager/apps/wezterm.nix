@@ -43,7 +43,10 @@
               indexed = { [16] = "#ffa066", [17] = "#ff5d62" },
           },
           -- Font settings
-          font = wezterm.font("JetBrains Mono"),
+          font = wezterm.font_with_fallback({
+              "Iosevka",
+              "Symbols Nerd Font Mono",
+          }),
           font_size = 14.0,
           default_prog = { "${pkgs.fish}/bin/fish", "-l", "-i" },
       }

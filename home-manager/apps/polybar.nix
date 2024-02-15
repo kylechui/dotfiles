@@ -33,7 +33,7 @@ in {
         background = colors.background;
         foreground = colors.foreground;
         enable-ipc = true;
-        font = [ "JetBrains Mono Nerd Font:size=12;2" ];
+        font = [ "Iosevka:size=12;2" "Symbols Nerd Font Mono:size=12;2" ];
         height = 30;
         line-size = 4;
         module-margin-left = 1;
