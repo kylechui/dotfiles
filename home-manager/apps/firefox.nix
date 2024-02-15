@@ -26,7 +26,8 @@
       /** GFX ***/
       user_pref("gfx.webrender.all", true);
       user_pref("gfx.webrender.compositor", true);
-      user_pref("layers.mlgpu.enabled", true); 
+      user_pref("gfx.webrender.precache-shaders", true);
+      user_pref("layers.mlgpu.enabled", true);
       user_pref("media.hardware-video-decoding.enabled", true);
       user_pref("gfx.canvas.accelerated.cache-items", 32768);
       user_pref("gfx.canvas.accelerated.cache-size", 4096);
@@ -74,7 +75,6 @@
       user_pref("security.tls.enable_0rtt_data", false);
 
       /** DISK AVOIDANCE ***/
-      user_pref("browser.cache.disk.enable", false);
       user_pref("browser.privatebrowsing.forceMediaMemoryCache", true);
       user_pref("browser.sessionstore.privacy_level", 2);
 
@@ -147,8 +147,6 @@
       user_pref("permissions.default.desktop-notification", 2);
       user_pref("permissions.default.geo", 2);
       user_pref("geo.provider.network.url", "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%");
-      user_pref("geo.provider.ms-windows-location", false); // WINDOWS
-      user_pref("geo.provider.use_corelocation", false); // MAC
       user_pref("geo.provider.use_gpsd", false); // LINUX
       user_pref("geo.provider.use_geoclue", false); // LINUX
       user_pref("permissions.manager.defaultsUrl", "");
@@ -250,9 +248,10 @@
 
       // Enable Firefox Sync
       user_pref("identity.fxaccounts.enabled", true);
-      user_pref("dom.push.enabled", true);
       // Allow websites to ask for permission
       user_pref("permissions.default.geo", 0);
+      // Keep URL bar in fullscreen mode
+      user_pref("browser.fullscreen.autohide", false);
 
       /****************************************************************************
        * END: BETTERFOX                                                           *
