@@ -129,6 +129,11 @@
   environment.wordlist.enable = true;
   environment.systemPackages = with pkgs; [ scowl ];
 
+  zramSwap = {
+    enable = true;
+    memoryPercent = 100;
+  };
+
   services.gvfs.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
