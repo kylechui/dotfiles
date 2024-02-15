@@ -39,6 +39,11 @@
   services.network-manager-applet.enable = true;
   services.blueman-applet.enable = true;
   services.betterlockscreen.enable = true;
+  services.picom = {
+    enable = true;
+    backend = "glx";
+    vSync = true;
+  };
 
   programs.bat.enable = true;
   programs.texlive = {
@@ -61,6 +66,7 @@
     fd
     jq
     yq
+    glxinfo
     # Social
     element-desktop
     signal-desktop
