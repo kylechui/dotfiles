@@ -30,6 +30,7 @@
       nfu = "nix flake update";
       nd = "nix develop --max-jobs auto --builders 'cores = 0'";
       cat = "bat";
+      copy = "xclip -selection clipboard";
     };
     functions = {
       find_git_repository = {
