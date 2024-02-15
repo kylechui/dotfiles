@@ -33,7 +33,24 @@
   programs.fish.enable = true;
   programs.dconf.enable = true;
   programs.steam.enable = true;
+  # Storage optimization settings
   nix.settings.auto-optimise-store = true;
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
+  # Prevent (D)OOM
+  services.earlyoom = {
+    enable = true;
+    freeSwapThreshold = 2;
+    freeMemThreshold = 2;
+    extraArgs = [
+      "-g"
+      "--avoid '^(X|i3.*|wezterm|picom)$'"
+      "--prefer '^(electron|libreoffice|gimp)$'"
+    ];
+  };
 
   # Enable flakes by default
   nix.package = pkgs.nix;
