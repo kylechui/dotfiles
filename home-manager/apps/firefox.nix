@@ -20,22 +20,14 @@
       /****************************************************************************
        * SECTION: FASTFOX                                                         *
       ****************************************************************************/
-      user_pref("nglayout.initialpaint.delay", 0);
-      user_pref("nglayout.initialpaint.delay_in_oopif", 0);
       user_pref("content.notify.interval", 100000);
       user_pref("browser.startup.preXulSkeletonUI", false);
 
-      /** EXPERIMENTAL ***/
-      user_pref("layout.css.grid-template-masonry-value.enabled", true);
-      user_pref("layout.css.animation-composition.enabled", true);
-      user_pref("dom.enable_web_task_scheduling", true);
-
       /** GFX ***/
       user_pref("gfx.webrender.all", true);
-      user_pref("gfx.webrender.precache-shaders", true);
       user_pref("gfx.webrender.compositor", true);
+      user_pref("layers.mlgpu.enabled", true); 
       user_pref("media.hardware-video-decoding.enabled", true);
-      user_pref("gfx.canvas.accelerated", true);
       user_pref("gfx.canvas.accelerated.cache-items", 32768);
       user_pref("gfx.canvas.accelerated.cache-size", 4096);
       user_pref("gfx.content.skia-font-cache-size", 80);
