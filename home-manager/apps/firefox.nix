@@ -34,7 +34,6 @@
       user_pref("gfx.webrender.all", true);
       user_pref("gfx.webrender.precache-shaders", true);
       user_pref("gfx.webrender.compositor", true);
-      user_pref("layers.gpu-process.enabled", true);
       user_pref("media.hardware-video-decoding.enabled", true);
       user_pref("gfx.canvas.accelerated", true);
       user_pref("gfx.canvas.accelerated.cache-items", 32768);
