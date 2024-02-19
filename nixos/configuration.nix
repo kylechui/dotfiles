@@ -131,7 +131,7 @@
 
   zramSwap = {
     enable = true;
-    memoryPercent = 100;
+    memoryPercent = 50;
   };
 
   services.gvfs.enable = true;
