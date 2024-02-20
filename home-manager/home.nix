@@ -15,7 +15,8 @@
     package = pkgs.dracula-theme;
   };
 
-  imports = [ # Include application-specific configuration
+  imports = [
+    # Include application-specific configuration
     ./apps/autorandr.nix
     ./apps/chromium.nix
     ./apps/dunst.nix
@@ -67,6 +68,7 @@
     jq
     yq
     glxinfo
+    nixpkgs-review
     # Social
     element-desktop
     signal-desktop
