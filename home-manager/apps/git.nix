@@ -7,7 +7,7 @@
     userEmail = "kyle.chui+github@pm.me";
     difftastic.enable = true;
     aliases = {
-      hash = "!${pkgs.git}/bin/git log --pretty=format:'%H' | ${pkgs.coreutils}/bin/head -n 1";
+      hash = "rev-parse HEAD";
     };
     iniContent = {
       commit.gpgSign = true;
