@@ -6,6 +6,9 @@
     userName = "Kyle Chui";
     userEmail = "kyle.chui+github@pm.me";
     difftastic.enable = true;
+    aliases = {
+      hash = "!${pkgs.git}/bin/git log --pretty=format:'%H' | ${pkgs.coreutils}/bin/head -n 1";
+    };
     iniContent = {
       commit.gpgSign = true;
       gpg.format = "ssh";
@@ -15,8 +18,7 @@
       mergetool = {
         keepBackup = false;
         # Focus cursor on the middle (merged) window
-        nvimdiff.cmd =
-          "${pkgs.neovim-nightly}/bin/nvim -d $LOCAL $MERGED $REMOTE -c 'wincmd l'";
+        nvimdiff.cmd = "${pkgs.neovim-nightly}/bin/nvim -d $LOCAL $MERGED $REMOTE -c 'wincmd l'";
       };
       # Better diffing
       diff.tool = "difftastic";
