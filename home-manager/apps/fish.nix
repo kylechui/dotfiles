@@ -16,7 +16,7 @@
       set -g man_standout -b 938aa9 1f1f28
     '';
     shellAliases = {
-      ll = "ls -al";
+      ll = "ls -ahl";
       rm = "rm -I";
       gc = "git_checkout";
       gwa = "git_worktree_add";
