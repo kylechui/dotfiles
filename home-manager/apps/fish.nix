@@ -218,9 +218,13 @@
       last_history_item = {
         body = "echo -- $history[1]";
       };
+      multicd = {
+        body = "string repeat -n (math (string length -- $argv[1]) - 1) ../";
+      };
     };
     shellInit = ''
       abbr --add !! --position anywhere --function last_history_item
+      abbr --add dotdot --regex '^\.\.+$' --position anywhere --function multicd
       source ${
         builtins.fetchurl {
           url = "https://raw.githubusercontent.com/rebelot/kanagawa.nvim/c19b9023842697ec92caf72cd3599f7dd7be4456/extras/kanagawa.fish";
