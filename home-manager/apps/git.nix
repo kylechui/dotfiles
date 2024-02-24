@@ -5,9 +5,16 @@
     enable = true;
     userName = "Kyle Chui";
     userEmail = "kyle.chui+github@pm.me";
-    delta.enable = true;
     aliases = {
       hash = "rev-parse HEAD";
+    };
+    delta = {
+      enable = true;
+      options = {
+        features = "navigate";
+        side-by-side = true;
+        line-numbers = true;
+      };
     };
     iniContent = {
       commit.gpgSign = true;
