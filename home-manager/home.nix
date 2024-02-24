@@ -18,6 +18,7 @@
   imports = [
     # Include application-specific configuration
     ./apps/autorandr.nix
+    ./apps/bat.nix
     ./apps/chromium.nix
     ./apps/dunst.nix
     ./apps/firefox.nix
@@ -43,7 +44,6 @@
     vSync = true;
   };
 
-  programs.bat.enable = true;
   programs.texlive = {
     enable = true;
     extraPackages = tpkgs: { inherit (tpkgs) scheme-full; };
