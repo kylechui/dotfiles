@@ -1,16 +1,27 @@
+{ pkgs, ... }:
+
 {
   programs.noisetorch.enable = true;
-  # NOTE: Currently enabled in i3 xdg-autostart
-  /* systemd.services.noisetorch = {
-       description = "Noise suppression for PulseAudio";
-       wantedBy = [ "default.target" ];
-       after = [ "graphical.target" ];
-       requires = [ "graphical.target" ];
-       serviceConfig = {
-         Type = "simple";
-         ExecStart = "/run/wrappers/bin/noisetorch -i";
-         Restart = "on-failure";
-       };
-     };
-  */
+  # https://github.com/noisetorch/NoiseTorch/wiki/Start-automatically-with-Systemd
+  systemd.services.noisetorch = {
+    description = "Noisetorch Noise Cancelling";
+    wantedBy = [ "multi-user.target" ];
+    after = [
+      "pipewire-pulse.service"
+      "sys-devices-pci0000:00-0000:00:1f.3-skl_hda_dsp_generic-sound-card0-controlC0.device"
+    ];
+    requires = [
+      "sys-devices-pci0000:00-0000:00:1f.3-skl_hda_dsp_generic-sound-card0-controlC0.device"
+    ];
+    serviceConfig = {
+      Type = "simple";
+      RemainAfterExit = true;
+      ExecStart = "${pkgs.noisetorch}/bin/noisetorch -i -t 85";
+      ExecStop = "${pkgs.noisetorch}/bin/noisetorch -u";
+      Restart = "on-failure";
+      RestartSec = 3;
+      # `pipewire-pulse.service` runs as user
+      User = "kylec";
+    };
+  };
 }

@@ -30,11 +30,6 @@ in {
             notification = false;
           }
           {
-            # Enable noise suppression on boot
-            command = "${pkgs.noisetorch}/bin/noisetorch -i";
-            notification = false;
-          }
-          {
             # Can't use `${pkgs.fcitx5}` because addons in `fcitx5.nix` modify
             # the package itself
             command = "fcitx5 -d -r --disable cloudpinyin";
