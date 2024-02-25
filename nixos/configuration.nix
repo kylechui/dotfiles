@@ -5,11 +5,11 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ # Include the results of the hardware scan.
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./bluetooth.nix
+    ./acpid.nix
     ./fcitx5.nix
-    ./wifi.nix
     ./keyd.nix
     ./logiops.nix
     ./noisetorch.nix
