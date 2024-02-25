@@ -89,10 +89,15 @@
             if test -z $branch
               echo "No branch selected" >&2
               return 1
+            else
+              ${pkgs.git}/bin/git fetch origin $branch:$branch
             end
           end
           cd (find_git_repository)
-          ${pkgs.git}/bin/git fetch origin $branch:$branch
+          if not branch_exists $branch
+            ${pkgs.git}/bin/git branch -u origin $branch
+          end
+          ${pkgs.git}/bin/git push -u origin $branch
           if not test -d $branch
             ${pkgs.git}/bin/git worktree add $branch $branch
           end
