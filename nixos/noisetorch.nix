@@ -3,7 +3,7 @@
 {
   programs.noisetorch.enable = true;
   # https://github.com/noisetorch/NoiseTorch/wiki/Start-automatically-with-Systemd
-  systemd.services.noisetorch = {
+  systemd.user.services.noisetorch = {
     description = "Noisetorch Noise Cancelling";
     wantedBy = [ "multi-user.target" ];
     after = [
@@ -20,8 +20,6 @@
       ExecStop = "${pkgs.noisetorch}/bin/noisetorch -u";
       Restart = "on-failure";
       RestartSec = 3;
-      # `pipewire-pulse.service` runs as user
-      User = "kylec";
     };
   };
 }
