@@ -61,6 +61,7 @@
     jq
     yq
     glxinfo
+    pciutils
     nixpkgs-review
     # Social
     element-desktop
