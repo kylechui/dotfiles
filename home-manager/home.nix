@@ -39,10 +39,6 @@
   ];
 
   services.betterlockscreen.enable = true;
-  services.picom = {
-    enable = true;
-    vSync = true;
-  };
 
   programs.texlive = {
     enable = true;

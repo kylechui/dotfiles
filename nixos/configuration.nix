@@ -88,6 +88,11 @@
         disableWhileTyping = true;
       };
     };
+    displayManager = {
+      sessionCommands = ''
+        ${pkgs.xcompmgr}/bin/xcompmgr &
+      '';
+    };
     windowManager.i3 = {
       enable = true;
       extraPackages = [ ];
