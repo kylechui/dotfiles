@@ -73,12 +73,14 @@
     LC_TIME = "en_US.UTF-8";
   };
 
+  environment.systemPackages = [ pkgs.xorg.xf86videointel ];
   services.xserver = {
     enable = true;
     layout = "us";
     xkbVariant = "";
     autoRepeatInterval = 40;
     autoRepeatDelay = 280;
+    videoDrivers = [ "intel" ];
     libinput = {
       enable = true;
       touchpad = {
