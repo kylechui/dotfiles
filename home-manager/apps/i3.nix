@@ -155,7 +155,7 @@ in {
           ${gesture_down} =
             "exec --no-startup-id ${pkgs.flameshot}/bin/flameshot gui";
           ${gesture_up} =
-            "exec --no-startup-id ${pkgs.xcolor}/bin/xcolor -s clipboard";
+            "exec --no-startup-id ${pkgs.xcolor}/bin/xcolor -f HEX -s clipboard";
         };
       };
       # TODO: Fix this!
