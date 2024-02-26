@@ -126,10 +126,12 @@
     alsa.enable = true;
   };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.wordlist.enable = true;
-  environment.systemPackages = with pkgs; [ scowl ];
+  environment.wordlist = {
+    enable = true;
+    lists = {
+      WORDLIST = [ "${pkgs.scowl}/share/dict/words.txt" ];
+    };
+  };
 
   zramSwap = {
     enable = true;
