@@ -5,13 +5,9 @@
     enable = true;
     lidEventCommands = ''
       #!${pkgs.bash}/bin/bash
-      display_active() {
-        num_active_displays=$(${pkgs.xorg.xrandr}/bin/xrandr --listactivemonitors \
-        | ${pkgs.coreutils}/bin/head -n 1 \
-        | ${pkgs.coreutils}/bin/cut -d ' ' -f 2)
-        [ "$num_active_displays" != "0" ]
-      }
-      if display_active; then
+      lid_closed=$(${pkgs.coreutils}/bin/cat /proc/acpi/button/lid/LID0/state | ${pkgs.gnugrep}/bin/grep -c 'closed')
+      connected_monitors=$(${pkgs.coreutils}/bin/cat /sys/class/drm/card0-*/status | ${pkgs.gnugrep}/bin/grep -cx 'connected')
+      if [ $lid_closed -ne 1 ] || [ $connected_monitors -ne 1 ]; then
         ${pkgs.bluez}/bin/bluetoothctl power on
         ${pkgs.networkmanager}/bin/nmcli radio wifi on
       else
