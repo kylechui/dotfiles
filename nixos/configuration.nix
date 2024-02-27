@@ -89,6 +89,10 @@
       };
     };
     displayManager = {
+      xserverArgs = [
+        "-s"
+        "0"
+      ];
       sessionCommands = ''
         ${pkgs.xcompmgr}/bin/xcompmgr &
       '';
