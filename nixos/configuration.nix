@@ -111,7 +111,6 @@
   # Power management
   services.tlp.enable = true;
   services.thermald.enable = true;
-  services.system76-scheduler.settings.cfsProfiles.enable = true;
 
   # Bluetooth management
   services.blueman.enable = true;
