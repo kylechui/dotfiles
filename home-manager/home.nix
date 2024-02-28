@@ -62,6 +62,7 @@
     yq
     glxinfo
     pciutils
+    sysstat
     nixpkgs-review
     # Social
     element-desktop
