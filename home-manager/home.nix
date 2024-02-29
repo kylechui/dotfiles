@@ -16,7 +16,7 @@
   };
 
   imports = [
-    # Include application-specific configuration
+    # Include basic application-specific configuration
     ./apps/autorandr.nix
     ./apps/bat.nix
     ./apps/chromium.nix
@@ -33,9 +33,10 @@
     ./apps/rofi.nix
     ./apps/tmux.nix
     ./apps/vscodium.nix
-    ./apps/wezterm.nix
     ./apps/zathura.nix
     ./apps/zoxide.nix
+    # These apps come with other files, so they are in their own directories
+    ./apps/wezterm/wezterm.nix
   ];
 
   services.betterlockscreen.enable = true;
