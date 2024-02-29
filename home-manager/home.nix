@@ -33,10 +33,10 @@
     ./apps/rofi.nix
     ./apps/tmux.nix
     ./apps/vscodium.nix
-    ./apps/zathura.nix
     ./apps/zoxide.nix
     # These apps come with other files, so they are in their own directories
     ./apps/wezterm/wezterm.nix
+    ./apps/zathura/zathura.nix
   ];
 
   services.betterlockscreen.enable = true;
