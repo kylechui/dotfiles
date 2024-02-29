@@ -92,6 +92,7 @@
       };
     };
     displayManager = {
+      # Disable screen sleep timeout
       xserverArgs = [
         "-s"
         "0"
