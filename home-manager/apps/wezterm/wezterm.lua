@@ -13,6 +13,8 @@ return {
         bottom = 0,
     },
     -- Kanagawa colors
+    -- https://github.com/rebelot/kanagawa.nvim/blob/master/extras/wezterm.lua
+    force_reverse_video_cursor = true,
     colors = {
         foreground = "#dcd7ba",
         background = "#1f1f28",
