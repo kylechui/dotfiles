@@ -96,9 +96,6 @@
         "-s"
         "0"
       ];
-      sessionCommands = ''
-        ${pkgs.xcompmgr}/bin/xcompmgr &
-      '';
     };
     windowManager.i3 = {
       enable = true;

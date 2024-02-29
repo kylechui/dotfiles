@@ -39,6 +39,8 @@
   ];
 
   services.betterlockscreen.enable = true;
+  services.picom.enable = true;
+
 
   programs.texlive = {
     enable = true;
