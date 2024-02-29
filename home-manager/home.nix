@@ -41,6 +41,10 @@
   services.betterlockscreen.enable = true;
   services.picom.enable = true;
 
+  programs.nix-index = {
+    enable = true;
+    enableFishIntegration = true;
+  };
 
   programs.texlive = {
     enable = true;
