@@ -41,6 +41,13 @@
   services.betterlockscreen.enable = true;
   services.picom.enable = true;
 
+  programs.btop = {
+    enable = true;
+    settings = {
+      vim_keys = true;
+      proc_gradient = false;
+    };
+  };
   programs.nix-index = {
     enable = true;
     enableFishIntegration = true;
@@ -60,7 +67,6 @@
     arandr
     tree
     pandoc
-    htop
     libnotify
     sshfs
     fd
