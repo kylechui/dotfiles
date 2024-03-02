@@ -23,7 +23,8 @@ let
     i3Support = true;
     pulseSupport = true;
   };
-in {
+in
+{
   services.polybar = {
     enable = true;
     package = polybar;
@@ -33,7 +34,10 @@ in {
         background = colors.background;
         foreground = colors.foreground;
         enable-ipc = true;
-        font = [ "Iosevka:size=12;2" "Symbols Nerd Font Mono:size=12;2" ];
+        font = [
+          "Iosevka:size=12;2"
+          "Symbols Nerd Font Mono:size=12;2"
+        ];
         height = 30;
         line-size = 4;
         module-margin-left = 1;
@@ -92,14 +96,12 @@ in {
         ramp-signal-2 = "󰤢";
         ramp-signal-3 = "󰤥";
         ramp-signal-4 = "󰤨";
-        label-connected = ''
-          "%{A1:${pkgs.networkmanagerapplet}/bin/nm-connection-editor:}%essid%%{A}"'';
+        label-connected = ''"%{A1:${pkgs.networkmanagerapplet}/bin/nm-connection-editor:}%essid%%{A}"'';
         format-connected = "<ramp-signal> <label-connected>";
         format-connected-foreground = colors.red2;
         format-connected-underline = colors.red2;
         format-connected-padding = 1;
-        label-disconnected =
-          "%{A1:${pkgs.networkmanagerapplet}/bin/nm-connection-editor:}󰤮 %{A}";
+        label-disconnected = "%{A1:${pkgs.networkmanagerapplet}/bin/nm-connection-editor:}󰤮 %{A}";
         label-disconnected-foreground = colors.foreground-alt;
         format-disconnected = "<label-disconnected>";
         format-disconnected-underline = colors.foreground-alt;
@@ -107,14 +109,25 @@ in {
       };
       "module/bluetooth" = {
         type = "custom/script";
-        exec = "~/.config/polybar/bluetooth.sh";
+        exec = pkgs.writeShellScript "bluetooth.sh" ''
+          DEVICE=$(${pkgs.bluez}/bin/bluetoothctl info \
+            | ${pkgs.gnugrep}/bin/grep "Alias:" \
+            | ${pkgs.coreutils}/bin/head -n 1 \
+            | ${pkgs.gnused}/bin/sed -E "s/\s+Alias: (.*)/\1/")
+          if [[ -n $DEVICE ]]; then
+            echo "%{F${colors.blue}}󰂯 $DEVICE"
+          else
+            echo "%{F${colors.foreground-alt}}󰂲"
+          fi
+        '';
         interval = 5;
         format = "%{A1:${pkgs.blueman}/bin/blueman-manager &:}<label>%{A}";
         format-foreground = colors.blue;
         format-underline = colors.blue;
         format-padding = 1;
       };
-      "module/pulseaudio" = { # TODO: Figure this out!
+      "module/pulseaudio" = {
+        # TODO: Figure this out!
         type = "internal/pulseaudio";
         interval = 1;
         format-muted = "<label-muted>";
@@ -122,8 +135,7 @@ in {
         format-muted-foreground = colors.muted;
         format-muted-underline = colors.muted;
         format-muted-padding = 1;
-        format-volume =
-          "%{A3:${pkgs.pavucontrol}/bin/pavucontrol &:}<ramp-volume><label-volume>%{A}";
+        format-volume = "%{A3:${pkgs.pavucontrol}/bin/pavucontrol &:}<ramp-volume><label-volume>%{A}";
         format-volume-foreground = colors.pink;
         format-volume-underline = colors.pink;
         format-volume-padding = 1;
@@ -177,21 +189,6 @@ in {
     text = ''
       close_on_unfocus = 1
       mainwindow_yoffset = 10
-    '';
-  };
-
-  xdg.configFile."polybar/bluetooth.sh" = {
-    executable = true;
-    text = ''
-      DEVICE=$(${pkgs.bluez}/bin/bluetoothctl info \
-        | ${pkgs.gnugrep}/bin/grep "Alias:" \
-        | ${pkgs.coreutils}/bin/head -n 1 \
-        | ${pkgs.gnused}/bin/sed -E "s/\s+Alias: (.*)/\1/")
-      if [[ ! -z $DEVICE ]]; then
-        echo "%{F${colors.blue}}󰂯 $DEVICE"
-      else
-        echo "%{F${colors.foreground-alt}}󰂲"
-      fi
     '';
   };
 }
