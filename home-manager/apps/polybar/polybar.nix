@@ -102,14 +102,7 @@ in
       };
       "module/mpris" = {
         type = "custom/script";
-        exec = "${
-          pkgs.fetchFromGitHub {
-            owner = "jishnusen";
-            repo = "dots";
-            rev = "a36d078acac6a7c4bc6c4e3091bd9fb3634354bf";
-            sha256 = "sha256-qrdADHsVioXUsTUJHu5WUZozisznQAvYYhf+zuF3y24=";
-          }
-        }/.config/polybar/modules/mpris_status.py";
+        exec = pkgs.writeScript "mpris_status" (builtins.readFile ./mpris_status.py);
         tail = true;
         click-left = "${pkgs.playerctl}/bin/playerctl play-pause";
         scroll-up = "${pkgs.playerctl}/bin/playerctl previous";
