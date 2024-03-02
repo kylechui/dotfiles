@@ -19,10 +19,28 @@ let
     teal = "#949fb5";
     pink = "#d27e99";
   };
-  polybar = pkgs.polybar.override {
-    i3Support = true;
-    pulseSupport = true;
-  };
+  polybar =
+    (pkgs.polybar.override {
+      i3Support = true;
+      pulseSupport = true;
+    }).overrideAttrs
+      (
+        oldAttrs: {
+          postInstall = ''
+            wrapProgram $out/bin/polybar \
+              --prefix GI_TYPELIB_PATH : "${
+                pkgs.lib.makeSearchPath "lib/girepository-1.0" [ pkgs.playerctl ]
+              }" \
+              --prefix PATH : "${
+                pkgs.lib.makeBinPath [
+                  pkgs.i3
+                  (pkgs.python311.withPackages (ps: [ ps.pygobject3 ]))
+                  pkgs.playerctl
+                ]
+              }"
+          '';
+        }
+      );
 in
 {
   services.polybar = {
@@ -44,7 +62,7 @@ in
         module-margin-right = 1;
         modules-center = "date";
         modules-left = "cpu memory i3";
-        modules-right = "wlan bluetooth pulseaudio battery";
+        modules-right = "mpris wlan bluetooth pulseaudio battery";
       };
       "module/cpu" = {
         type = "internal/cpu";
@@ -85,6 +103,23 @@ in
         format = "%{A1:${pkgs.gsimplecal}/bin/gsimplecal &:}  <label>%{A}";
         format-underline = colors.foreground;
         format-padding = 1;
+      };
+      "module/mpris" = {
+        type = "custom/script";
+        exec = "${
+          pkgs.fetchFromGitHub {
+            owner = "jishnusen";
+            repo = "dots";
+            rev = "a36d078acac6a7c4bc6c4e3091bd9fb3634354bf";
+            sha256 = "sha256-qrdADHsVioXUsTUJHu5WUZozisznQAvYYhf+zuF3y24=";
+          }
+        }/.config/polybar/modules/mpris_status.py";
+        tail = true;
+        click-left = "${pkgs.playerctl}/bin/playerctl play-pause";
+        scroll-up = "${pkgs.playerctl}/bin/playerctl previous";
+        scroll-down = "${pkgs.playerctl}/bin/playerctl next";
+        format-prefix = " ";
+        format-prefix-foreground = colors.foreground;
       };
       "module/wlan" = {
         type = "internal/network";
