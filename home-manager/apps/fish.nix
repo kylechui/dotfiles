@@ -95,7 +95,7 @@
           end
           cd (find_git_repository)
           if not branch_exists $branch
-            ${pkgs.git}/bin/git branch -u origin $branch
+            ${pkgs.git}/bin/git branch $branch
           end
           ${pkgs.git}/bin/git push -u origin $branch
           if not test -d $branch
