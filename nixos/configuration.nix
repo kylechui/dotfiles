@@ -77,6 +77,10 @@
   };
 
   environment.systemPackages = [ pkgs.xorg.xf86videointel ];
+  hardware.opengl = {
+    enable = true;
+    extraPackages = [ pkgs.intel-media-driver ];
+  };
   services.xserver = {
     enable = true;
     layout = "us";
