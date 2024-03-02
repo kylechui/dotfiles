@@ -19,34 +19,30 @@ let
     teal = "#949fb5";
     pink = "#d27e99";
   };
-  polybar =
-    (pkgs.polybar.override {
+  polybar = (
+    pkgs.polybar.override {
       i3Support = true;
       pulseSupport = true;
-    }).overrideAttrs
-      (
-        oldAttrs: {
-          postInstall = ''
-            wrapProgram $out/bin/polybar \
-              --prefix GI_TYPELIB_PATH : "${
-                pkgs.lib.makeSearchPath "lib/girepository-1.0" [ pkgs.playerctl ]
-              }" \
-              --prefix PATH : "${
-                pkgs.lib.makeBinPath [
-                  pkgs.i3
-                  (pkgs.python311.withPackages (ps: [ ps.pygobject3 ]))
-                  pkgs.playerctl
-                ]
-              }"
-          '';
-        }
-      );
+    }
+  );
 in
 {
   services.polybar = {
     enable = true;
     package = polybar;
-    script = "${polybar}/bin/polybar &";
+    script = ''
+      export GI_TYPELIB_PATH="${
+        pkgs.lib.makeSearchPath "lib/girepository-1.0" [ pkgs.playerctl ]
+      }:$GI_TYPELIB_PATH"
+      export PATH="${
+        pkgs.lib.makeBinPath [
+          pkgs.i3
+          (pkgs.python311.withPackages (ps: [ ps.pygobject3 ]))
+          pkgs.playerctl
+        ]
+      }:$PATH"
+      ${polybar}/bin/polybar &
+    '';
     settings = {
       "bar/default" = {
         background = colors.background;
