@@ -93,6 +93,7 @@
 
     nerdfonts
     iosevka
+    sarasa-gothic
     xfce.thunar
     # Shell
     shellcheck

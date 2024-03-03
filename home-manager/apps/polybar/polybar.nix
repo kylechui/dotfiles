@@ -50,6 +50,7 @@ in
         font = [
           "Iosevka:size=12;2"
           "Symbols Nerd Font Mono:size=12;2"
+          "Sarasa Gothic J:size=12;2"
         ];
         height = 30;
         line-size = 4;
