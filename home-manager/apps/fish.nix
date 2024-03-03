@@ -181,7 +181,7 @@
           set_color $fish_color_normal
           set_color $fish_color_autosuggestion
 
-          echo -ns ' ⮂ '
+          echo -ns ' '
         '';
       };
       fish_mode_prompt = {
