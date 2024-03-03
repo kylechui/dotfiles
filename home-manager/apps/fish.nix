@@ -15,6 +15,8 @@
       set -g fish_cursor_external line
       # Set manpage search color
       set -g man_standout -b 938aa9 1f1f28
+      # Increase `done` notification persistence length
+      set -U __done_notification_duration 10000
     '';
     shellAliases = {
       ll = "ls -ahl";
