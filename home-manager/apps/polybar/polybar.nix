@@ -139,7 +139,7 @@ in
           if [[ -n $DEVICE ]]; then
             echo "%{+u}%{F${colors.blue}}%{u${colors.blue}} 󰂯 $DEVICE %{u-}%{F-}"
           else
-            echo "%{+u}%{F${colors.foreground-alt}}%{u${colors.foreground-alt}}󰂲%{u-}%{F-}"
+            echo "%{+u}%{F${colors.foreground-alt}}%{u${colors.foreground-alt}} 󰂲 %{u-}%{F-}"
           fi
         '';
         interval = 3;
