@@ -1,3 +1,4 @@
+local wezterm = require("wezterm")
 return {
     -- Fix font size issue with i3wm
     adjust_window_size_when_changing_font_size = false,
@@ -37,6 +38,7 @@ return {
     font = wezterm.font_with_fallback({
         "Iosevka",
         "Symbols Nerd Font Mono",
+        "Noto Color Emoji",
     }),
     font_size = 14.0,
     default_prog = { "fish", "-l", "-i" },
