@@ -5,9 +5,8 @@ let
     background = "#181820";
     background-alt = "#1f1f28";
     foreground = "#dcd7ba";
-    foreground-alt = "#8a8980";
+    foreground-alt = "#727169";
     primary = "#957fb8";
-    muted = "#727169";
     urgent = "#c34043";
     red = "#c4746e";
     red2 = "#d9a594";
@@ -31,12 +30,12 @@ in
     enable = true;
     package = polybar;
     script = ''
+      # Necessary for giving polybar access to the playerctl libraries
       export GI_TYPELIB_PATH="${
         pkgs.lib.makeSearchPath "lib/girepository-1.0" [ pkgs.playerctl ]
       }:$GI_TYPELIB_PATH"
       export PATH="${
         pkgs.lib.makeBinPath [
-          pkgs.i3
           (pkgs.python311.withPackages (ps: [ ps.pygobject3 ]))
           pkgs.playerctl
         ]
@@ -107,8 +106,6 @@ in
         click-left = "${pkgs.playerctl}/bin/playerctl play-pause";
         scroll-up = "${pkgs.playerctl}/bin/playerctl previous";
         scroll-down = "${pkgs.playerctl}/bin/playerctl next";
-        format-prefix = " ";
-        format-prefix-foreground = colors.foreground;
       };
       "module/wlan" = {
         type = "internal/network";
@@ -125,7 +122,7 @@ in
         format-connected-foreground = colors.red2;
         format-connected-underline = colors.red2;
         format-connected-padding = 1;
-        label-disconnected = "%{A1:${pkgs.networkmanagerapplet}/bin/nm-connection-editor:}󰤮 %{A}";
+        label-disconnected = "%{A1:${pkgs.networkmanagerapplet}/bin/nm-connection-editor:}󰤮%{A}";
         label-disconnected-foreground = colors.foreground-alt;
         format-disconnected = "<label-disconnected>";
         format-disconnected-underline = colors.foreground-alt;
@@ -139,16 +136,13 @@ in
             | ${pkgs.coreutils}/bin/head -n 1 \
             | ${pkgs.gnused}/bin/sed -E "s/\s+Alias: (.*)/\1/")
           if [[ -n $DEVICE ]]; then
-            echo "%{F${colors.blue}}󰂯 $DEVICE"
+            echo "%{+u}%{F${colors.blue}}%{u${colors.blue}} 󰂯 $DEVICE %{u-}%{F-}"
           else
-            echo "%{F${colors.foreground-alt}}󰂲"
+            echo "%{+u}%{F${colors.foreground-alt}}%{u${colors.foreground-alt}}󰂲%{u-}%{F-}"
           fi
         '';
-        interval = 5;
+        interval = 3;
         format = "%{A1:${pkgs.blueman}/bin/blueman-manager &:}<label>%{A}";
-        format-foreground = colors.blue;
-        format-underline = colors.blue;
-        format-padding = 1;
       };
       "module/pulseaudio" = {
         # TODO: Figure this out!
@@ -156,8 +150,8 @@ in
         interval = 1;
         format-muted = "<label-muted>";
         format-muted-prefix = "󰝟 ";
-        format-muted-foreground = colors.muted;
-        format-muted-underline = colors.muted;
+        format-muted-foreground = colors.foreground-alt;
+        format-muted-underline = colors.foreground-alt;
         format-muted-padding = 1;
         format-volume = "%{A3:${pkgs.pavucontrol}/bin/pavucontrol &:}<ramp-volume><label-volume>%{A}";
         format-volume-foreground = colors.pink;

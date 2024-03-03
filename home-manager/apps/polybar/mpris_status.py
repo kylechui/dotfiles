@@ -23,8 +23,10 @@ def on_metadata(player, *_):
         title = metadata["xesam:title"]
         if len(title) > 30:
             title = title[:30] + "…"
-        status = "{}{} - {}%{{u-}}".format(
-            "%{u#eba0ac}%{+u}" if playing else "", artist, title
+        status = "%{{+u}}{}  {} - {} %{{u-}}%{{F-}}".format(
+            "%{F#C4746E}%{u#C4746E}" if playing else "%{F#727169}%{u#727169}",
+            artist,
+            title,
         )
         print(status, flush=True)
 
