@@ -8,11 +8,11 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./acpid.nix
     ./fcitx5.nix
     ./keyd.nix
     ./logiops.nix
     ./noisetorch.nix
+    ./suspend.nix
   ];
 
   # Bootloader.
