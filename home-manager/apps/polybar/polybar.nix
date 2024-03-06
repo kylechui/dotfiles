@@ -132,16 +132,16 @@ in
       "module/bluetooth" = {
         type = "custom/script";
         exec = pkgs.writeShellScript "bluetooth.sh" ''
-          BLUETOOTH_OFF=$(${pkgs.bluez}/bin/bluetoothctl show \
-            | ${pkgs.gnugrep}/bin/grep "Powered: no")
+          BLUETOOTH_ON=$(${pkgs.bluez}/bin/bluetoothctl show \
+            | ${pkgs.gnugrep}/bin/grep "Powered: yes")
           DEVICE=$(${pkgs.bluez}/bin/bluetoothctl info \
             | ${pkgs.gnugrep}/bin/grep "Alias:" \
             | ${pkgs.coreutils}/bin/head -n 1 \
             | ${pkgs.gnused}/bin/sed -E "s/\s+Alias: (.*)/\1/")
-          if [[ -n $BLUETOOTH_OFF ]]; then
+          if [[ -z $BLUETOOTH_ON ]]; then
             echo "%{+u}%{F${colors.foreground-alt}}%{u${colors.foreground-alt}} 󰂲 %{u-}%{F-}"
           elif [[ -z $DEVICE ]]; then
-            echo "%{+u}%{F${colors.blue}}%{u${colors.blue}} 󰂲 %{u-}%{F-}"
+            echo "%{+u}%{F${colors.blue}}%{u${colors.blue}} 󰂯 %{u-}%{F-}"
           else
             echo "%{+u}%{F${colors.blue}}%{u${colors.blue}} 󰂯 $DEVICE %{u-}%{F-}"
           fi
