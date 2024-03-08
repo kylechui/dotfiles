@@ -39,7 +39,6 @@
     ./apps/zathura/zathura.nix
   ];
 
-  services.betterlockscreen.enable = true;
   services.picom.enable = true;
 
   programs.btop = {
