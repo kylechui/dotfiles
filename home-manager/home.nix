@@ -79,6 +79,8 @@
     pciutils
     sysstat
     nixpkgs-review
+    pkg-config
+    fontconfig
     # Social
     element-desktop
     signal-desktop
