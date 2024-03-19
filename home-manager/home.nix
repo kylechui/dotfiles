@@ -35,7 +35,6 @@
     ./apps/zoxide.nix
     # These apps come with other files, so they are in their own directories
     ./apps/polybar/polybar.nix
-    ./apps/wezterm/wezterm.nix
     ./apps/zathura/zathura.nix
   ];
 
