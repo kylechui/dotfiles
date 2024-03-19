@@ -28,6 +28,17 @@ in
       Type = "simple";
       ExecStart = ''
         ${systemd-sleep-hook}/bin/systemd-sleep-hook -s '${pkgs.util-linux}/bin/rfkill block all' -r '${pkgs.util-linux}/bin/rfkill unblock all'
+  };
+  systemd.user.services."xss-lock" = {
+    description = "xss-lock, session locker service";
+    wantedBy = [ "graphical-session.target" ];
+    after = [ "graphical-session-pre.target" ];
+    partOf = [ "graphical-session.target" ];
+
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = ''
+        ${pkgs.xss-lock}/bin/xss-lock -s ''${XDG_SESSION_ID} -- ${pkgs.betterlockscreen}/bin/betterlockscreen --lock --quiet
       '';
     };
   };

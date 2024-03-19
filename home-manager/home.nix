@@ -40,6 +40,10 @@
   ];
 
   services.picom.enable = true;
+  # services.betterlockscreen = {
+  #   enable = true;
+  #   inactiveInterval = 0;
+  # };
 
   programs.btop = {
     enable = true;
