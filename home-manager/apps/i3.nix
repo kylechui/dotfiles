@@ -25,6 +25,8 @@ let
           hash = "sha256-4Qg3lUOIisuEP/h3jK1nTLnr5tL09MGxPc93qxoBKAI=";
         })
         ./tabbed-keymaps.diff
+        ./tabbed-theme.diff
+        ./tabbed-relative-position.diff
       ];
     })
   );

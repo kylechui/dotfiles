@@ -1,0 +1,14 @@
+diff --git a/config.def.h b/config.def.h
+index 51bb13d..6071913 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -21,7 +21,7 @@ static       Bool urgentswitch  = False;
+  * is False, then newposition is an absolute position.
+  */
+-static int  newposition   = 0;
++static int  newposition   = 1;
+-static Bool npisrelative  = False;
++static Bool npisrelative  = True;
+ 
+ #define SETPROP(p) { \
+         .v = (char *[]){ "/bin/sh", "-c", \
