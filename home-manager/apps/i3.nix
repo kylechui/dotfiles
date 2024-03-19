@@ -8,8 +8,8 @@ let
       src = pkgs.fetchFromGitHub {
         owner = "kylechui";
         repo = "st";
-        rev = "3efacf951eccf741d19b27573203c2f5e09296c4";
-        sha256 = "sha256-W4xmsYQcPGLREqGWOICBChgVvAMx66blO4j5gHf8ZsI=";
+        rev = "e21a1eef2d88f71547d5e932bf29acb4f2554c3c";
+        sha256 = "sha256-NCWjEV0dM8MLGxX7+F4b8O/CiNX04ydao5n/nhngOTs=";
       };
     })
   );
