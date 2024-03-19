@@ -30,7 +30,6 @@
 
   ### Enable some default programs
   networking.networkmanager.enable = true;
-  programs.fish.enable = true;
   programs.dconf.enable = true;
   programs.steam.enable = true;
   # Storage optimization settings
