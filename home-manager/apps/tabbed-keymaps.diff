@@ -1,0 +1,25 @@
+diff --git a/config.def.h b/config.def.h
+index 51bb13d..16379a8 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -36,14 +36,13 @@ static Bool npisrelative  = False;
+ #define MODKEY ControlMask
+ static const Key keys[] = {
+ 	/* modifier             key        function     argument */
+-	{ MODKEY|ShiftMask,     XK_Return, focusonce,   { 0 } },
+-	{ MODKEY|ShiftMask,     XK_Return, spawn,       { 0 } },
++	{ Mod4Mask,             XK_t,      focusonce,   { 0 } },
++	{ Mod4Mask,             XK_t,      spawn,       { 0 } },
+ 
+-	{ MODKEY|ShiftMask,     XK_l,      rotate,      { .i = +1 } },
+-	{ MODKEY|ShiftMask,     XK_h,      rotate,      { .i = -1 } },
+-	{ MODKEY|ShiftMask,     XK_j,      movetab,     { .i = -1 } },
+-	{ MODKEY|ShiftMask,     XK_k,      movetab,     { .i = +1 } },
+-	{ MODKEY,               XK_Tab,    rotate,      { .i = 0 } },
++	{ MODKEY,               XK_Tab,    rotate,      { .i = +1 } },
++	{ MODKEY|ShiftMask,     XK_Tab,    rotate,      { .i = -1 } },
++	{ MODKEY|ShiftMask,     XK_h,      movetab,     { .i = -1 } },
++	{ MODKEY|ShiftMask,     XK_l,      movetab,     { .i = +1 } },
+ 
+ 	{ MODKEY,               XK_grave,  spawn,       SETPROP("_TABBED_SELECT_TAB") },
+ 	{ MODKEY,               XK_1,      move,        { .i = 0 } },

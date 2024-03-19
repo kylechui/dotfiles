@@ -132,7 +132,7 @@
         body = ''
           # Use `fish_key_reader` to figure out key sequences
           bind -M insert -k nul accept-autosuggestion # This is <C-Space>
-          bind -M insert -k backspace backward-kill-word # This is <C-BS>
+          bind -M insert \b backward-kill-word # This is <C-BS>
         '';
       };
       fish_greeting = {

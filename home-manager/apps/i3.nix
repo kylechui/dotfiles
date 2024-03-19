@@ -1,7 +1,35 @@
 { pkgs, ... }:
 
-let mod = "Mod4";
-in {
+let
+  mod = "Mod4";
+  st = (
+    pkgs.st.overrideAttrs (oldAttrs: {
+      buildInputs = oldAttrs.buildInputs ++ [ pkgs.harfbuzz ];
+      src = pkgs.fetchFromGitHub {
+        owner = "kylechui";
+        repo = "st";
+        rev = "94eba53e0bb37c9aed186282153a7437b609eeaf";
+        sha256 = "sha256-M3cLMG6ZFyfXh0uqX4OLLFmq0rl3Oxb/wqrQFvh9vmM=";
+      };
+    })
+  );
+  tabbed = (
+    pkgs.tabbed.overrideAttrs (oldAttrs: {
+      patches = oldAttrs.patches ++ [
+        (pkgs.fetchpatch {
+          url = "https://tools.suckless.org/tabbed/patches/autohide/tabbed-autohide-20201222-dabf6a2.diff";
+          hash = "sha256-VjlM9X/24pFb8/Xh9/ktmKqy7tskbKk+K+G2/bxWxKU=";
+        })
+        (pkgs.fetchpatch {
+          url = "https://tools.suckless.org/tabbed/patches/cwd/tabbed-cwd-20230128-41e2b8f.diff";
+          hash = "sha256-4Qg3lUOIisuEP/h3jK1nTLnr5tL09MGxPc93qxoBKAI=";
+        })
+        ./tabbed-keymaps.diff
+      ];
+    })
+  );
+in
+{
   xsession = {
     enable = true;
     windowManager.i3 = {
@@ -20,8 +48,7 @@ in {
           }
           {
             # Disables touchscreen on boot
-            command =
-              "${pkgs.xorg.xinput}/bin/xinput disable 'ELAN2514:00 04F3:29E0'";
+            command = "${pkgs.xorg.xinput}/bin/xinput disable 'ELAN2514:00 04F3:29E0'";
             notification = false;
           }
           {
@@ -37,13 +64,19 @@ in {
           }
         ];
         modifier = mod;
-        assigns = { "8" = [{ class = "discord"; }]; };
+        assigns = {
+          "8" = [ { class = "discord"; } ];
+        };
         window = {
           titlebar = false;
-          commands = [{
-            command = "move to workspace number 9";
-            criteria = { class = "Spotify"; };
-          }];
+          commands = [
+            {
+              command = "move to workspace number 9";
+              criteria = {
+                class = "Spotify";
+              };
+            }
+          ];
         };
         defaultWorkspace = "workspace number 1";
         bars = [ ];
@@ -66,46 +99,38 @@ in {
           style = "Bold Semi-Condensed";
           size = 10.0;
         };
-        gaps = { smartBorders = "on"; };
+        gaps = {
+          smartBorders = "on";
+        };
         keybindings = {
           "${mod}+Tab" = "workspace back_and_forth";
           "${mod}+space" = "exec ${pkgs.rofi}/bin/rofi -show drun";
-          "${mod}+Return" = "exec ${pkgs.wezterm}/bin/wezterm";
+          "${mod}+Return" = ''
+            exec ${tabbed}/bin/tabbed -c -r 2 ${st}/bin/st -w "" -e ${pkgs.fish}/bin/fish
+          '';
           "${mod}+Shift+Return" = "exec ${pkgs.firefox}/bin/firefox";
           "${mod}+p" = "exec ${pkgs.firefox}/bin/firefox --private-window";
           "${mod}+BackSpace" = "split toggle";
-          "${mod}+Shift+s" =
-            "exec --no-startup-id ${pkgs.flameshot}/bin/flameshot gui";
-          "${mod}+w" = "exec --no-startup-id ~/.config/rofi/wifi-connect.sh &";
+          "${mod}+Shift+s" = "exec --no-startup-id ${pkgs.flameshot}/bin/flameshot gui";
           "${mod}+e" = "exec ${pkgs.xfce.thunar}/bin/thunar";
           "${mod}+x" = "split h";
           "${mod}+v" = "split v";
-          "${mod}+Shift+e" = ''
-            exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"'';
-          "${mod}+Escape" =
-            "exec ${pkgs.betterlockscreen}/bin/betterlockscreen --lock --quiet";
+          "${mod}+Shift+e" = ''exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"'';
+          "${mod}+Escape" = "exec ${pkgs.betterlockscreen}/bin/betterlockscreen --lock --quiet";
           "${mod}+Shift+q" = "kill";
           "${mod}+f" = "fullscreen toggle";
           "${mod}+Shift+f" = "floating toggle";
           "${mod}+Shift+r" = "restart";
           "${mod}+Shift+c" = "reload";
           # Laptop keys
-          "XF86MonBrightnessDown" =
-            "exec --no-startup-id ${pkgs.brightnessctl}/bin/brightnessctl -d 'intel_backlight' set 5%-";
-          "XF86MonBrightnessUp" =
-            "exec --no-startup-id ${pkgs.brightnessctl}/bin/brightnessctl -d 'intel_backlight' set +5%";
-          "XF86AudioLowerVolume" =
-            "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-volume 1 -5%";
-          "XF86AudioRaiseVolume" =
-            "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-volume 1 +5%";
-          "XF86AudioPrev" =
-            "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl previous";
-          "XF86AudioPause" =
-            "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl play-pause";
-          "XF86AudioNext" =
-            "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl next";
-          "XF86AudioMute" =
-            "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-mute 1 toggle";
+          "XF86MonBrightnessDown" = "exec --no-startup-id ${pkgs.brightnessctl}/bin/brightnessctl -d 'intel_backlight' set 5%-";
+          "XF86MonBrightnessUp" = "exec --no-startup-id ${pkgs.brightnessctl}/bin/brightnessctl -d 'intel_backlight' set +5%";
+          "XF86AudioLowerVolume" = "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-volume 1 -5%";
+          "XF86AudioRaiseVolume" = "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-volume 1 +5%";
+          "XF86AudioPrev" = "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl previous";
+          "XF86AudioPause" = "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl play-pause";
+          "XF86AudioNext" = "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl next";
+          "XF86AudioMute" = "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-mute 1 toggle";
           # Basic navigation keybinds
           "${mod}+h" = "focus left";
           "${mod}+j" = "focus down";
@@ -144,19 +169,19 @@ in {
           "${mod}+Shift+9" = "move container to workspace number 9";
           "${mod}+Shift+0" = "move container to workspace number 10";
         };
-        keycodebindings = let # Logiops keycode bindings (set in logiops.nix)
-          gesture_left = "193";
-          gesture_right = "194";
-          gesture_down = "195";
-          gesture_up = "196";
-        in {
-          ${gesture_left} = "workspace next";
-          ${gesture_right} = "workspace prev";
-          ${gesture_down} =
-            "exec --no-startup-id ${pkgs.flameshot}/bin/flameshot gui";
-          ${gesture_up} =
-            "exec --no-startup-id ${pkgs.xcolor}/bin/xcolor -f HEX -s clipboard";
-        };
+        keycodebindings =
+          let # Logiops keycode bindings (set in logiops.nix)
+            gesture_left = "193";
+            gesture_right = "194";
+            gesture_down = "195";
+            gesture_up = "196";
+          in
+          {
+            ${gesture_left} = "workspace next";
+            ${gesture_right} = "workspace prev";
+            ${gesture_down} = "exec --no-startup-id ${pkgs.flameshot}/bin/flameshot gui";
+            ${gesture_up} = "exec --no-startup-id ${pkgs.xcolor}/bin/xcolor -f HEX -s clipboard";
+          };
       };
       # TODO: Fix this!
       # extraConfig = ''
