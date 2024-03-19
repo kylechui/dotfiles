@@ -28,6 +28,9 @@ in
       Type = "simple";
       ExecStart = ''
         ${systemd-sleep-hook}/bin/systemd-sleep-hook -s '${pkgs.util-linux}/bin/rfkill block all' -r '${pkgs.util-linux}/bin/rfkill unblock all'
+      '';
+      Restart = "always";
+    };
   };
   systemd.user.services."xss-lock" = {
     description = "xss-lock, session locker service";
