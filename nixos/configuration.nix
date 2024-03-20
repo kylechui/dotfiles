@@ -30,7 +30,6 @@
 
   ### Enable some default programs
   networking.networkmanager.enable = true;
-  programs.dconf.enable = true;
   programs.steam.enable = true;
   # Storage optimization settings
   nix.settings.auto-optimise-store = true;
@@ -105,11 +104,6 @@
       enable = true;
       extraPackages = [ ];
     };
-  };
-
-  services.autorandr = {
-    enable = true;
-    defaultTarget = "mobile";
   };
 
   # Power management

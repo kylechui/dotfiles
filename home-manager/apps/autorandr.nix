@@ -38,4 +38,5 @@
       "restart-polybar" = "${pkgs.polybar}/bin/polybar-msg cmd restart";
     };
   };
+  services.autorandr.enable = true;
 }
