@@ -88,17 +88,17 @@
     zoom-us
     # Other apps
     spotify
-    unstable.localsend
     pavucontrol
     obsidian
     libreoffice-qt
     screenkey
     simplescreenrecorder
+    xfce.thunar
 
-    nerdfonts
+    # Fonts
     iosevka
     sarasa-gothic
-    xfce.thunar
+    (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
     # Shell
     shellcheck
     # C/C++
