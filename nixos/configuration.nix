@@ -124,6 +124,12 @@
   };
   services.thermald.enable = true;
 
+  # Automatically switch display configurations
+  services.autorandr = {
+    enable = true;
+    defaultTarget = "mobile";
+  };
+
   # Bluetooth management
   services.blueman.enable = true;
 
