@@ -108,10 +108,14 @@
       xfce.thunar
 
       # Fonts
-      iosevka
       iosevka-term
       sarasa-gothic
-      (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
+      (unstable.nerdfonts.override {
+        fonts = [
+          "NerdFontsSymbolsOnly"
+          "IosevkaTerm"
+        ];
+      })
       # Shell
       shellcheck
       # C/C++

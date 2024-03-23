@@ -31,6 +31,7 @@ pkgs.st.overrideAttrs (oldAttrs: {
       url = "https://st.suckless.org/patches/xresources-with-reload-signal/st-xresources-signal-reloading-20220407-ef05519.diff";
       hash = "sha256-og6cJaMfn7zHfQ0xt6NKhuDNY5VK2CjzqJDJYsT5lrk=";
     })
+    ./st-support-wide-glyphs.diff
     ./st-keymaps.diff
   ];
 })
