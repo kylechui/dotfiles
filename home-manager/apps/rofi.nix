@@ -13,7 +13,7 @@
       drun-display-format = "{name}";
       display-drun = "Applications:";
       display-window = "Windows:";
-      font = "Iosevka 11";
+      font = "Iosevka Term 12";
     };
     theme =
       let
