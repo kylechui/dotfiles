@@ -2,17 +2,6 @@
 
 let
   mod = "Mod4";
-  st = (
-    pkgs.st.overrideAttrs (oldAttrs: {
-      buildInputs = oldAttrs.buildInputs ++ [ pkgs.harfbuzz ];
-      src = pkgs.fetchFromGitHub {
-        owner = "kylechui";
-        repo = "st";
-        rev = "e21a1eef2d88f71547d5e932bf29acb4f2554c3c";
-        sha256 = "sha256-NCWjEV0dM8MLGxX7+F4b8O/CiNX04ydao5n/nhngOTs=";
-      };
-    })
-  );
   tabbed = (
     pkgs.tabbed.overrideAttrs (oldAttrs: {
       patches = oldAttrs.patches ++ [
@@ -108,7 +97,9 @@ in
           "${mod}+Tab" = "workspace back_and_forth";
           "${mod}+space" = "exec ${pkgs.rofi}/bin/rofi -show drun";
           "${mod}+Return" = ''
-            exec ${tabbed}/bin/tabbed -c -r 2 ${st}/bin/st -w "" -e ${pkgs.fish}/bin/fish
+            exec ${tabbed}/bin/tabbed -c -r 2 ${
+              import ./st/st.nix { inherit pkgs; }
+            }/bin/st -w "" -e ${pkgs.fish}/bin/fish
           '';
           "${mod}+Shift+Return" = "exec ${pkgs.firefox}/bin/firefox";
           "${mod}+p" = "exec ${pkgs.firefox}/bin/firefox --private-window";
