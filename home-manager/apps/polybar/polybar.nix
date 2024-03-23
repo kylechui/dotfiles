@@ -48,9 +48,11 @@ in
         foreground = colors.foreground;
         enable-ipc = true;
         font = [
-          "Iosevka:size=12;2"
+          "Iosevka Term:size=12;2"
           "Symbols Nerd Font Mono:size=12;2"
+          "Sarasa Gothic C:size=12;2"
           "Sarasa Gothic J:size=12;2"
+          "Sarasa Gothic K:size=12;2"
         ];
         height = 30;
         line-size = 4;
