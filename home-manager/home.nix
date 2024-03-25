@@ -15,6 +15,8 @@
     package = pkgs.dracula-theme;
   };
 
+  xresources.extraConfig = ./.Xresources;
+
   imports = [
     # Include basic application-specific configuration
     ./apps/autorandr.nix
@@ -39,10 +41,6 @@
   ];
 
   services.picom.enable = true;
-  # services.betterlockscreen = {
-  #   enable = true;
-  #   inactiveInterval = 0;
-  # };
 
   programs.btop = {
     enable = true;
