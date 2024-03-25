@@ -10,6 +10,10 @@ pkgs.tabbed.overrideAttrs (oldAttrs: {
       url = "https://tools.suckless.org/tabbed/patches/cwd/tabbed-cwd-20230128-41e2b8f.diff";
       hash = "sha256-4Qg3lUOIisuEP/h3jK1nTLnr5tL09MGxPc93qxoBKAI=";
     })
+    (pkgs.fetchpatch {
+      url = "https://tools.suckless.org/tabbed/patches/drag/tabbed-drag-20230128-41e2b8f.diff";
+      hash = "sha256-zJKQpPhiCBVXf6H3Cjoh2GO4mnGNxzl8J+P681FZP64=";
+    })
     ./tabbed-keymaps.diff
     ./tabbed-theme.diff
     ./tabbed-relative-position.diff
