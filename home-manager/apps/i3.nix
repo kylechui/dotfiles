@@ -2,23 +2,6 @@
 
 let
   mod = "Mod4";
-  tabbed = (
-    pkgs.tabbed.overrideAttrs (oldAttrs: {
-      patches = oldAttrs.patches ++ [
-        (pkgs.fetchpatch {
-          url = "https://tools.suckless.org/tabbed/patches/autohide/tabbed-autohide-20201222-dabf6a2.diff";
-          hash = "sha256-VjlM9X/24pFb8/Xh9/ktmKqy7tskbKk+K+G2/bxWxKU=";
-        })
-        (pkgs.fetchpatch {
-          url = "https://tools.suckless.org/tabbed/patches/cwd/tabbed-cwd-20230128-41e2b8f.diff";
-          hash = "sha256-4Qg3lUOIisuEP/h3jK1nTLnr5tL09MGxPc93qxoBKAI=";
-        })
-        ./tabbed-keymaps.diff
-        ./tabbed-theme.diff
-        ./tabbed-relative-position.diff
-      ];
-    })
-  );
 in
 {
   xsession = {
@@ -97,7 +80,7 @@ in
           "${mod}+Tab" = "workspace back_and_forth";
           "${mod}+space" = "exec ${pkgs.rofi}/bin/rofi -show drun";
           "${mod}+Return" = ''
-            exec ${tabbed}/bin/tabbed -c -r 2 ${
+            exec ${import ./tabbed/tabbed.nix { inherit pkgs; }}/bin/tabbed -c -r 2 ${
               import ./st/st.nix { inherit pkgs; }
             }/bin/st -w "" -e ${pkgs.fish}/bin/fish
           '';
