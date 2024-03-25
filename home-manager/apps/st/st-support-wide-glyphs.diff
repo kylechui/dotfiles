@@ -16,7 +16,7 @@ index 79ddf70..1a429ce 100644
  	SEL_IDLE = 0,
  	SEL_EMPTY = 1,
 diff --git a/x.c b/x.c
-index 29264d0..9d79a0a 100644
+index 29264d0..14b7d15 100644
 --- a/x.c
 +++ b/x.c
 @@ -144,7 +144,7 @@ typedef struct {
@@ -125,10 +125,11 @@ index 29264d0..9d79a0a 100644
  }
  
  void
-@@ -1689,26 +1682,30 @@ xdrawline(Line line, int x1, int y1, int x2)
+@@ -1688,27 +1681,31 @@ xdrawline(Line line, int x1, int y1, int x2)
+ 	Glyph base, new;
  	XftGlyphFontSpec *specs = xw.specbuf;
  
- 	i = ox = 0;
+-	i = ox = 0;
 -	for (x = x1; x < x2; x++) {
 -		new = line[x];
 -		if (new.mode == ATTR_WDUMMY)
@@ -142,6 +143,7 @@ index 29264d0..9d79a0a 100644
 +	/* Draw line in 2 passes: background and foreground. This way wide glyphs
 +		won't get truncated (#223) */
 +	for (int dmode = DRAW_BG; dmode <= DRAW_FG; dmode <<= 1) {
++		i = ox = 0;
 +		for (x = x1; x < x2; x++) {
 +			new = line[x];
 +			if (new.mode == ATTR_WDUMMY)
