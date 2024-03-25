@@ -15,7 +15,7 @@
     package = pkgs.dracula-theme;
   };
 
-  xresources.extraConfig = ./.Xresources;
+  xresources.extraConfig = builtins.readFile ./.Xresources;
 
   imports = [
     # Include basic application-specific configuration
