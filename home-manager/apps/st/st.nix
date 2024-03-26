@@ -16,16 +16,16 @@ pkgs.st.overrideAttrs (oldAttrs: {
       hash = "sha256-GZq1DZl54NwC169tEOskqcIqMKjBCgCSHYXTKddxzFg=";
     })
     (pkgs.fetchpatch {
-      url = "https://st.suckless.org/patches/ligatures/0.9/st-ligatures-20240105-0.9.diff";
-      hash = "sha256-lMl4cg13inc8D1eH2rfbZTH+8hRLwlDLPq3+UqQPtzo=";
-    })
-    (pkgs.fetchpatch {
       url = "https://st.suckless.org/patches/scrollback/st-scrollback-mouse-20220127-2c5edf2.diff";
       hash = "sha256-CuNJ5FdKmAtEjwbgKeBKPJTdEfJvIdmeSAphbz0u3Uk=";
     })
     (pkgs.fetchpatch {
       url = "https://st.suckless.org/patches/scrollback/st-scrollback-mouse-altscreen-20220127-2c5edf2.diff";
       hash = "sha256-8oVLgbsYCfMhNEOGadb5DFajdDKPxwgf3P/4vOXfUFo=";
+    })
+    (pkgs.fetchpatch {
+      url = "https://st.suckless.org/patches/ligatures/0.9/st-ligatures-20240105-0.9.diff";
+      hash = "sha256-lMl4cg13inc8D1eH2rfbZTH+8hRLwlDLPq3+UqQPtzo=";
     })
     (pkgs.fetchpatch {
       url = "https://st.suckless.org/patches/xresources-with-reload-signal/st-xresources-signal-reloading-20220407-ef05519.diff";
