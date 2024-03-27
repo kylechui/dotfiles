@@ -114,6 +114,8 @@
           "IosevkaTerm"
         ];
       })
+
+      vscode-langservers-extracted
       # Shell
       shellcheck
       # C/C++
