@@ -73,6 +73,7 @@
     in
     [
       # CLI Utilities
+      gdb
       zip
       unzip
       xclip
