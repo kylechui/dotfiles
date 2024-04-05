@@ -134,6 +134,8 @@
           bind -M insert -k nul accept-autosuggestion # This is <C-Space>
           bind -M insert \b backward-kill-word # This is <C-BS>
           bind -M insert \e\[Z up-line # This is <S-Tab>
+          bind -M insert \ca beginning-of-line # This is <C-A>
+          bind -M insert \ce end-of-line # This is <C-E>
         '';
       };
       fish_greeting = {
