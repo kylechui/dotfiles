@@ -8,6 +8,10 @@ pkgs.st.overrideAttrs (oldAttrs: {
   };
   patches = oldAttrs.patches ++ [
     (pkgs.fetchpatch {
+      url = "https://st.suckless.org/patches/xresources-with-reload-signal/st-xresources-signal-reloading-20220407-ef05519.diff";
+      hash = "sha256-og6cJaMfn7zHfQ0xt6NKhuDNY5VK2CjzqJDJYsT5lrk=";
+    })
+    (pkgs.fetchpatch {
       url = "https://st.suckless.org/patches/scrollback/st-scrollback-0.8.5.diff";
       hash = "sha256-ZZAbrWyIaYRtw+nqvXKw8eXRWf0beGNJgoupRKsr2lc=";
     })
@@ -23,15 +27,9 @@ pkgs.st.overrideAttrs (oldAttrs: {
       url = "https://st.suckless.org/patches/scrollback/st-scrollback-mouse-altscreen-20220127-2c5edf2.diff";
       hash = "sha256-8oVLgbsYCfMhNEOGadb5DFajdDKPxwgf3P/4vOXfUFo=";
     })
-    (pkgs.fetchpatch {
-      url = "https://st.suckless.org/patches/ligatures/0.9/st-ligatures-20240105-0.9.diff";
-      hash = "sha256-lMl4cg13inc8D1eH2rfbZTH+8hRLwlDLPq3+UqQPtzo=";
-    })
-    (pkgs.fetchpatch {
-      url = "https://st.suckless.org/patches/xresources-with-reload-signal/st-xresources-signal-reloading-20220407-ef05519.diff";
-      hash = "sha256-og6cJaMfn7zHfQ0xt6NKhuDNY5VK2CjzqJDJYsT5lrk=";
-    })
-    ./st-support-wide-glyphs.diff
+    ./st-boxdraw.diff
+    ./st-wideglyph.diff
+    ./st-ligatures.diff
     ./st-keymaps.diff
   ];
 })
