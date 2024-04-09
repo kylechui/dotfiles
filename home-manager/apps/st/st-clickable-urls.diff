@@ -18,10 +18,10 @@ index 1bd4dd4..03e6bb5 100644
 +	"0123456789-._~:/?#@!$&'*+,;=%";
 +char* urlprefixes[] = {"http://", "https://", NULL};
 diff --git a/st.c b/st.c
-index 48c37a2..ee19e93 100644
+index 48c37a2..2f40b94 100644
 --- a/st.c
 +++ b/st.c
-@@ -712,6 +712,79 @@ getsel(void)
+@@ -712,6 +712,92 @@ getsel(void)
  	return str;
  }
  
@@ -56,6 +56,19 @@ index 48c37a2..ee19e93 100644
 +		}
 +	}
 +	free(linestr);
++}
++
++void
++unhighlighturlsline(int row)
++{
++	for (int j = 0; j < term.col; j++) {
++		Glyph* g = &term.line[row][j];
++		if (g->mode & ATTR_URL) {
++			g->mode &= ~ATTR_URL;
++			tsetdirt(row, j);
++		}
++	}
++	return;
 +}
 +
 +int
@@ -101,10 +114,11 @@ index 48c37a2..ee19e93 100644
  void
  selclear(void)
  {
-@@ -3078,6 +3151,7 @@ drawregion(int x1, int y1, int x2, int y2)
+@@ -3078,6 +3164,8 @@ drawregion(int x1, int y1, int x2, int y2)
  			continue;
  
  		term.dirty[y] = 0;
++		unhighlighturlsline(y);
 +		highlighturlsline(y);
  		xdrawline(TLINE(y), x1, y, x2);
  	}
