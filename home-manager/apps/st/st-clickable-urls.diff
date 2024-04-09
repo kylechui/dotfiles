@@ -135,11 +135,12 @@ index 786676f..e4ff1df 100644
  	ATTR_BOLD_FAINT = ATTR_BOLD | ATTR_FAINT,
  };
  
-@@ -118,6 +119,9 @@ void selextend(int, int, int, int);
+@@ -118,6 +119,10 @@ void selextend(int, int, int, int);
  int selected(int, int);
  char *getsel(void);
  
-+void highlighturls(void);
++void highlighturlsline(int);
++void unhighlighturlsline(int);
 +int followurl(int, int);
 +
  size_t utf8encode(Rune, char *);
