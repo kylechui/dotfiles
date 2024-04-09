@@ -18,10 +18,10 @@ index 1bd4dd4..03e6bb5 100644
 +	"0123456789-._~:/?#@!$&'*+,;=%";
 +char* urlprefixes[] = {"http://", "https://", NULL};
 diff --git a/st.c b/st.c
-index 48c37a2..e854d1d 100644
+index 48c37a2..ee19e93 100644
 --- a/st.c
 +++ b/st.c
-@@ -712,6 +712,77 @@ getsel(void)
+@@ -712,6 +712,79 @@ getsel(void)
  	return str;
  }
  
@@ -37,13 +37,13 @@ index 48c37a2..e854d1d 100644
 +}
 +
 +void
-+highlighturlsline(int x)
++highlighturlsline(int row)
 +{
 +	char *linestr = calloc(sizeof(char), term.col+1); /* assume ascii */
 +	char *match;
 +	for (int j = 0; j < term.col; j++) {
-+		if (term.line[x][j].u < 127) {
-+			linestr[j] = term.line[x][j].u;
++		if (term.line[row][j].u < 127) {
++			linestr[j] = term.line[row][j].u;
 +		}
 +		linestr[term.col] = '\0';
 +	}
@@ -51,38 +51,39 @@ index 48c37a2..e854d1d 100644
 +	while ((match = strstrany(linestr + url_start + 1, urlprefixes))) {
 +		url_start = match - linestr;
 +		for (int c = url_start; c < term.col && strchr(urlchars, linestr[c]); c++) {
-+			term.line[x][c].mode |= ATTR_URL;
-+			tsetdirt(x, c);
++			term.line[row][c].mode |= ATTR_URL;
++			tsetdirt(row, c);
 +		}
 +	}
 +	free(linestr);
 +}
 +
-+void
-+followurl(int x, int y) {
++int
++followurl(int col, int row) {
 +	char *linestr = calloc(sizeof(char), term.col+1); /* assume ascii */
 +	char *match;
 +	for (int i = 0; i < term.col; i++) {
-+		if (term.line[x][i].u < 127) {
-+			linestr[i] = term.line[x][i].u;
++		if (term.line[row][i].u < 127) {
++			linestr[i] = term.line[row][i].u;
 +		}
 +		linestr[term.col] = '\0';
 +	}
-+	int url_start = -1;
++	int url_start = -1, found_url = 0;
 +	while ((match = strstrany(linestr + url_start + 1, urlprefixes))) {
 +		url_start = match - linestr;
 +		int url_end = url_start;
 +		for (int c = url_start; c < term.col && strchr(urlchars, linestr[c]); c++) {
 +			url_end++;
 +		}
-+		if (url_start <= y && y < url_end) {
++		if (url_start <= col && col < url_end) {
++			found_url = 1;
 +			linestr[url_end] = '\0';
 +			break;
 +		}
 +	}
-+	if (url_start == -1) {
++	if (!found_url) {
 +		free(linestr);
-+		return;
++		return 0;
 +	}
 +
 +	pid_t chpid;
@@ -94,12 +95,13 @@ index 48c37a2..e854d1d 100644
 +	if (chpid > 0)
 +		waitpid(chpid, NULL, 0);
 +	free(linestr);
++    return 1;
 +}
 +
  void
  selclear(void)
  {
-@@ -3078,6 +3149,7 @@ drawregion(int x1, int y1, int x2, int y2)
+@@ -3078,6 +3151,7 @@ drawregion(int x1, int y1, int x2, int y2)
  			continue;
  
  		term.dirty[y] = 0;
@@ -108,7 +110,7 @@ index 48c37a2..e854d1d 100644
  	}
  }
 diff --git a/st.h b/st.h
-index 786676f..768b33e 100644
+index 786676f..e4ff1df 100644
 --- a/st.h
 +++ b/st.h
 @@ -36,6 +36,7 @@ enum glyph_attribute {
@@ -124,7 +126,7 @@ index 786676f..768b33e 100644
  char *getsel(void);
  
 +void highlighturls(void);
-+void followurl(int, int);
++int followurl(int, int);
 +
  size_t utf8encode(Rune, char *);
  
@@ -138,7 +140,7 @@ index 786676f..768b33e 100644
 +extern char *urlprefixes[];
 +extern int nurlprefixes;
 diff --git a/x.c b/x.c
-index 2f1a5c9..9763fd2 100644
+index 2f1a5c9..10f3209 100644
 --- a/x.c
 +++ b/x.c
 @@ -192,6 +192,7 @@ static void usage(void);
@@ -149,20 +151,18 @@ index 2f1a5c9..9763fd2 100644
  	[ClientMessage] = cmessage,
  	[ConfigureNotify] = resize,
  	[VisibilityNotify] = visibility,
-@@ -446,6 +447,12 @@ mouseaction(XEvent *e, uint release)
+@@ -446,6 +447,10 @@ mouseaction(XEvent *e, uint release)
  	/* ignore Button<N>mask for Button<N> - it's set on release */
  	uint state = e->xbutton.state & ~buttonmask(e->xbutton.button);
  
 +	if (release == 0 && e->xbutton.button == Button1) {
-+		followurl(evrow(e), evcol(e));
-+		return 1;
++		return followurl(evcol(e), evrow(e));
 +	}
-+
 +
  	for (ms = mshortcuts; ms < mshortcuts + LEN(mshortcuts); ms++) {
  		if (ms->release == release &&
  		    ms->button == e->xbutton.button &&
-@@ -1484,7 +1491,7 @@ xdrawglyphfontspecs(const XftGlyphFontSpec *specs, Glyph base, int len, int x, i
+@@ -1484,7 +1489,7 @@ xdrawglyphfontspecs(const XftGlyphFontSpec *specs, Glyph base, int len, int x, i
  			XftDrawGlyphFontSpec(xw.draw, fg, specs, len);
  		}
  		/* Render underline and strikethrough. */
@@ -171,7 +171,7 @@ index 2f1a5c9..9763fd2 100644
  			XftDrawRect(xw.draw, fg, winx, winy + dc.font.ascent + 1,
  					width, 1);
  		}
-@@ -1844,6 +1851,11 @@ kpress(XEvent *ev)
+@@ -1844,6 +1849,11 @@ kpress(XEvent *ev)
  		len = XmbLookupString(xw.ime.xic, e, buf, sizeof buf, &ksym, &status);
  	else
  		len = XLookupString(e, buf, sizeof buf, &ksym, NULL);
