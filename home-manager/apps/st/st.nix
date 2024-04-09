@@ -29,6 +29,7 @@ pkgs.st.overrideAttrs (oldAttrs: {
     })
     ./st-boxdraw.diff
     ./st-wideglyph.diff
+    ./st-clickable-urls.diff
     ./st-ligatures.diff
     ./st-keymaps.diff
   ];

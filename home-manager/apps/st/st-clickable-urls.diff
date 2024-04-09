@@ -1,0 +1,188 @@
+diff --git a/config.def.h b/config.def.h
+index 1bd4dd4..03e6bb5 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -488,3 +488,14 @@ static char ascii_printable[] =
+ 	" !\"#$%&'()*+,-./0123456789:;<=>?"
+ 	"@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_"
+ 	"`abcdefghijklmnopqrstuvwxyz{|}~";
++
++/*
++ * Open urls starting with urlprefixes, contatining urlchars
++ * by passing as ARG1 to urlhandler.
++ */
++char* urlhandler = "xdg-open";
++char urlchars[] =
++	"ABCDEFGHIJKLMNOPQRSTUVWXYZ"
++	"abcdefghijklmnopqrstuvwxyz"
++	"0123456789-._~:/?#@!$&'*+,;=%";
++char* urlprefixes[] = {"http://", "https://", NULL};
+diff --git a/st.c b/st.c
+index 48c37a2..22b7e77 100644
+--- a/st.c
++++ b/st.c
+@@ -712,6 +712,79 @@ getsel(void)
+ 	return str;
+ }
+ 
++char *
++strstrany(char* s, char** strs) {
++	char *match;
++	for (int i = 0; strs[i]; i++) {
++		if ((match = strstr(s, strs[i]))) {
++			return match;
++		}
++	}
++	return NULL;
++}
++
++void
++highlighturls(void)
++{
++	char *match;
++	char *linestr = calloc(sizeof(char), term.col+1); /* assume ascii */
++	for (int i = term.top; i < term.bot; i++) {
++		int url_start = -1;
++		for (int j = 0; j < term.col; j++) {
++			if (term.line[i][j].u < 127) {
++				linestr[j] = term.line[i][j].u;
++			}
++			linestr[term.col] = '\0';
++		}
++		while ((match = strstrany(linestr + url_start + 1, urlprefixes))) {
++			url_start = match - linestr;
++			for (int c = url_start; c < term.col && strchr(urlchars, linestr[c]); c++) {
++				term.line[i][c].mode |= ATTR_URL;
++				tsetdirt(i, c);
++			}
++		}
++	}
++	free(linestr);
++}
++
++void
++followurl(int x, int y) {
++	char *linestr = calloc(sizeof(char), term.col+1); /* assume ascii */
++	char *match;
++	for (int i = 0; i < term.col; i++) {
++		if (term.line[x][i].u < 127) {
++			linestr[i] = term.line[x][i].u;
++		}
++		linestr[term.col] = '\0';
++	}
++	int url_start = -1;
++	while ((match = strstrany(linestr + url_start + 1, urlprefixes))) {
++		url_start = match - linestr;
++		int url_end = url_start;
++		for (int c = url_start; c < term.col && strchr(urlchars, linestr[c]); c++) {
++			url_end++;
++		}
++		if (url_start <= y && y < url_end) {
++			linestr[url_end] = '\0';
++			break;
++		}
++	}
++	if (url_start == -1) {
++		free(linestr);
++		return;
++	}
++
++	pid_t chpid;
++	if ((chpid = fork()) == 0) {
++		if (fork() == 0)
++			execlp(urlhandler, urlhandler, linestr + url_start, NULL);
++		exit(1);
++	}
++	if (chpid > 0)
++		waitpid(chpid, NULL, 0);
++	free(linestr);
++}
++
+ void
+ selclear(void)
+ {
+@@ -3098,6 +3171,8 @@ draw(void)
+ 	if (term.line[term.c.y][cx].mode & ATTR_WDUMMY)
+ 		cx--;
+ 
++	highlighturls();
++
+ 	drawregion(0, 0, term.col, term.row);
+ 	xdrawcursor(cx, term.c.y, term.line[term.c.y][cx],
+ 			term.ocx, term.ocy, term.line[term.ocy][term.ocx]);
+diff --git a/st.h b/st.h
+index 786676f..768b33e 100644
+--- a/st.h
++++ b/st.h
+@@ -36,6 +36,7 @@ enum glyph_attribute {
+ 	ATTR_WDUMMY     = 1 << 11,
+ 	ATTR_SELECTED   = 1 << 12,
+ 	ATTR_BOXDRAW    = 1 << 13,
++	ATTR_URL        = 1 << 14,
+ 	ATTR_BOLD_FAINT = ATTR_BOLD | ATTR_FAINT,
+ };
+ 
+@@ -118,6 +119,9 @@ void selextend(int, int, int, int);
+ int selected(int, int);
+ char *getsel(void);
+ 
++void highlighturls(void);
++void followurl(int, int);
++
+ size_t utf8encode(Rune, char *);
+ 
+ void *xmalloc(size_t);
+@@ -148,3 +152,7 @@ extern unsigned int defaultfg;
+ extern unsigned int defaultbg;
+ extern unsigned int defaultcs;
+ extern const int boxdraw, boxdraw_bold, boxdraw_braille;
++extern char *urlhandler;
++extern char urlchars[];
++extern char *urlprefixes[];
++extern int nurlprefixes;
+diff --git a/x.c b/x.c
+index 2f1a5c9..9763fd2 100644
+--- a/x.c
++++ b/x.c
+@@ -192,6 +192,7 @@ static void usage(void);
+ 
+ static void (*handler[LASTEvent])(XEvent *) = {
+ 	[KeyPress] = kpress,
++	[KeyRelease] = kpress,
+ 	[ClientMessage] = cmessage,
+ 	[ConfigureNotify] = resize,
+ 	[VisibilityNotify] = visibility,
+@@ -446,6 +447,12 @@ mouseaction(XEvent *e, uint release)
+ 	/* ignore Button<N>mask for Button<N> - it's set on release */
+ 	uint state = e->xbutton.state & ~buttonmask(e->xbutton.button);
+ 
++	if (release == 0 && e->xbutton.button == Button1) {
++		followurl(evrow(e), evcol(e));
++		return 1;
++	}
++
++
+ 	for (ms = mshortcuts; ms < mshortcuts + LEN(mshortcuts); ms++) {
+ 		if (ms->release == release &&
+ 		    ms->button == e->xbutton.button &&
+@@ -1484,7 +1491,7 @@ xdrawglyphfontspecs(const XftGlyphFontSpec *specs, Glyph base, int len, int x, i
+ 			XftDrawGlyphFontSpec(xw.draw, fg, specs, len);
+ 		}
+ 		/* Render underline and strikethrough. */
+-		if (base.mode & ATTR_UNDERLINE) {
++		if (base.mode & ATTR_UNDERLINE || base.mode & ATTR_URL) {
+ 			XftDrawRect(xw.draw, fg, winx, winy + dc.font.ascent + 1,
+ 					width, 1);
+ 		}
+@@ -1844,6 +1851,11 @@ kpress(XEvent *ev)
+ 		len = XmbLookupString(xw.ime.xic, e, buf, sizeof buf, &ksym, &status);
+ 	else
+ 		len = XLookupString(e, buf, sizeof buf, &ksym, NULL);
++
++	/* KeyRelease not relevant to shortcuts */
++	if (ev->type == KeyRelease)
++		return;
++
+ 	/* 1. shortcuts */
+ 	for (bp = shortcuts; bp < shortcuts + LEN(shortcuts); bp++) {
+ 		if (ksym == bp->keysym && match(bp->mod, e->state)) {
