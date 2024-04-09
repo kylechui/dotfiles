@@ -18,10 +18,10 @@ index 1bd4dd4..03e6bb5 100644
 +	"0123456789-._~:/?#@!$&'*+,;=%";
 +char* urlprefixes[] = {"http://", "https://", NULL};
 diff --git a/st.c b/st.c
-index 48c37a2..22b7e77 100644
+index 48c37a2..e854d1d 100644
 --- a/st.c
 +++ b/st.c
-@@ -712,6 +712,79 @@ getsel(void)
+@@ -712,6 +712,77 @@ getsel(void)
  	return str;
  }
  
@@ -37,24 +37,22 @@ index 48c37a2..22b7e77 100644
 +}
 +
 +void
-+highlighturls(void)
++highlighturlsline(int x)
 +{
-+	char *match;
 +	char *linestr = calloc(sizeof(char), term.col+1); /* assume ascii */
-+	for (int i = term.top; i < term.bot; i++) {
-+		int url_start = -1;
-+		for (int j = 0; j < term.col; j++) {
-+			if (term.line[i][j].u < 127) {
-+				linestr[j] = term.line[i][j].u;
-+			}
-+			linestr[term.col] = '\0';
++	char *match;
++	for (int j = 0; j < term.col; j++) {
++		if (term.line[x][j].u < 127) {
++			linestr[j] = term.line[x][j].u;
 +		}
-+		while ((match = strstrany(linestr + url_start + 1, urlprefixes))) {
-+			url_start = match - linestr;
-+			for (int c = url_start; c < term.col && strchr(urlchars, linestr[c]); c++) {
-+				term.line[i][c].mode |= ATTR_URL;
-+				tsetdirt(i, c);
-+			}
++		linestr[term.col] = '\0';
++	}
++	int url_start = -1;
++	while ((match = strstrany(linestr + url_start + 1, urlprefixes))) {
++		url_start = match - linestr;
++		for (int c = url_start; c < term.col && strchr(urlchars, linestr[c]); c++) {
++			term.line[x][c].mode |= ATTR_URL;
++			tsetdirt(x, c);
 +		}
 +	}
 +	free(linestr);
@@ -101,15 +99,14 @@ index 48c37a2..22b7e77 100644
  void
  selclear(void)
  {
-@@ -3098,6 +3171,8 @@ draw(void)
- 	if (term.line[term.c.y][cx].mode & ATTR_WDUMMY)
- 		cx--;
+@@ -3078,6 +3149,7 @@ drawregion(int x1, int y1, int x2, int y2)
+ 			continue;
  
-+	highlighturls();
-+
- 	drawregion(0, 0, term.col, term.row);
- 	xdrawcursor(cx, term.c.y, term.line[term.c.y][cx],
- 			term.ocx, term.ocy, term.line[term.ocy][term.ocx]);
+ 		term.dirty[y] = 0;
++		highlighturlsline(y);
+ 		xdrawline(TLINE(y), x1, y, x2);
+ 	}
+ }
 diff --git a/st.h b/st.h
 index 786676f..768b33e 100644
 --- a/st.h
