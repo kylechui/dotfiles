@@ -2,7 +2,7 @@ diff --git a/config.def.h b/config.def.h
 index 91ab8ca..8517b4e 100644
 --- a/config.def.h
 +++ b/config.def.h
-@@ -189,6 +189,12 @@ static MouseShortcut mshortcuts[] = {
+@@ -189,6 +189,13 @@ static MouseShortcut mshortcuts[] = {
  
  static Shortcut shortcuts[] = {
  	/* mask                 keysym          function        argument */
@@ -12,6 +12,7 @@ index 91ab8ca..8517b4e 100644
 +	{ ShiftMask,            XK_BackSpace,   ttysend,        {.s = "\x7F"} },
 +	{ ControlMask,          XK_Return,      ttysend,        {.s = "\033[27;5;13~"} }, // <C-CR>
 +	{ ControlMask,          XK_apostrophe,  ttysend,        {.s = "\033[27;5;39~"} }, // <C-'>
++	{ ControlMask,          XK_slash,       ttysend,        {.s = "\033[27;5;47~"} }, // <C-/>
  	{ XK_ANY_MOD,           XK_Break,       sendbreak,      {.i =  0} },
  	{ ControlMask,          XK_Print,       toggleprinter,  {.i =  0} },
  	{ ShiftMask,            XK_Print,       printscreen,    {.i =  0} },
