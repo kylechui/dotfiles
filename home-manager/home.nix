@@ -119,6 +119,7 @@
       vscode-langservers-extracted
       # Shell
       shellcheck
+      nodePackages.bash-language-server
       # C/C++
       cmake
       gnumake
@@ -139,7 +140,6 @@
       ocamlPackages.ocaml-lsp
       dune_3
       # Nix
-      unstable.nil
       unstable.nixd
       unstable.nixfmt-rfc-style
       # Lua
