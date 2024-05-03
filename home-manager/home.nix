@@ -29,7 +29,6 @@
     ./apps/fzf.nix
     ./apps/git.nix
     ./apps/i3.nix
-    ./apps/ncspot.nix
     ./apps/neovim.nix
     ./apps/rofi.nix
     ./apps/tmux.nix
