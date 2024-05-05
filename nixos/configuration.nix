@@ -104,6 +104,7 @@
       enable = true;
       extraPackages = [ ];
     };
+    desktopManager.wallpaper.mode = "fill";
   };
 
   # Power management
