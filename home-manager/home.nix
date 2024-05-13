@@ -85,6 +85,7 @@
       fd
       jq
       yq
+      tokei
       glxinfo
       pciutils
       sysstat
