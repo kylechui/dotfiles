@@ -123,7 +123,6 @@
       CPU_MAX_PERF_ON_BAT = 40;
     };
   };
-  services.thermald.enable = true;
 
   # Automatically switch display configurations
   services.autorandr = {
