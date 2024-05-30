@@ -32,6 +32,7 @@
       nd = "nix develop";
       nf = "nix flake";
       gl = "git log";
+      glo = "git log --oneline";
       gm = "git mergetool";
       gf = "git fetch";
       gst = "git status";
