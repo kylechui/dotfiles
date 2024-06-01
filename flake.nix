@@ -1,17 +1,21 @@
 {
   description = "My NixOS Configuration";
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.11";
+      url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
   outputs =
-    { nixpkgs, nixpkgs-unstable, home-manager, neovim-nightly-overlay, ... }:
+    {
+      nixpkgs,
+      nixpkgs-unstable,
+      home-manager,
+      ...
+    }:
     let
       system = "x86_64-linux";
       overlay-nixpkgs = final: prev: {
@@ -20,15 +24,18 @@
           config.allowUnfree = true;
         };
       };
-    in {
+    in
+    {
       nixosConfigurations = {
         nixos = nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [
-            ({ config, pkgs, ... }: {
-              nixpkgs.overlays =
-                [ overlay-nixpkgs neovim-nightly-overlay.overlay ];
-            })
+            (
+              { config, pkgs, ... }:
+              {
+                nixpkgs.overlays = [ overlay-nixpkgs ];
+              }
+            )
             ./nixos/configuration.nix
             home-manager.nixosModules.home-manager
             {

@@ -60,7 +60,7 @@ in
         module-margin-right = 1;
         modules-center = "date";
         modules-left = "cpu memory i3";
-        modules-right = "mpris wlan bluetooth pulseaudio battery";
+        modules-right = "wlan bluetooth pulseaudio battery";
       };
       "module/cpu" = {
         type = "internal/cpu";

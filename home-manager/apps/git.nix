@@ -25,7 +25,7 @@
       mergetool = {
         keepBackup = false;
         # Focus cursor on the middle (merged) window
-        nvimdiff.cmd = "${pkgs.neovim-nightly}/bin/nvim -d $LOCAL $MERGED $REMOTE -c 'wincmd l'";
+        nvimdiff.cmd = "${pkgs.unstable.neovim}/bin/nvim -d $LOCAL $MERGED $REMOTE -c 'wincmd l'";
       };
       # Fix mouse scrolling issues for `delta`
       # https://github.com/dandavison/delta/issues/630#issuecomment-860046929

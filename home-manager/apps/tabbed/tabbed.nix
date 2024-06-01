@@ -1,6 +1,11 @@
 { pkgs, ... }:
 
 pkgs.tabbed.overrideAttrs (oldAttrs: {
+  src = pkgs.fetchgit {
+    url = "https://git.suckless.org/tabbed";
+    rev = "0.7";
+    sha256 = "sha256-Y1MgPwqMUoa2Rr4HmqjtPaQegUmQJWYkcbyFcJHAOBI=";
+  };
   patches = oldAttrs.patches ++ [
     (pkgs.fetchpatch {
       url = "https://tools.suckless.org/tabbed/patches/autohide/tabbed-autohide-20201222-dabf6a2.diff";
