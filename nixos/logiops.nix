@@ -10,7 +10,7 @@
     wantedBy = [ "graphical.target" ];
     serviceConfig = {
       Type = "simple";
-      ExecStart = "${pkgs.logiops}/bin/logid";
+      ExecStart = "${pkgs.logiops_0_2_3}/bin/logid";
       User = "root";
     };
   };
