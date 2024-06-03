@@ -31,7 +31,8 @@ in
     package = polybar;
     script = ''
       # Necessary for giving polybar access to the playerctl libraries
-      export GI_TYPELIB_PATH="${
+      # TODO: Figure out why we need to manually add this glib path
+      export GI_TYPELIB_PATH="/nix/store/c2v6ycn0sjcpx9ww8x7j4ima6xnpssry-glib-2.80.2/lib/girepository-1.0:${
         pkgs.lib.makeSearchPath "lib/girepository-1.0" [ pkgs.playerctl ]
       }:$GI_TYPELIB_PATH"
       export PATH="${
@@ -60,7 +61,7 @@ in
         module-margin-right = 1;
         modules-center = "date";
         modules-left = "cpu memory i3";
-        modules-right = "wlan bluetooth pulseaudio battery";
+        modules-right = "mpris wlan bluetooth pulseaudio battery";
       };
       "module/cpu" = {
         type = "internal/cpu";
