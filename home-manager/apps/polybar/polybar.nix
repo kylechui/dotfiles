@@ -31,9 +31,11 @@ in
     package = polybar;
     script = ''
       # Necessary for giving polybar access to the playerctl libraries
-      # TODO: Figure out why we need to manually add this glib path
-      export GI_TYPELIB_PATH="/nix/store/c2v6ycn0sjcpx9ww8x7j4ima6xnpssry-glib-2.80.2/lib/girepository-1.0:${
-        pkgs.lib.makeSearchPath "lib/girepository-1.0" [ pkgs.playerctl ]
+      export GI_TYPELIB_PATH="${
+        pkgs.lib.makeSearchPath "lib/girepository-1.0" [
+          pkgs.playerctl
+          pkgs.glib.out
+        ]
       }:$GI_TYPELIB_PATH"
       export PATH="${
         pkgs.lib.makeBinPath [
