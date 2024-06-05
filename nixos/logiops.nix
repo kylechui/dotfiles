@@ -18,7 +18,7 @@
   # Add a `udev` rule to restart `logiops` when the mouse is connected
   # https://github.com/PixlOne/logiops/issues/239#issuecomment-1044122412
   services.udev.extraRules = ''
-    ACTION=="add", SUBSYSTEM=="input", ATTRS{id/vendor}=="046d", RUN{program}="${pkgs.systemd}/bin/systemctl --no-block try-restart logiops.service"
+    ACTION=="change", SUBSYSTEM=="power_supply", ATTRS{manufacturer}=="Logitech", ATTRS{model_name}=="Wireless Mouse MX Master 3", RUN{program}="${pkgs.systemd}/bin/systemctl --no-block try-restart logiops.service"
   '';
 
   # Configuration for logiops
