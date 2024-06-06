@@ -127,7 +127,7 @@
       clang-tools
       # Python
       python311
-      black
+      unstable.ruff
       mypy
       nodePackages.pyright
       # JavaScript/TypeScript
