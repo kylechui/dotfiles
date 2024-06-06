@@ -185,29 +185,7 @@
           set_color $fish_color_normal
           set_color $fish_color_autosuggestion
 
-          echo -ns ' '
-        '';
-      };
-      fish_mode_prompt = {
-        body = ''
-          switch $fish_bind_mode
-            case default
-              set_color --bold 7E9CD8
-              echo '[N] '
-            case insert
-              set_color --bold 76946A
-              echo '[I] '
-            case replace replace_one
-              set_color --bold FF9E64
-              echo '[R] '
-            case visual
-              set_color --bold 957FB8
-              echo '[V] '
-            case '*'
-              set_color --bold red
-              echo '[?] '
-          end
-          set_color normal
+          echo -ns '  '
         '';
       };
       fish_right_prompt = {
@@ -236,8 +214,8 @@
       abbr --add dotdot --regex '^\.\.+$' --position anywhere --function multicd
       source ${
         builtins.fetchurl {
-          url = "https://raw.githubusercontent.com/rebelot/kanagawa.nvim/c19b9023842697ec92caf72cd3599f7dd7be4456/extras/kanagawa.fish";
-          sha256 = "sha256:0smmy783j41294gda1mpq8bqdy7h7j69zhh2i0dgxdg4gxqm7i6s";
+          url = "https://raw.githubusercontent.com/miikanissi/modus-themes.nvim/983d898ae82df7c87a2377292eef860c5aa16c81/extras/fish/modus_operandi.fish";
+          sha256 = "sha256:0i8wkv46a3rd6pyai1lfmnp2cj6yf20rnnp1hl515j3mp3gzj1h8";
         }
       }
     '';

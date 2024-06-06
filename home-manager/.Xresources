@@ -1,38 +1,20 @@
-! special
-*.foreground:   #dcd7ba
-*.background:   #1f1f28
-*.cursorColor:  #dcd7ba
-
-! black
-*.color0:       #090618
-*.color8:       #727169
-
-! red
-*.color1:       #c34043
-*.color9:       #e82424
-
-! green
-*.color2:       #76946a
-*.color10:      #98bb6c
-
-! yellow
-*.color3:       #c0a36e
-*.color11:      #e6c384
-
-! blue
-*.color4:       #7e9cd8
-*.color12:      #7fb4ca
-
-! magenta
-*.color5:       #957fb8
-*.color13:      #938aa9
-
-! cyan
-*.color6:       #6a9589
-*.color14:      #7aa89f
-
-! white
-*.color7:       #c8c093
-*.color15:      #dcd7ba
-
+! ST theme
 *.font:         IosevkaTerm Nerd Font:size=14
+*background:    #ffffff
+*foreground:    #000000
+*color0:        #000000
+*color1:        #a60000
+*color2:        #005e00
+*color3:        #813e00
+*color4:        #0031a9
+*color5:        #721045
+*color6:        #00538b
+*color7:        #bfbfbf
+*color8:        #595959
+*color9:        #972500
+*color10:       #315b00
+*color11:       #70480f
+*color12:       #2544bb
+*color13:       #5317ac
+*color14:       #005a5f
+*color15:       #ffffff
