@@ -95,8 +95,8 @@ set inputbar-fg                 "#ebdbb2" # fg
 set statusbar-bg                "#3C3836" # bg2
 set statusbar-fg                "#ebdbb2" # fg
 
-set highlight-color             "#fabd2f" # bright:yellow
-set highlight-active-color      "#fe8019" # bright:orange
+set highlight-color             "#fabd2fdd"
+set highlight-active-color      "#fe8019dd"
 
 set default-bg                  "#282828" # bg
 set default-fg                  "#ebdbb2" # fg
