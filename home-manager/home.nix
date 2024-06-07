@@ -82,7 +82,6 @@
       pandoc
       libnotify
       sshfs
-      fd
       jq
       yq
       tokei
