@@ -15,7 +15,15 @@
     package = pkgs.dracula-theme;
   };
 
-  xresources.extraConfig = builtins.readFile ./.Xresources;
+  xresources.extraConfig = ''
+    *.font: IosevkaTerm Nerd Font:size=14
+    ${builtins.readFile (
+      builtins.fetchurl {
+        url = "https://raw.githubusercontent.com/miikanissi/modus-themes.nvim/master/extras/xresources/modus_operandi.Xresources";
+        sha256 = "sha256:1blr83mfkyqbcwg96fzp5lc098v63y8q1fl39swidkcv87jcnmsi";
+      }
+    )}
+  '';
 
   imports = [
     # Include basic application-specific configuration
