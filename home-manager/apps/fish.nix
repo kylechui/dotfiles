@@ -44,6 +44,15 @@
           ${pkgs.git}/bin/git rev-parse --git-common-dir 2>/dev/null
         '';
       };
+      in_bare_repo = {
+        description = "Check if currently inside a git bare repository";
+        body = ''
+          # `git rev-parse --is-bare-repository` doesn't handle nested repositories
+          set -l git_dir (git rev-parse --path-format=absolute --git-dir)
+          set -l git_common_dir (git rev-parse --path-format=absolute --git-common-dir)
+          return (test "$git_dir" != "$git_common_dir")
+        '';
+      };
       branch_exists = {
         description = "Check if a branch exists";
         argumentNames = [ "branch" ];
@@ -62,20 +71,25 @@
         description = "git checkout";
         argumentNames = [ "name" ];
         body = ''
-          set -l original_dir (pwd)
-          set -l branches (get_branches | ${pkgs.gnugrep}/bin/grep "$name")
-          if test (count $branches) -eq 1
-            set -f branch (echo $branches | head -n 1)
+          set -l matches "$(get_branches | ${pkgs.gnugrep}/bin/grep "$name")"
+          if test (echo "$matches" | wc -l) -eq 1
+            set -f branch "$matches"
+          else if echo "$matches" | ${pkgs.gnugrep}/bin/grep --quiet "^$name\$"
+            set -f branch "$name"
           else
-            set -f branch (get_branches | ${pkgs.fzf}/bin/fzf --query="$name")
+            set -f branch "$(echo "$matches" | ${pkgs.fzf}/bin/fzf --query="$name")"
           end
+
           if test -z $branch
-            echo "No branch selected" >&2
-            cd $original_dir
+            echo "No branch selected"
             return 1
           end
-          cd (find_git_repository)
-          cd $branch
+
+          if in_bare_repo
+            cd "$(find_git_repository)/$branch"
+          else
+            git checkout "$branch"
+          end
         '';
       };
       git_worktree_add = {
