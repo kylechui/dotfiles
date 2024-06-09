@@ -253,6 +253,8 @@
       user_pref("permissions.default.geo", 0);
       // Keep URL bar in fullscreen mode
       user_pref("browser.fullscreen.autohide", false);
+      // My laptop can't hardware decode AV1, only VP9
+      user_pref("media.av1.enabled", false);
 
       /****************************************************************************
        * END: BETTERFOX                                                           *
