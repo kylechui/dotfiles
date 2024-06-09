@@ -38,16 +38,17 @@
     ./apps/git.nix
     ./apps/i3.nix
     ./apps/neovim.nix
+    ./apps/polybar.nix
     ./apps/rofi.nix
     ./apps/tmux.nix
     ./apps/vscodium.nix
     ./apps/zoxide.nix
     # These apps come with other files, so they are in their own directories
-    ./apps/polybar/polybar.nix
     ./apps/zathura/zathura.nix
   ];
 
   services.picom.enable = true;
+  services.playerctld.enable = true;
 
   programs.btop = {
     enable = true;
@@ -80,6 +81,7 @@
     in
     [
       # CLI Utilities
+      playerctl
       gdb
       zip
       unzip

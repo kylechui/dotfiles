@@ -29,22 +29,7 @@ in
   services.polybar = {
     enable = true;
     package = polybar;
-    script = ''
-      # Necessary for giving polybar access to the playerctl libraries
-      export GI_TYPELIB_PATH="${
-        pkgs.lib.makeSearchPath "lib/girepository-1.0" [
-          pkgs.playerctl
-          pkgs.glib.out
-        ]
-      }:$GI_TYPELIB_PATH"
-      export PATH="${
-        pkgs.lib.makeBinPath [
-          (pkgs.python311.withPackages (ps: [ ps.pygobject3 ]))
-          pkgs.playerctl
-        ]
-      }:$PATH"
-      ${polybar}/bin/polybar &
-    '';
+    script = "${polybar}/bin/polybar &";
     settings = {
       "bar/default" = {
         background = colors.background;
@@ -107,7 +92,22 @@ in
       };
       "module/mpris" = {
         type = "custom/script";
-        exec = pkgs.writeScript "mpris_status" (builtins.readFile ./mpris_status.py);
+        exec = pkgs.writeShellScript "mpris_status.sh" ''
+          print_metadata() {
+            echo -ne "%{+u}"
+            if [ "$(${pkgs.playerctl}/bin/playerctl status)" == "Playing" ]; then
+              echo -ne "%{F#C4746E}%{u#C4746E}"
+            else
+              echo -ne "%{F#727169}%{u#727169}"
+            fi
+            echo -ne "$(${pkgs.playerctl}/bin/playerctl metadata --format '{{artist}} - {{trunc(title, 30)}}')"
+            echo -e "%{u-}%{F-}"
+          }
+
+          ${pkgs.playerctl}/bin/playerctl --follow metadata --format "{{playerName}} {{status}} {{album}} {{artist}} {{title}}" | while read -r; do
+            print_metadata
+          done
+        '';
         tail = true;
         click-left = "${pkgs.playerctl}/bin/playerctl play-pause";
         scroll-up = "${pkgs.playerctl}/bin/playerctl previous";
