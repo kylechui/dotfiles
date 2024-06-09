@@ -100,7 +100,7 @@ in
             else
               echo -ne "%{F#727169}%{u#727169}"
             fi
-            echo -ne "$(${pkgs.playerctl}/bin/playerctl metadata --format '{{artist}} - {{trunc(title, 30)}}')"
+            echo -ne "$(${pkgs.playerctl}/bin/playerctl metadata --format ' {{artist}} - {{trunc(title, 30)}} ')"
             echo -e "%{u-}%{F-}"
           }
 
