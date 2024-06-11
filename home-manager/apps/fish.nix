@@ -75,12 +75,14 @@
         argumentNames = [ "name" ];
         body = ''
           set -l matches "$(get_branches | ${pkgs.gnugrep}/bin/grep "$name")"
-          if test (echo "$matches" | wc -l) -eq 1
-            set -f branch "$matches"
-          else if echo "$matches" | ${pkgs.gnugrep}/bin/grep --quiet "^$name\$"
+          if echo "$matches" | ${pkgs.gnugrep}/bin/grep --quiet "^$name\$"
             set -f branch "$name"
           else
-            set -f branch "$(echo "$matches" | ${pkgs.fzf}/bin/fzf --query="$name")"
+            set -f branch "$(echo "$matches" \
+            | ${pkgs.fzf}/bin/fzf --query="$name" \
+                                  --select-1 \
+                                  --height=40% \
+                                  --reverse)"
           end
 
           if test -z $branch
