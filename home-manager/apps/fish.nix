@@ -45,11 +45,14 @@
         '';
       };
       in_bare_repo = {
-        description = "Check if currently inside a git bare repository";
+        description = "Check if currently inside git bare repository or worktree";
         body = ''
-          # `git rev-parse --is-bare-repository` doesn't handle nested repositories
-          set -l git_dir (git rev-parse --path-format=absolute --git-dir)
-          set -l git_common_dir (git rev-parse --path-format=absolute --git-common-dir)
+          set -l in_bare_root (${pkgs.git}/bin/git rev-parse --is-bare-repository)
+          if test "$in_bare_root" = "true"
+              return 0
+          end
+          set -l git_dir (${pkgs.git}/bin/git rev-parse --path-format=absolute --git-dir)
+          set -l git_common_dir (${pkgs.git}/bin/git rev-parse --path-format=absolute --git-common-dir)
           return (test "$git_dir" != "$git_common_dir")
         '';
       };
