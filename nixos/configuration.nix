@@ -15,6 +15,31 @@
     ./suspend.nix
   ];
 
+  fileSystems = {
+    "/".options = [
+      "subvol=root"
+      "compress-force=zstd:1"
+    ];
+    "/home".options = [
+      "subvol=home"
+      "compress-force=zstd:1"
+    ];
+    "/nix".options = [
+      "subvol=nix"
+      "compress-force=zstd:1"
+      "noatime"
+    ];
+    "/var".options = [
+      "subvol=var"
+      "compress-force=zstd:1"
+      "noatime"
+    ];
+    "/swap".options = [
+      "subvol=swap"
+      "noatime"
+    ];
+  };
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -167,10 +192,7 @@
     };
   };
 
-  zramSwap = {
-    enable = true;
-    memoryPercent = 50;
-  };
+  swapDevices = [ { device = "/swap/swapfile"; } ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

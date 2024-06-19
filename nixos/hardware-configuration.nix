@@ -4,24 +4,50 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+  imports =
+    [ (modulesPath + "/installer/scan/not-detected.nix")
+    ];
 
-  boot.initrd.availableKernelModules =
-    [ "xhci_pci" "ahci" "nvme" "usbhid" "rtsx_pci_sdmmc" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelPackages = pkgs.linuxPackages;
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/f226c090-3cc4-499c-b1bf-eb3a1176ebe2";
-    fsType = "ext4";
-  };
+  fileSystems."/" =
+    { device = "/dev/disk/by-uuid/9ac82ddb-e62d-471b-8c9a-64fc7258fa07";
+      fsType = "btrfs";
+      options = [ "subvol=root" ];
+    };
 
-  fileSystems."/boot/efi" = {
-    device = "/dev/disk/by-uuid/6823-C5FF";
-    fsType = "vfat";
-  };
+  fileSystems."/home" =
+    { device = "/dev/disk/by-uuid/9ac82ddb-e62d-471b-8c9a-64fc7258fa07";
+      fsType = "btrfs";
+      options = [ "subvol=home" ];
+    };
+
+  fileSystems."/var" =
+    { device = "/dev/disk/by-uuid/9ac82ddb-e62d-471b-8c9a-64fc7258fa07";
+      fsType = "btrfs";
+      options = [ "subvol=var" ];
+    };
+
+  fileSystems."/nix" =
+    { device = "/dev/disk/by-uuid/9ac82ddb-e62d-471b-8c9a-64fc7258fa07";
+      fsType = "btrfs";
+      options = [ "subvol=nix" ];
+    };
+
+  fileSystems."/boot/efi" =
+    { device = "/dev/disk/by-uuid/6823-C5FF";
+      fsType = "vfat";
+      options = [ "fmask=0022" "dmask=0022" ];
+    };
+
+  fileSystems."/swap" =
+    { device = "/dev/disk/by-uuid/9ac82ddb-e62d-471b-8c9a-64fc7258fa07";
+      fsType = "btrfs";
+      options = [ "subvol=swap" ];
+    };
 
   swapDevices = [ ];
 
@@ -30,10 +56,9 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
+  # networking.interfaces.docker0.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlo1.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
-  hardware.cpu.intel.updateMicrocode =
-    lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
