@@ -68,10 +68,10 @@
   };
 
   home.packages =
-    with pkgs;
     let
+      st = (import ./apps/st/st.nix { inherit pkgs; });
       iosevka-term = (
-        iosevka.override {
+        pkgs.iosevka.override {
           set = "Term";
           privateBuildPlan = {
             family = "Iosevka Term";
@@ -80,6 +80,10 @@
       );
     in
     [
+      st
+      iosevka-term
+    ]
+    ++ (with pkgs; [
       # CLI Utilities
       playerctl
       gdb
@@ -116,7 +120,6 @@
       xfce.thunar
 
       # Fonts
-      iosevka-term
       sarasa-gothic
       (unstable.nerdfonts.override {
         fonts = [
@@ -160,7 +163,7 @@
       texlab
       # Markdown/Obsidian
       unstable.markdown-oxide
-    ];
+    ]);
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
