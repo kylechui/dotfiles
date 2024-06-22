@@ -119,7 +119,6 @@
           if not branch_exists $branch
             ${pkgs.git}/bin/git branch $branch
           end
-          ${pkgs.git}/bin/git push -u origin $branch
           if not test -d $branch
             ${pkgs.git}/bin/git worktree add $branch $branch
           end
