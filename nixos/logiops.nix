@@ -79,7 +79,7 @@
         cid: 0xc4;
         action = {
           type: "Keypress";
-          keys: ["KEY_F19"];
+          keys: [ "KEY_LEFTCTRL", "KEY_LEFTALT", "KEY_M" ];
         };
       });
     });
