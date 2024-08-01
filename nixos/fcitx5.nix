@@ -25,6 +25,7 @@
       addons = [
         pkgs.fcitx5-chinese-addons
         pkgs.fcitx5-rime
+        pkgs.fcitx5-mozc
         pkgs.fcitx5-gtk
         pkgs.fcitx5-material-color
       ];
@@ -32,7 +33,11 @@
         addons = {
           classicui.globalSection.Theme = "Material-Color-deepPurple";
         };
-        globalOptions = { "Hotkey/TriggerKeys" = { "0" = "Alt+space"; }; };
+        globalOptions = {
+          "Hotkey/TriggerKeys" = {
+            "0" = "Alt+space";
+          };
+        };
         inputMethod = {
           "Groups/0" = {
             Name = "Default";
@@ -47,7 +52,13 @@
             Name = "pinyin";
             Layout = "";
           };
-          GroupOrder = { "0" = "Default"; };
+          "Groups/0/Items/2" = {
+            Name = "mozc";
+            Layout = "";
+          };
+          GroupOrder = {
+            "0" = "Default";
+          };
         };
       };
     };
