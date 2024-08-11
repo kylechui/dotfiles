@@ -29,7 +29,7 @@
             enable = true;
             primary = true;
             mode = "2560x1440";
-            rate = "71.97";
+            rate = "120";
           };
         };
       };
