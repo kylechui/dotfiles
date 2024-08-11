@@ -118,6 +118,7 @@
       screenkey
       simplescreenrecorder
       xfce.thunar
+      anki
 
       # Fonts
       sarasa-gothic
