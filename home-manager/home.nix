@@ -85,6 +85,7 @@
     ]
     ++ (with pkgs; [
       # CLI Utilities
+      thermald
       playerctl
       gdb
       zip

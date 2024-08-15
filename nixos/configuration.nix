@@ -4,6 +4,37 @@
 
 { config, pkgs, ... }:
 
+let
+  nbfc-linux = pkgs.stdenv.mkDerivation {
+    name = "nbfc-linux";
+    version = "0.1.7";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "nbfc-linux";
+      repo = "nbfc-linux";
+      rev = "4c2b75e4a875459e86a9892319889ff945e9cadf";
+      sha256 = "UxaL4V8FkA+eONCj7vTHAlRSJxoXqRB2aW7A/KJyvlY=";
+    };
+
+    buildFlags = [
+      "PREFIX=$(out)"
+      "confdir=/etc"
+    ];
+
+    installPhase =
+      let
+        installFlags = [ "PREFIX=$out" ];
+      in
+      ''
+        make ${builtins.concatStringsSep " " installFlags}\
+             install-core \
+             install-client-c\
+             install-configs\
+             install-docs\
+             install-completion
+      '';
+  };
+in
 {
   imports = [
     # Include the results of the hardware scan.
@@ -100,7 +131,23 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  environment.systemPackages = [ pkgs.xorg.xf86videointel ];
+  environment.systemPackages = [
+    pkgs.xorg.xf86videointel
+    nbfc-linux
+  ];
+  systemd.services.nbfc_service = {
+    enable = true;
+    description = "NoteBook FanControl service";
+    serviceConfig.Type = "simple";
+    path = [ pkgs.kmod ];
+    script = "${nbfc-linux}/bin/nbfc_service --config-file ${
+      pkgs.writeText "nbfc.json" (
+        builtins.toJSON { SelectedConfigId = "HP Spectre x360 Convertible 13-ae0xx"; }
+      )
+    }";
+    wantedBy = [ "multi-user.target" ];
+  };
+
   hardware.opengl = {
     enable = true;
     extraPackages = [ pkgs.intel-media-driver ];
@@ -132,23 +179,6 @@
     touchpad = {
       naturalScrolling = true;
       disableWhileTyping = true;
-    };
-  };
-
-  # Power management
-  services.tlp = {
-    enable = true;
-    settings = {
-      CPU_SCALING_GOVERNOR_ON_AC = "performance";
-      CPU_SCALING_GOVERNOR_ON_BAT = "performance";
-
-      CPU_ENERGY_PERF_POLICY_ON_BAT = "performance";
-      CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-
-      CPU_MIN_PERF_ON_AC = 0;
-      CPU_MAX_PERF_ON_AC = 100;
-      CPU_MIN_PERF_ON_BAT = 0;
-      CPU_MAX_PERF_ON_BAT = 100;
     };
   };
 
