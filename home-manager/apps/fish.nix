@@ -19,6 +19,7 @@
       set -U __done_notification_duration 10000
     '';
     shellAliases = {
+      def = "get_definition";
       ll = "ls -ahl";
       rm = "rm -I";
       gc = "git_checkout";
@@ -38,6 +39,17 @@
       gst = "git status";
     };
     functions = {
+      get_definition = {
+        description = "Retrieves the Merriam-Webster definition of a word";
+        body = ''
+          ${pkgs.curl}/bin/curl --silent "https://www.merriam-webster.com/dictionary/$argv[1]" \
+          | ${pkgs.gnugrep}/bin/grep '<span class="dtText">' \
+          | ${pkgs.gnused}/bin/sed --regexp-extended "s/<[^<>]*>//g" \
+          | ${pkgs.gnused}/bin/sed --regexp-extended "s/^ *: (.*)/\u\1/" \
+          | ${pkgs.gnugrep}/bin/grep --invert-match "^\$" \
+          | ${pkgs.coreutils}/bin/cat --number
+        '';
+      };
       find_git_repository = {
         description = "Find the root of the git repository";
         body = ''
