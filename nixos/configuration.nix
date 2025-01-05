@@ -131,10 +131,7 @@ in
     LC_TIME = "en_US.UTF-8";
   };
 
-  environment.systemPackages = [
-    pkgs.xorg.xf86videointel
-    nbfc-linux
-  ];
+  environment.systemPackages = [ nbfc-linux ];
   systemd.services.nbfc_service = {
     enable = true;
     description = "NoteBook FanControl service";
@@ -160,7 +157,7 @@ in
     };
     autoRepeatInterval = 40;
     autoRepeatDelay = 280;
-    videoDrivers = [ "intel" ];
+    videoDrivers = [ "modesetting" ];
     displayManager = {
       # Disable screen sleep timeout
       xserverArgs = [
@@ -250,5 +247,5 @@ in
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.05"; # Did you read the comment?
+  system.stateVersion = "24.11"; # Did you read the comment?
 }

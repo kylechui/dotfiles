@@ -37,7 +37,7 @@
     ./apps/fzf.nix
     ./apps/git.nix
     ./apps/i3.nix
-    ./apps/neovim.nix
+    # ./apps/neovim.nix
     ./apps/polybar.nix
     ./apps/rofi.nix
     ./apps/tmux.nix
@@ -62,29 +62,25 @@
     enableFishIntegration = true;
   };
 
-  programs.texlive = {
-    enable = true;
-    extraPackages = tpkgs: { inherit (tpkgs) scheme-full; };
-  };
-
   home.packages =
     let
       st = (import ./apps/st/st.nix { inherit pkgs; });
-      iosevka-term = (
-        pkgs.iosevka.override {
-          set = "Term";
-          privateBuildPlan = {
-            family = "Iosevka Term";
-          };
-        }
-      );
     in
+    # iosevka-term = (
+    #   pkgs.iosevka.override {
+    #     set = "Term";
+    #     privateBuildPlan = {
+    #       family = "Iosevka Term";
+    #     };
+    #   }
+    # );
     [
       st
-      iosevka-term
+      # iosevka-term
     ]
     ++ (with pkgs; [
       # CLI Utilities
+      unstable.neovim
       thermald
       playerctl
       gdb
@@ -106,10 +102,11 @@
       nixpkgs-review
       pkg-config
       fontconfig
+      texliveFull
       # Social
       element-desktop
-      signal-desktop
-      discord
+      unstable.signal-desktop
+      unstable.discord
       zoom-us
       # Other apps
       spotify
@@ -123,12 +120,9 @@
 
       # Fonts
       sarasa-gothic
-      (unstable.nerdfonts.override {
-        fonts = [
-          "NerdFontsSymbolsOnly"
-          "IosevkaTerm"
-        ];
-      })
+      unstable.nerd-fonts.symbols-only
+      unstable.nerd-fonts.iosevka-term
+      iosevka-bin
 
       vscode-langservers-extracted
       # Shell
@@ -143,7 +137,7 @@
       python311
       unstable.ruff
       mypy
-      nodePackages.pyright
+      pyright
       # JavaScript/TypeScript
       nodejs
       typescript
@@ -175,7 +169,7 @@
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "24.05";
+  home.stateVersion = "24.11";
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }
