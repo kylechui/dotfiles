@@ -52,59 +52,42 @@ map [fullscreen] <C-i> jumplist forward
 
 map [index] q quit
 
-# colors
-set recolor-darkcolor  "#ebdbb2"
-set recolor-lightcolor "#333333"
-set statusbar-fg "#000000"
-set statusbar-bg "#C2BFA5"
-set inputbar-fg "#FFFFFF"
-set inputbar-bg "#333333"
-set completion-highlight-fg "#F0E68C"
-set completion-highlight-bg "#6B8E23"
-# set highlight-color "#CD853F"
-# set highlight-active-color "#F0E68C"
-set notification-fg "#FFFFFF"
-set notification-bg "#333333"
 
-set synctex true
-set synctex-editor-command "nvim --headless -c \"VimtexInverseSearch %{line} '%{input}'\""
-
-set notification-error-bg       "#282828" # bg
-set notification-error-fg       "#fb4934" # bright:red
-set notification-warning-bg     "#282828" # bg
-set notification-warning-fg     "#fabd2f" # bright:yellow
-set notification-bg             "#282828" # bg
-set notification-fg             "#b8bb26" # bright:green
-
-set completion-bg               "#3C3836" # bg2
-set completion-fg               "#ebdbb2" # fg
-set completion-group-bg         "#3c3836" # bg1
-set completion-group-fg         "#928374" # gray
-set completion-highlight-bg     "#83a598" # bright:blue
-set completion-highlight-fg     "#3C3836" # bg2
-
-# Define the color in index mode
-set index-bg                    "#3C3836" # bg2
-set index-fg                    "#ebdbb2" # fg
-set index-active-bg             "#83a598" # bright:blue
-set index-active-fg             "#3C3836" # bg2
-
-set inputbar-bg                 "#282828" # bg
-set inputbar-fg                 "#ebdbb2" # fg
-
-set statusbar-bg                "#3C3836" # bg2
-set statusbar-fg                "#ebdbb2" # fg
+# Modus Themes for Zathura
+# Auto generated with https://github.com/miikanissi/modus-themes.nvim/blob/master/lua/modus-themes/extras/zathura.lua
+#
+set notification-error-bg "#ff8f88"
+set notification-error-fg "#000000"
+set notification-warning-bg "#f3d000"
+set notification-warning-fg "#000000"
+set notification-bg "#ffffff"
+set notification-fg "#000000"
+set completion-bg "#ffffff"
+set completion-fg "#595959"
+set completion-group-bg "#ffffff"
+set completion-group-fg "#595959"
+set completion-highlight-bg "#006800"
+set completion-highlight-fg "#ffffff"
+set index-bg "#ffffff"
+set index-fg "#000000"
+set index-active-bg "#0031a9"
+set index-active-fg "#ffffff"
+set inputbar-bg "#ffffff"
+set inputbar-fg "#000000"
+set statusbar-bg "#c8c8c8"
+set statusbar-fg "#0a0a0a"
+set default-bg "#ffffff"
+set default-fg "#000000"
+set render-loading true
+set render-loading-fg "#ffffff"
+set render-loading-bg "#000000"
+#
+# Recolor mode settings
+# <C-r> to switch modes
+#
+set recolor-lightcolor "#000000"
+set recolor-darkcolor "#ffffff"
 
 set highlight-color             "#fabd2fdd"
 set highlight-active-color      "#fe8019dd"
-
-set default-bg                  "#282828" # bg
-set default-fg                  "#ebdbb2" # fg
-set render-loading              true
-set render-loading-bg           "#282828" # bg
-set render-loading-fg           "#ebdbb2" # fg
-
-# Recolor book content's color
-set recolor-lightcolor          "#282828" # bg
-set recolor-darkcolor           "#ebdbb2" # fg
 set recolor-keephue             true      # keep original color
