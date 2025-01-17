@@ -4,37 +4,6 @@
 
 { config, pkgs, ... }:
 
-let
-  nbfc-linux = pkgs.stdenv.mkDerivation {
-    name = "nbfc-linux";
-    version = "0.1.7";
-
-    src = pkgs.fetchFromGitHub {
-      owner = "nbfc-linux";
-      repo = "nbfc-linux";
-      rev = "4c2b75e4a875459e86a9892319889ff945e9cadf";
-      sha256 = "UxaL4V8FkA+eONCj7vTHAlRSJxoXqRB2aW7A/KJyvlY=";
-    };
-
-    buildFlags = [
-      "PREFIX=$(out)"
-      "confdir=/etc"
-    ];
-
-    installPhase =
-      let
-        installFlags = [ "PREFIX=$out" ];
-      in
-      ''
-        make ${builtins.concatStringsSep " " installFlags}\
-             install-core \
-             install-client-c\
-             install-configs\
-             install-docs\
-             install-completion
-      '';
-  };
-in
 {
   imports = [
     # Include the results of the hardware scan.
@@ -131,13 +100,12 @@ in
     LC_TIME = "en_US.UTF-8";
   };
 
-  environment.systemPackages = [ nbfc-linux ];
   systemd.services.nbfc_service = {
     enable = true;
     description = "NoteBook FanControl service";
     serviceConfig.Type = "simple";
     path = [ pkgs.kmod ];
-    script = "${nbfc-linux}/bin/nbfc_service --config-file ${
+    script = "${pkgs.nbfc-linux}/bin/nbfc_service --config-file ${
       pkgs.writeText "nbfc.json" (
         builtins.toJSON { SelectedConfigId = "HP Spectre x360 Convertible 13-ae0xx"; }
       )
@@ -158,13 +126,6 @@ in
     autoRepeatInterval = 40;
     autoRepeatDelay = 280;
     videoDrivers = [ "modesetting" ];
-    displayManager = {
-      # Disable screen sleep timeout
-      xserverArgs = [
-        "-s"
-        "0"
-      ];
-    };
     windowManager.i3 = {
       enable = true;
       extraPackages = [ ];
@@ -205,7 +166,6 @@ in
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.permittedInsecurePackages = [ "electron-25.9.0" ];
   hardware.bluetooth.enable = true;
   services.pipewire = {
     enable = true;

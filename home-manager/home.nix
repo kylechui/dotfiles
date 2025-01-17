@@ -81,7 +81,6 @@
     ++ (with pkgs; [
       # CLI Utilities
       unstable.neovim
-      thermald
       playerctl
       gdb
       zip
