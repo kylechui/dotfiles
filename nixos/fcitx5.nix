@@ -16,7 +16,8 @@
   # };
 
   i18n.inputMethod = {
-    enabled = "fcitx5";
+    enable = true;
+    type = "fcitx5";
     fcitx5 = {
       # Once home-manager has a module supporting configuration for fcitx5, this
       # can be removed.

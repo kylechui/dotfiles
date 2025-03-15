@@ -113,7 +113,7 @@
     wantedBy = [ "multi-user.target" ];
   };
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
     extraPackages = [ pkgs.intel-media-driver ];
   };
