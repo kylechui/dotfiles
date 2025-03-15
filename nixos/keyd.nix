@@ -7,6 +7,9 @@
         capslock = "overload(meta, esc)";
         esc = "capslock";
       };
+      shift = {
+        esc = "grave";
+      };
     };
   };
 
