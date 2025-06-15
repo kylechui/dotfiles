@@ -56,6 +56,7 @@
   ### Enable some default programs
   networking.networkmanager.enable = true;
   programs.steam.enable = true;
+  programs.i3lock.enable = true;
   # Storage optimization settings
   nix.settings.auto-optimise-store = true;
   nix.gc = {
@@ -71,7 +72,7 @@
     freeMemThreshold = 2;
     extraArgs = [
       "-g"
-      "--avoid '^(X|i3.*|wezterm|picom)$'"
+      "--avoid '^(X|i3.*|st|picom)$'"
       "--prefer '^(electron|libreoffice|gimp)$'"
     ];
   };
@@ -207,5 +208,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.11"; # Did you read the comment?
+  system.stateVersion = "25.05"; # Did you read the comment?
 }
