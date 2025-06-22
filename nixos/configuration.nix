@@ -72,8 +72,10 @@
     freeMemThreshold = 2;
     extraArgs = [
       "-g"
-      "--avoid '^(X|i3.*|st|picom)$'"
-      "--prefer '^(electron|libreoffice|gimp)$'"
+      "--avoid"
+      "'^(X|i3.*|st|picom)$'"
+      "--prefer"
+      "'^(electron|libreoffice|gimp)$'"
     ];
   };
 
