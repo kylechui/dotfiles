@@ -1,5 +1,5 @@
 diff --git a/Makefile b/Makefile
-index 470ac86..6dfa212 100644
+index 15db421..a64b4c2 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -4,7 +4,7 @@
@@ -10,8 +10,8 @@ index 470ac86..6dfa212 100644
 +SRC = st.c x.c boxdraw.c
  OBJ = $(SRC:.c=.o)
  
- all: options st
-@@ -23,6 +23,7 @@ config.h:
+ all: st
+@@ -17,6 +17,7 @@ config.h:
  
  st.o: config.h st.h win.h
  x.o: arg.h config.h st.h win.h
@@ -440,7 +440,7 @@ index 0000000..7890500
 +	/* U+2571 - U+2573: unsupported (diagonals) */
 +};
 diff --git a/config.def.h b/config.def.h
-index c223706..1bd4dd4 100644
+index ea5b2fa..26583fd 100644
 --- a/config.def.h
 +++ b/config.def.h
 @@ -67,6 +67,18 @@ static unsigned int blinktimeout = 800;
@@ -463,10 +463,10 @@ index c223706..1bd4dd4 100644
   * bell volume. It must be a value between -100 and 100. Use 0 for disabling
   * it
 diff --git a/st.c b/st.c
-index 6f9cd64..48c37a2 100644
+index 057f81d..3ea818b 100644
 --- a/st.c
 +++ b/st.c
-@@ -1453,6 +1453,9 @@ tsetchar(Rune u, const Glyph *attr, int x, int y)
+@@ -1467,6 +1467,9 @@ tsetchar(Rune u, const Glyph *attr, int x, int y)
  	term.line[y][x] = *attr;
  	term.line[y][x].u = u;
  	term.line[y][x].mode |= ATTR_SET;
@@ -477,7 +477,7 @@ index 6f9cd64..48c37a2 100644
  
  void
 diff --git a/st.h b/st.h
-index 1228ac5..ec9ece4 100644
+index 11f9cc4..a4d2373 100644
 --- a/st.h
 +++ b/st.h
 @@ -35,6 +35,7 @@ enum glyph_attribute {
@@ -488,12 +488,13 @@ index 1228ac5..ec9ece4 100644
  	ATTR_BOLD_FAINT = ATTR_BOLD | ATTR_FAINT,
  };
  
-@@ -119,6 +120,14 @@ char *xstrdup(const char *);
- 
- int xgetcolor(int x, unsigned char *r, unsigned char *g, unsigned char *b);
+@@ -116,6 +117,15 @@ void *xmalloc(size_t);
+ void *xrealloc(void *, size_t);
+ char *xstrdup(const char *);
  
 +int isboxdraw(Rune);
 +ushort boxdrawindex(const Glyph *);
++
 +#ifdef XFT_VERSION
 +/* only exposed to x.c, otherwise we'll need Xft.h for the types */
 +void boxdraw_xinit(Display *, Colormap, XftDraw *, Visual *);
@@ -503,16 +504,16 @@ index 1228ac5..ec9ece4 100644
  /* config.h globals */
  extern char *utmp;
  extern char *scroll;
-@@ -132,3 +141,4 @@ extern unsigned int tabspaces;
+@@ -129,3 +139,4 @@ extern unsigned int tabspaces;
  extern unsigned int defaultfg;
  extern unsigned int defaultbg;
  extern unsigned int defaultcs;
 +extern const int boxdraw, boxdraw_bold, boxdraw_braille;
 diff --git a/x.c b/x.c
-index 952d284..83ef5d3 100644
+index 18428f3..726346f 100644
 --- a/x.c
 +++ b/x.c
-@@ -1223,6 +1223,8 @@ xinit(int cols, int rows)
+@@ -1243,6 +1243,8 @@ xinit(int cols, int rows)
  	xsel.xtarget = XInternAtom(xw.dpy, "UTF8_STRING", 0);
  	if (xsel.xtarget == None)
  		xsel.xtarget = XA_STRING;
@@ -521,7 +522,7 @@ index 952d284..83ef5d3 100644
  }
  
  int
-@@ -1269,8 +1271,13 @@ xmakeglyphfontspecs(XftGlyphFontSpec *specs, const Glyph *glyphs, int len, int x
+@@ -1289,8 +1291,13 @@ xmakeglyphfontspecs(XftGlyphFontSpec *specs, const Glyph *glyphs, int len, int x
  			yp = winy + font->ascent;
  		}
  
@@ -537,7 +538,7 @@ index 952d284..83ef5d3 100644
  		if (glyphidx) {
  			specs[numspecs].font = font->match;
  			specs[numspecs].glyph = glyphidx;
-@@ -1474,8 +1481,12 @@ xdrawglyphfontspecs(const XftGlyphFontSpec *specs, Glyph base, int len, int x, i
+@@ -1494,8 +1501,12 @@ xdrawglyphfontspecs(const XftGlyphFontSpec *specs, Glyph base, int len, int x, i
  	r.width = width;
  	XftDrawSetClipRectangles(xw.draw, winx, winy, &r, 1);
  
@@ -552,7 +553,7 @@ index 952d284..83ef5d3 100644
  
  	/* Render underline and strikethrough. */
  	if (base.mode & ATTR_UNDERLINE) {
-@@ -1518,7 +1529,7 @@ xdrawcursor(int cx, int cy, Glyph g, int ox, int oy, Glyph og)
+@@ -1538,7 +1549,7 @@ xdrawcursor(int cx, int cy, Glyph g, int ox, int oy, Glyph og)
  	/*
  	 * Select the right color for the right mode.
  	 */

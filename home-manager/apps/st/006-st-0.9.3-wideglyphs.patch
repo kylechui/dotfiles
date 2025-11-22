@@ -1,5 +1,5 @@
 diff --git a/st.h b/st.h
-index ec9ece4..786676f 100644
+index a4d2373..488444c 100644
 --- a/st.h
 +++ b/st.h
 @@ -39,6 +39,12 @@ enum glyph_attribute {
@@ -16,10 +16,10 @@ index ec9ece4..786676f 100644
  	SEL_IDLE = 0,
  	SEL_EMPTY = 1,
 diff --git a/x.c b/x.c
-index 83ef5d3..2f1a5c9 100644
+index 726346f..3f23d06 100644
 --- a/x.c
 +++ b/x.c
-@@ -143,7 +143,7 @@ typedef struct {
+@@ -144,7 +144,7 @@ typedef struct {
  
  static inline ushort sixd_to_16bit(int);
  static int xmakeglyphfontspecs(XftGlyphFontSpec *, const Glyph *, int, int, int);
@@ -28,7 +28,7 @@ index 83ef5d3..2f1a5c9 100644
  static void xdrawglyph(Glyph, int, int);
  static void xclear(int, int, int, int);
  static int xgeommasktogravity(int);
-@@ -1365,7 +1365,7 @@ xmakeglyphfontspecs(XftGlyphFontSpec *specs, const Glyph *glyphs, int len, int x
+@@ -1385,7 +1385,7 @@ xmakeglyphfontspecs(XftGlyphFontSpec *specs, const Glyph *glyphs, int len, int x
  }
  
  void
@@ -37,7 +37,7 @@ index 83ef5d3..2f1a5c9 100644
  {
  	int charlen = len * ((base.mode & ATTR_WIDE) ? 2 : 1);
  	int winx = borderpx + x * win.cw, winy = borderpx + y * win.ch,
-@@ -1456,51 +1456,44 @@ xdrawglyphfontspecs(const XftGlyphFontSpec *specs, Glyph base, int len, int x, i
+@@ -1476,51 +1476,43 @@ xdrawglyphfontspecs(const XftGlyphFontSpec *specs, Glyph base, int len, int x, i
  	if (base.mode & ATTR_INVISIBLE)
  		fg = bg;
  
@@ -92,12 +92,7 @@ index 83ef5d3..2f1a5c9 100644
  
 -	/* Render underline and strikethrough. */
 -	if (base.mode & ATTR_UNDERLINE) {
--		XftDrawRect(xw.draw, fg, winx, winy + dc.font.ascent + 1,
--				width, 1);
--	}
- 
--	if (base.mode & ATTR_STRUCK) {
--		XftDrawRect(xw.draw, fg, winx, winy + 2 * dc.font.ascent / 3,
+-		XftDrawRect(xw.draw, fg, winx, winy + dc.font.ascent * chscale + 1,
 -				width, 1);
 -	}
 +	if (dmode & DRAW_FG) {
@@ -113,17 +108,21 @@ index 83ef5d3..2f1a5c9 100644
 +					width, 1);
 +		}
  
--	/* Reset clip to none. */
--	XftDrawSetClip(xw.draw, 0);
+-	if (base.mode & ATTR_STRUCK) {
+-		XftDrawRect(xw.draw, fg, winx, winy + 2 * dc.font.ascent * chscale / 3,
+-				width, 1);
 +		if (base.mode & ATTR_STRUCK) {
 +			XftDrawRect(xw.draw, fg, winx, winy + 2 * dc.font.ascent / 3,
 +					width, 1);
 +		}
-+	}
+ 	}
+-
+-	/* Reset clip to none. */
+-	XftDrawSetClip(xw.draw, 0);
  }
  
  void
-@@ -1510,7 +1503,7 @@ xdrawglyph(Glyph g, int x, int y)
+@@ -1530,7 +1522,7 @@ xdrawglyph(Glyph g, int x, int y)
  	XftGlyphFontSpec spec;
  
  	numspecs = xmakeglyphfontspecs(&spec, &g, 1, x, y);
@@ -132,7 +131,7 @@ index 83ef5d3..2f1a5c9 100644
  }
  
  void
-@@ -1645,32 +1638,39 @@ xstartdraw(void)
+@@ -1671,32 +1663,39 @@ xstartdraw(void)
  void
  xdrawline(Line line, int x1, int y1, int x2)
  {
