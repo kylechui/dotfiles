@@ -135,6 +135,7 @@
       # Python
       python311
       unstable.ruff
+      uv
       mypy
       pyright
       # JavaScript/TypeScript
