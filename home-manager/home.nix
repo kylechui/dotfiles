@@ -95,7 +95,7 @@
       jq
       yq
       tokei
-      glxinfo
+      mesa-demos
       pciutils
       sysstat
       nixpkgs-review
@@ -146,6 +146,7 @@
       # Rust
       cargo
       rust-analyzer
+      rustfmt
       clippy
       # OCaml
       ocamlformat
@@ -153,9 +154,9 @@
       dune_3
       # Nix
       unstable.nixd
-      unstable.nixfmt-rfc-style
+      unstable.nixfmt
       # Lua
-      sumneko-lua-language-server
+      lua-language-server
       stylua
       selene
       # LaTeX

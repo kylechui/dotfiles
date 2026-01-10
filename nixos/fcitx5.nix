@@ -24,7 +24,7 @@
       # The config files are stored in /etc/xdg/fcitx5, NOT ~/.config/fcitx5
       ignoreUserConfig = true;
       addons = [
-        pkgs.fcitx5-chinese-addons
+        pkgs.qt6Packages.fcitx5-chinese-addons
         pkgs.fcitx5-rime
         pkgs.fcitx5-mozc
         pkgs.fcitx5-gtk

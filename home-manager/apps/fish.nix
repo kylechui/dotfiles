@@ -4,7 +4,7 @@
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
-      set -U fish_key_bindings fish_vi_key_bindings 
+      set -U fish_key_bindings fish_vi_key_bindings
       set -U fish_vi_force_cursor 1
       set -U fish_cursor_default block
       set -U fish_cursor_visual block
@@ -162,11 +162,11 @@
       fish_user_key_bindings = {
         body = ''
           # Use `fish_key_reader` to figure out key sequences
-          bind -M insert -k nul accept-autosuggestion # This is <C-Space>
+          bind -M insert ctrl-space accept-autosuggestion
           bind -M insert \b backward-kill-word # This is <C-BS>
-          bind -M insert \e\[Z up-line # This is <S-Tab>
-          bind -M insert \ca beginning-of-line # This is <C-A>
-          bind -M insert \ce end-of-line # This is <C-E>
+          bind -M insert shift-tab up-line
+          bind -M insert ctrl-a beginning-of-line
+          bind -M insert ctrl-e end-of-line
         '';
       };
       fish_greeting = {

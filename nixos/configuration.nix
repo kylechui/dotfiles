@@ -79,11 +79,14 @@
     ];
   };
 
-  # Enable flakes by default
+  # Enable some experimental features
   nix.package = pkgs.nix;
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
+    "dynamic-derivations"
+    "ca-derivations"
+    "recursive-nix"
   ];
 
   # Set your time zone.

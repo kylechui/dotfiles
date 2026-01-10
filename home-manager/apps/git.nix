@@ -3,17 +3,13 @@
 {
   programs.git = {
     enable = true;
-    userName = "Kyle Chui";
-    userEmail = "kyle.chui+github@pm.me";
-    aliases = {
-      hash = "rev-parse HEAD";
-    };
-    delta = {
-      enable = true;
-      options = {
-        features = "navigate";
-        side-by-side = true;
-        line-numbers = true;
+    settings = {
+      user = {
+        name = "Kyle Chui";
+        email = "kyle.chui+github@pm.me";
+      };
+      alias = {
+        hash = "rev-parse HEAD";
       };
     };
     iniContent = {
@@ -31,6 +27,16 @@
       # https://github.com/dandavison/delta/issues/630#issuecomment-860046929
       pager.diff = "LESS='R --mouse' ${pkgs.delta}/bin/delta";
       pager.show = "LESS='R --mouse' ${pkgs.delta}/bin/delta";
+    };
+  };
+
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options = {
+      features = "navigate";
+      side-by-side = true;
+      line-numbers = true;
     };
   };
 }
