@@ -19,8 +19,8 @@
     *.font: IosevkaTerm Nerd Font:size=14
     ${builtins.readFile (
       builtins.fetchurl {
-        url = "https://raw.githubusercontent.com/miikanissi/modus-themes.nvim/master/extras/xresources/modus_operandi.Xresources";
-        sha256 = "sha256:1blr83mfkyqbcwg96fzp5lc098v63y8q1fl39swidkcv87jcnmsi";
+        url = "https://raw.githubusercontent.com/miikanissi/modus-themes.nvim/17a64464c27c1be605adca13dbe48f2f402fe107/extras/xresources/modus_operandi.Xresources";
+        sha256 = "sha256:1cax1kj37115ppa9rd4xhn356sf5gighhp54v99qhvy9ik6k3fn7";
       }
     )}
   '';
